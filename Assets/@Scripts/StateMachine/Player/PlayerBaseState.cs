@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerBaseState : IState
 {
-    protected PlayerStateMachine stateMachine; // X
+    protected PlayerStateMachine stateMachine;
     protected Transform nearestEnemy = null;
 
     public PlayerBaseState(PlayerStateMachine playerStateMachine)
@@ -16,7 +16,6 @@ public class PlayerBaseState : IState
 
     public virtual void Update()
     {
-        // 패트롤 스테이트 
         nearestEnemy = FindNearestEnemy();
 
         if (nearestEnemy != null)
@@ -36,7 +35,16 @@ public class PlayerBaseState : IState
     {
     }
 
-    // 가까운 적 찾기
+    protected void StartAnimation(int animationHash)
+    {
+        stateMachine.Player.Animator.SetBool(animationHash, true);
+    }
+
+    protected void StopAnimation(int animationHash)
+    {
+        stateMachine.Player.Animator.SetBool(animationHash, false);
+    }
+
     public Transform FindNearestEnemy()
     {
         Transform nearestEnemy = null;
@@ -57,20 +65,10 @@ public class PlayerBaseState : IState
         return nearestEnemy;
     }
 
-    protected void StartAnimation(int animationHash)
-    {
-        stateMachine.Player.Animator.SetBool(animationHash, true);
-    }
-
-    protected void StopAnimation(int animationHash)
-    {
-        stateMachine.Player.Animator.SetBool(animationHash, false);
-    }
-
     protected bool IsAttackRange()
     {
         float distance = Vector2.Distance(nearestEnemy.transform.position, stateMachine.Player.transform.position);
 
-        return stateMachine.Player.attackRange >= distance;
+        return stateMachine.Player.PlayerData.attackRange >= distance;
     }
 }

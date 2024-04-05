@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class PlayerController : CharacterController
 {
@@ -9,23 +6,17 @@ public class PlayerController : CharacterController
 
     // Data
     public AnimationData AnimationData { get; private set; }
-    public float attackRange = 1.2f;
-    private float lastAttackRange = 1.35f;
-    public int damage = 20;
-    public float knockbackForce = 5f;
+    public PlayerData PlayerData { get; private set; }
 
     // Etc
     private PlayerStateMachine stateMachine;
 
-    private void Awake()
+    public void Awake()
     {
+        Init(); 
         AnimationData = new AnimationData();
-
-        Animator = GetComponent<Animator>();
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _collider = GetComponent<Collider2D>();
-        _sprite = GetComponent<SpriteRenderer>();
-
+        PlayerData = new PlayerData();
+        hp = PlayerData.HP;
         stateMachine = new PlayerStateMachine(this);
     }
 
@@ -41,8 +32,8 @@ public class PlayerController : CharacterController
 
     public void ComboAttack(int attackCount)
     {
-        attackRange = _attackCount < 3 ? attackRange : lastAttackRange;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRange);
+        PlayerData.attackRange = _attackCount < 3 ? PlayerData.attackRange : PlayerData.lastAttackRange;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, PlayerData.attackRange);
         if (colliders.Length > 0)
         {
             foreach (Collider2D collider in colliders)
@@ -50,11 +41,11 @@ public class PlayerController : CharacterController
                 if (collider != _collider)
                 {
                     EnemyController target = collider.GetComponent<EnemyController>();
-                    target.OnDemeged(damage);
+                    target.OnDemeged(PlayerData.damage);
                     if (attackCount == 3)
                     {
                         Vector2 direction = (collider.transform.position - transform.position).normalized;
-                        target.OnKnockback(direction * knockbackForce);
+                        target.OnKnockback(direction * PlayerData.knockbackForce);
                     }
                 }
             }

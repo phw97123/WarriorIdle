@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class EnemyController : CharacterController
 {
-    private void Awake()
+    public EnemyData EnemyData { get; private set; }
+
+    public void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>(); 
+        Init(); 
+        EnemyData = new EnemyData();
+        hp = EnemyData.HP; 
     }
 
     public override void OnDemeged(int damage)
     {
         base.OnDemeged(damage);
-        Debug.Log($"-{damage}, {name}: {hp}/100"); 
+        Debug.Log($"{hp}"); 
     }
 }

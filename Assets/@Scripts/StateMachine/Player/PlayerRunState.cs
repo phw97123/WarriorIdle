@@ -13,7 +13,7 @@ public class PlayerRunState : PlayerBaseState
     public override void Update()
     {
         base.Update();
-        stateMachine.Player.Move(nearestEnemy); 
+        stateMachine.Player.Move(nearestEnemy,stateMachine.Player.PlayerData.Speed); 
     }
 
     public override void Exit()

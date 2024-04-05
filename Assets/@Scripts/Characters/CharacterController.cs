@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    // TODO : 데이터 만들기
-    protected float speed = 15.0f;
-    protected int hp = 100; 
+    protected int hp; 
 
     // Component
     public Animator Animator { get; protected set; }
@@ -12,7 +10,15 @@ public class CharacterController : MonoBehaviour
     protected Collider2D _collider;
     protected SpriteRenderer _sprite;
 
-    public void Move(Transform target)
+    protected void Init()
+    {
+        Animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
+        _sprite = GetComponent<SpriteRenderer>();
+    }
+
+    public void Move(Transform target, float speed)
     {
         Vector3 dir = target.position - transform.position;
         Vector3 newPos = transform.position + dir.normalized * Time.deltaTime * speed;

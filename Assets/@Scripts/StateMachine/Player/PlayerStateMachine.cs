@@ -18,7 +18,4 @@ public class PlayerStateMachine : StateMachine
         RunState = new PlayerRunState(this);
         AttackState = new PlayerAttackState(this);
     }
-    // 스테이트 변경 
-
-
 }
