@@ -6,7 +6,6 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void Enter()
     {
-        base.Enter();
         StartAnimation(stateMachine.Player.AnimationData.IdleParameterHash); 
     }
 
@@ -17,7 +16,6 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void Exit() 
     { 
-        base.Exit();
         StopAnimation(stateMachine.Player.AnimationData.IdleParameterHash); 
     }
 }

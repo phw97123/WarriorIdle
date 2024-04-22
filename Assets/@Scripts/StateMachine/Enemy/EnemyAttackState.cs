@@ -11,8 +11,6 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void Enter()
     {
-        Debug.Log("AttackState");
-
         StartAnimation(statemachine.Enemy.AnimationData.AttackParameterHash); 
     }
 

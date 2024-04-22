@@ -6,7 +6,6 @@ public class PlayerRunState : PlayerBaseState
 
     public override void Enter()
     {
-        base.Enter();
         StartAnimation(stateMachine.Player.AnimationData.RunParameterHash); 
     }
 
@@ -18,7 +17,6 @@ public class PlayerRunState : PlayerBaseState
 
     public override void Exit()
     {
-        base.Exit();
         StopAnimation(stateMachine.Player.AnimationData.RunParameterHash); 
     }
 }

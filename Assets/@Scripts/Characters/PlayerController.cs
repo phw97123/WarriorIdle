@@ -30,11 +30,12 @@ public class PlayerController : CharacterController
         stateMachine.Update();
     }
 
+    // Animation Event 
     public void ComboAttack(int attackCount)
     {
-        PlayerData.attackRange = _attackCount < 3 ? PlayerData.attackRange : PlayerData.lastAttackRange;
+        PlayerData.attackRange = _attackCount < 2 ? PlayerData.attackRange : PlayerData.lastAttackRange;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, PlayerData.attackRange);
-        if (colliders.Length > 0)
+        if (colliders != null)
         {
             foreach (Collider2D collider in colliders)
             {
@@ -52,9 +53,8 @@ public class PlayerController : CharacterController
         }
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.blue;
-    //    Gizmos.DrawWireSphere(transform.position, attackRange);
-    //}
+    public override void OnDemeged(int damage)
+    {
+        base.OnDemeged(damage);
+    }
 }

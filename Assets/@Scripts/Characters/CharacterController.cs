@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour
@@ -40,6 +41,14 @@ public class CharacterController : MonoBehaviour
 
     public virtual void OnKnockback(Vector2 force)
     {
-        _rigidbody.AddForce(force, ForceMode2D.Impulse); 
+        StartCoroutine(ApplyKncokback(force));
+    }
+    
+    private IEnumerator ApplyKncokback(Vector2 force)
+    {
+        _rigidbody.velocity = force;
+
+        yield return new WaitForSeconds(0.1f);
+        _rigidbody.velocity = Vector2.zero; 
     }
 }

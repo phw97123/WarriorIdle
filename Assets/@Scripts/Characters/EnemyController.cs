@@ -27,9 +27,21 @@ public class EnemyController : CharacterController
     {
         stateMachine.Update(); 
     }
-    public override void OnDemeged(int damage)
+
+    // Animation Event
+    public void Attack ()
     {
-        base.OnDemeged(damage);
-        Debug.Log($"{hp}"); 
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, EnemyData.AttackRange); 
+        if(colliders != null)
+        {
+            foreach(Collider2D collider in colliders)
+            {
+                if (collider.CompareTag(Enums.Tag.Player.ToString()))
+                {
+                    PlayerController target = collider.GetComponent<PlayerController>();
+                    target.OnDemeged(EnemyData.Damage); 
+                }
+            }
+        }
     }
 }

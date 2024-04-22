@@ -11,7 +11,6 @@ public class EnemyRunState : EnemyBaseState
 
     public override void Enter()
     {
-        Debug.Log("RunState");
         StartAnimation(statemachine.Enemy.AnimationData.RunParameterHash);
     }
 

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyData : CharacterData
 {
-    private float attackRange = 1.2f;
-    private int damage = 10; 
+    private float attackRange = 1.3f; 
+    private int damage = 1; 
 
     public float AttackRange => attackRange; 
     public int Damage => damage;
@@ -13,6 +13,6 @@ public class EnemyData : CharacterData
     public EnemyData()
     { 
         HP = 100;
-        Speed = 5.0f; 
+        Speed = 8.0f; 
     }
 }

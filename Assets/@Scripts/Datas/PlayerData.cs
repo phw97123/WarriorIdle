@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayerData : CharacterData
 {
-    public float attackRange = 1.2f;
-    public float lastAttackRange = 1.35f;
-    public int damage = 20;
-    public float knockbackForce = 5f;
+    public float attackRange = 1.5f;
+    public float lastAttackRange = 1.7f;
+    public int damage = 1;
+    public float knockbackForce = 150f;
 
     public PlayerData()
     {
-        Speed = 15.0f; 
+        Speed = 20.0f; 
         HP = 100;
     }
 }
