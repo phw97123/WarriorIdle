@@ -11,7 +11,7 @@ public class PlayerController : CharacterController
     // Etc
     private PlayerStateMachine stateMachine;
 
-    public void Awake()
+    private void Awake()
     {
         Init(); 
         AnimationData = new AnimationData();

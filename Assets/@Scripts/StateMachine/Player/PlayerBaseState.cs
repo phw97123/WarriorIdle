@@ -5,9 +5,9 @@ public class PlayerBaseState : IState
     protected PlayerStateMachine stateMachine;
     protected Transform nearestEnemy = null;
 
-    public PlayerBaseState(PlayerStateMachine playerStateMachine)
+    public PlayerBaseState(PlayerStateMachine stateMachine)
     {
-        stateMachine = playerStateMachine;
+        this.stateMachine = stateMachine;
     }
 
     public virtual void Enter()
