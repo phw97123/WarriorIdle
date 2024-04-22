@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyBaseState : IState
 {
-    protected EnemyStateMachine statemachine;
+    protected EnemyStateMachine stateMachine;
     protected Transform Target = null; 
 
     public EnemyBaseState(EnemyStateMachine statemachine)
     {
-        this.statemachine = statemachine;
+        this.stateMachine = statemachine;
     }
 
     public virtual void Enter()
@@ -25,13 +25,13 @@ public class EnemyBaseState : IState
         if (Target != null)
         {
             if (IsAttackRange())
-                statemachine.ChangeState(statemachine.AttackState);
+                stateMachine.ChangeState(stateMachine.AttackState);
             else
-                statemachine.ChangeState(statemachine.RunState);
+                stateMachine.ChangeState(stateMachine.RunState);
         }
         else
         {
-            statemachine.ChangeState(statemachine.IdleState);
+            stateMachine.ChangeState(stateMachine.IdleState);
         }
     }
 
@@ -41,18 +41,18 @@ public class EnemyBaseState : IState
 
     protected bool IsAttackRange()
     {
-        float distance = Vector2.Distance(Target.position, statemachine.Enemy.transform.position);
+        float distance = Vector2.Distance(Target.position, stateMachine.Enemy.transform.position);
 
-        return statemachine.Enemy.EnemyData.AttackRange >= distance; 
+        return stateMachine.Enemy.EnemyData.AttackRange >= distance; 
     }
 
     protected void StartAnimation(int animationHash)
     {
-        statemachine.Enemy.Animator.SetBool(animationHash, true); 
+        stateMachine.Enemy.Animator.SetBool(animationHash, true); 
     }
 
     protected void StopAnimation(int animationHash)
     {
-        statemachine.Enemy.Animator.SetBool(animationHash, false);
+        stateMachine.Enemy.Animator.SetBool(animationHash, false);
     }
 }

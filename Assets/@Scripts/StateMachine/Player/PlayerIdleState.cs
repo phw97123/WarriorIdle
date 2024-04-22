@@ -11,6 +11,9 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void Update()
     {
+        if (stateMachine.Player.isDead)
+            return;
+       
         base.Update();
     }
 

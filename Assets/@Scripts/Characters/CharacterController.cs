@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    protected int hp; 
+    protected int hp;
+    public bool isDead = false; 
 
     // Component
     public Animator Animator { get; protected set; }
@@ -29,9 +30,18 @@ public class CharacterController : MonoBehaviour
 
     public virtual void OnDemeged(int damage)
     {
+        if (isDead)
+            return; 
+
         hp -= damage;
         if (hp <= 0)
+        {
+            isDead = true;
+            hp = 0; 
             OnDead();
+        }
+        else
+            OnTakeHit();
     }
 
     public virtual void OnDead()
@@ -41,14 +51,26 @@ public class CharacterController : MonoBehaviour
 
     public virtual void OnKnockback(Vector2 force)
     {
-        StartCoroutine(ApplyKncokback(force));
+        StartCoroutine(COApplyKncokback(force));
     }
     
-    private IEnumerator ApplyKncokback(Vector2 force)
+    private IEnumerator COApplyKncokback(Vector2 force)
     {
         _rigidbody.velocity = force;
 
         yield return new WaitForSeconds(0.1f);
         _rigidbody.velocity = Vector2.zero; 
+    }
+
+    public virtual void OnTakeHit()
+    {
+        StartCoroutine(COTakeHit()); 
+    }
+
+    private IEnumerator COTakeHit()
+    {
+        _sprite.color = Color.red;
+        yield return new WaitForSeconds(0.3f);
+        _sprite.color = Color.white; 
     }
 }

@@ -11,17 +11,17 @@ public class EnemyRunState : EnemyBaseState
 
     public override void Enter()
     {
-        StartAnimation(statemachine.Enemy.AnimationData.RunParameterHash);
+        StartAnimation(stateMachine.Enemy.AnimationData.RunParameterHash);
     }
 
     public override void Exit()
     {
-        StopAnimation(statemachine.Enemy.AnimationData.RunParameterHash); 
+        StopAnimation(stateMachine.Enemy.AnimationData.RunParameterHash); 
     }
 
     public override void Update()
     {
         base.Update();
-        statemachine.Enemy.Move(Target, statemachine.Enemy.EnemyData.Speed); 
+        stateMachine.Enemy.Move(Target, stateMachine.Enemy.EnemyData.Speed); 
     }
 }

@@ -44,4 +44,16 @@ public class EnemyController : CharacterController
             }
         }
     }
+
+    public override void OnDead()
+    {
+        stateMachine.ChangeState(stateMachine.DeadState);
+        StartCoroutine(CODead()); 
+    }
+
+    private IEnumerator CODead()
+    {
+        yield return new WaitForSeconds(2.0f); 
+        gameObject.SetActive(false);
+    }
 }

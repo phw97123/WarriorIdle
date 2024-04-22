@@ -11,12 +11,12 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void Enter()
     {
-        StartAnimation(statemachine.Enemy.AnimationData.AttackParameterHash); 
+        StartAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash); 
     }
 
     public override void Exit()
     {
-        StopAnimation(statemachine.Enemy.AnimationData.AttackParameterHash);
+        StopAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
     }
 
     public override void Update()

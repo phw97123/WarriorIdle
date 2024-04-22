@@ -9,6 +9,7 @@ public class EnemyStateMachine : StateMachine
     public EnemyIdleState IdleState { get; } 
     public EnemyRunState RunState { get; }
     public EnemyAttackState AttackState { get; }
+    public EnemyDeadState DeadState { get; }
 
     public EnemyStateMachine(EnemyController Enemy)
     {
@@ -17,5 +18,6 @@ public class EnemyStateMachine : StateMachine
         IdleState = new EnemyIdleState(this);
         RunState = new EnemyRunState(this);
         AttackState = new EnemyAttackState(this);
+        DeadState = new EnemyDeadState(this);
     }
 }
