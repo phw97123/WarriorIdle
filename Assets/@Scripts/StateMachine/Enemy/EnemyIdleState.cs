@@ -10,7 +10,6 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void Enter()
     {
-        Debug.Log("IdleState"); 
         StartAnimation(stateMachine.Enemy.AnimationData.IdleParameterHash);    
     }
 

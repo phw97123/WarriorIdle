@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class CharacterController : MonoBehaviour
+public class CharacterBaseController : BaseController
 {
     protected int hp;
-    public bool isDead = false; 
+    public bool isDead = false;
 
     // Component
     public Animator Animator { get; protected set; }
@@ -12,12 +12,15 @@ public class CharacterController : MonoBehaviour
     protected Collider2D _collider;
     protected SpriteRenderer _sprite;
 
-    protected void Init()
+    public override bool Init()
     {
+        base.Init();
         Animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         _sprite = GetComponent<SpriteRenderer>();
+
+        return true; 
     }
 
     public void Move(Transform target, float speed)
@@ -31,13 +34,13 @@ public class CharacterController : MonoBehaviour
     public virtual void OnDemeged(int damage)
     {
         if (isDead)
-            return; 
+            return;
 
         hp -= damage;
         if (hp <= 0)
         {
             isDead = true;
-            hp = 0; 
+            hp = 0;
             OnDead();
         }
         else
@@ -46,31 +49,30 @@ public class CharacterController : MonoBehaviour
 
     public virtual void OnDead()
     {
-        gameObject.SetActive(false);
     }
 
     public virtual void OnKnockback(Vector2 force)
     {
         StartCoroutine(COApplyKncokback(force));
     }
-    
+
     private IEnumerator COApplyKncokback(Vector2 force)
     {
         _rigidbody.velocity = force;
 
         yield return new WaitForSeconds(0.1f);
-        _rigidbody.velocity = Vector2.zero; 
+        _rigidbody.velocity = Vector2.zero;
     }
 
     public virtual void OnTakeHit()
     {
-        StartCoroutine(COTakeHit()); 
+        StartCoroutine(COTakeHit());
     }
 
     private IEnumerator COTakeHit()
     {
         _sprite.color = Color.red;
         yield return new WaitForSeconds(0.3f);
-        _sprite.color = Color.white; 
+        _sprite.color = Color.white;
     }
 }

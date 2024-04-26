@@ -50,7 +50,7 @@ public class PlayerBaseState : IState
         Transform nearestEnemy = null;
         float nearestDistance = Mathf.Infinity;
 
-        foreach (var enemyObject in GameObject.FindGameObjectsWithTag(Enums.Tag.Enemy.ToString()))
+        foreach (var enemyObject in GameObject.FindGameObjectsWithTag(Define.Tag.Enemy.ToString()))
         {
             Transform enemyTransform = enemyObject.transform;
             float distance = Vector2.Distance(stateMachine.Player.transform.position, enemyTransform.position);

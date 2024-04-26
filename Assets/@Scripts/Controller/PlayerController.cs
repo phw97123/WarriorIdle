@@ -1,8 +1,7 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerController : CharacterController
+public class PlayerController : CharacterBaseController
 {
     private int _attackCount = 0;
 
@@ -13,18 +12,22 @@ public class PlayerController : CharacterController
     // Etc
     private PlayerStateMachine stateMachine;
 
-    private void Awake()
+    public override bool Init()
     {
-        Init(); 
+        if (base.Init() == false)
+            return false;
+
+        Debug.Log("Init"); 
         AnimationData = new AnimationData();
         PlayerData = new PlayerData();
-        hp = PlayerData.HP;
         stateMachine = new PlayerStateMachine(this);
-    }
 
-    private void Start()
-    {
+        hp = PlayerData.HP;
         stateMachine.ChangeState(stateMachine.IdleState);
+
+        Type = Define.objectType.Player; 
+
+        return true; 
     }
 
     private void Update()
@@ -48,8 +51,8 @@ public class PlayerController : CharacterController
                     if (attackCount == 3)
                     {
                         Vector2 direction = (collider.transform.position - transform.position).normalized;
-                        if(!target.isDead)
-                        target.OnKnockback(direction * PlayerData.knockbackForce);
+                        if (!target.isDead)
+                            target.OnKnockback(direction * PlayerData.knockbackForce);
                     }
                 }
             }
@@ -59,11 +62,12 @@ public class PlayerController : CharacterController
     public override void OnDemeged(int damage)
     {
         base.OnDemeged(damage);
-        Debug.Log($"{hp}"); 
+        Debug.Log($"Player : {hp}");
     }
 
     public override void OnDead()
     {
+        base.OnDead();
         stateMachine.ChangeState(stateMachine.DeadState);
         StartCoroutine(CORespawn());
     }
@@ -72,13 +76,14 @@ public class PlayerController : CharacterController
     {
         // 부활시간
         yield return new WaitForSeconds(3.0f);
+
+        Managers.ObjectManager.DespawnAllEnemy(); 
+
         stateMachine.ChangeState(stateMachine.IdleState);
         hp = PlayerData.MaxHp;
 
         // 무적시간
         yield return new WaitForSeconds(1.0f);
         isDead = false;
-
-        // TODO : 플레이어가 죽으면 몬스터를 전부 없애고 처음부터 시작 즉, 몬스터 리스폰  
     }
 }

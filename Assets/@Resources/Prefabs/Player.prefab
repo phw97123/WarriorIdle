@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8212454885424753186}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,7 +165,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.07448871, y: -0.041508432}
@@ -183,7 +183,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c1cbe2cf5af184aae531c4e8134199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  attackRange: 1.2
-  damage: 20
-  knockbackForce: 10
+  isDead: 0
