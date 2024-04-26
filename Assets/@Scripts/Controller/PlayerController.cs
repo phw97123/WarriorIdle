@@ -44,9 +44,10 @@ public class PlayerController : CharacterBaseController
         {
             foreach (Collider2D collider in colliders)
             {
-                if (collider != _collider)
+                if (collider.CompareTag("Enemy"))
                 {
                     EnemyController target = collider.GetComponent<EnemyController>();
+                    if (target == null) return; 
                     target.OnDemeged(PlayerData.damage);
                     if (attackCount == 3)
                     {
