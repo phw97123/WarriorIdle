@@ -63,5 +63,8 @@ public class EnemyController : CharacterBaseController
         yield return new WaitForSeconds(animationLength);
 
         Managers.ObjectManager.Despawn(this);
+
+        hp = EnemyData.MaxHp; 
+        isDead = false; 
     }
 }

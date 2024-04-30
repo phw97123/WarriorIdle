@@ -17,7 +17,6 @@ public class PlayerController : CharacterBaseController
         if (base.Init() == false)
             return false;
 
-        Debug.Log("Init"); 
         AnimationData = new AnimationData();
         PlayerData = new PlayerData();
         stateMachine = new PlayerStateMachine(this);
@@ -68,7 +67,6 @@ public class PlayerController : CharacterBaseController
 
     public override void OnDead()
     {
-        base.OnDead();
         stateMachine.ChangeState(stateMachine.DeadState);
         StartCoroutine(CORespawn());
     }
