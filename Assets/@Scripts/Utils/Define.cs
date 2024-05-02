@@ -21,6 +21,13 @@ public static class Define
         Enemy, 
     }
 
+    public enum CurrencyType
+    {
+        Gold,
+        Dia,
+        EnhanceStone,
+    }
+
     public const int GOBLIN_ID = 1;
     public const int MUSHROOM_ID = 2; 
     public const int SKELETON_ID = 3;

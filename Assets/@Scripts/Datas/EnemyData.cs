@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class EnemyData : CharacterData
 {
-    private float attackRange = 1.3f; 
-    private int damage = 10; 
+    public float AttackRange { get; set; } = 1.3f;
+    public int Damage { get; set; } = 10;
 
-    public float AttackRange => attackRange; 
-    public int Damage => damage;
+    // TODO : Random
+    public int RewardExp { get; set; } = 30;
+    public int RewardGold { get; set; } = 100;
+    public int RewardEnhanceStone { get; set; } = 50; 
 
     public EnemyData()
     { 

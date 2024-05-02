@@ -21,12 +21,13 @@ public class PlayerController : CharacterBaseController
         PlayerData = new PlayerData();
         stateMachine = new PlayerStateMachine(this);
 
-        hp = PlayerData.HP;
+        hp = PlayerData.HP; 
+
         stateMachine.ChangeState(stateMachine.IdleState);
 
-        Type = Define.objectType.Player; 
+        Type = Define.objectType.Player;
 
-        return true; 
+        return true;
     }
 
     private void Update()
@@ -37,8 +38,8 @@ public class PlayerController : CharacterBaseController
     // Animation Event 
     public void ComboAttack(int attackCount)
     {
-        PlayerData.attackRange = _attackCount < 2 ? PlayerData.attackRange : PlayerData.lastAttackRange;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, PlayerData.attackRange);
+        PlayerData.AttackRange = _attackCount < 2 ? PlayerData.AttackRange : PlayerData.LastAttackRange;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, PlayerData.AttackRange);
         if (colliders != null)
         {
             foreach (Collider2D collider in colliders)
@@ -46,13 +47,13 @@ public class PlayerController : CharacterBaseController
                 if (collider.CompareTag("Enemy"))
                 {
                     EnemyController target = collider.GetComponent<EnemyController>();
-                    if (target == null) return; 
-                    target.OnDemeged(PlayerData.damage);
+                    if (target == null) return;
+                    target.OnDemeged(PlayerData.Damage);
                     if (attackCount == 3)
                     {
                         Vector2 direction = (collider.transform.position - transform.position).normalized;
                         if (!target.isDead)
-                            target.OnKnockback(direction * PlayerData.knockbackForce);
+                            target.OnKnockback(direction * PlayerData.KnockbackForce);
                     }
                 }
             }
@@ -62,7 +63,7 @@ public class PlayerController : CharacterBaseController
     public override void OnDemeged(int damage)
     {
         base.OnDemeged(damage);
-        Debug.Log($"Player : {hp}");
+        PlayerData.HP = hp; 
     }
 
     public override void OnDead()
@@ -76,10 +77,11 @@ public class PlayerController : CharacterBaseController
         // 부활시간
         yield return new WaitForSeconds(3.0f);
 
-        Managers.ObjectManager.DespawnAllEnemy(); 
+        Managers.ObjectManager.DespawnAllEnemy();
 
         stateMachine.ChangeState(stateMachine.IdleState);
-        hp = PlayerData.MaxHp;
+        PlayerData.HP = PlayerData.MaxHp; 
+        hp = PlayerData.HP;
 
         // 무적시간
         yield return new WaitForSeconds(1.0f);

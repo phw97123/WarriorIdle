@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CharacterBaseController : BaseController
 {
-    protected int hp;
+    public int hp;
     public bool isDead = false;
 
     // Component
@@ -40,7 +40,6 @@ public class CharacterBaseController : BaseController
         if (hp <= 0)
         {
             isDead = true;
-            hp = 0;
             OnDead();
         }
         else

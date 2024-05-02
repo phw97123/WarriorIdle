@@ -1,11 +1,25 @@
-[System.Serializable]
+using System;
+
 public class CharacterData
 {
-    private float speed = 15.0f;
-    private int hp = 100;
-    private int maxHp = 100; 
+    public event Action OnChangedHp;
 
-    public float Speed { get { return speed; } protected set { speed = value; } }
-    public int HP { get { return hp; } protected set { hp = value; } }
-    public int MaxHp { get {  return maxHp; } protected set {  maxHp = value; } }
+    private int _hp = 100;
+
+    public int HP
+    {
+        get { return _hp; }
+        set
+        {
+            if (value < 0)
+                _hp = 0;
+            else
+                _hp = value;
+            OnChangedHp?.Invoke();
+        }
+    }
+
+    public float Speed { get; set; } = 15.0f;
+
+    public int MaxHp { get; set; } = 100;
 }

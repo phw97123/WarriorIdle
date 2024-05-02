@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class EnemyController : CharacterBaseController
 
     private EnemyStateMachine stateMachine;
 
+    public event Action<int, int, int> OnDeath; 
+
     public override bool Init()
     {
         if (base.Init() == false)
@@ -17,13 +20,17 @@ public class EnemyController : CharacterBaseController
         EnemyData = new EnemyData();
         AnimationData = new AnimationData();
         stateMachine = new EnemyStateMachine(this);
-
-        hp = EnemyData.MaxHp;
+        
+        hp = EnemyData.HP;
         stateMachine.ChangeState(stateMachine.IdleState);
 
         Type = Define.objectType.Enemy;
 
         isDead = false;
+
+        OnDeath -= Managers.GameManager.EnemyDeathRewards;
+        OnDeath += Managers.GameManager.EnemyDeathRewards; 
+
         return true;
     }
 
@@ -51,6 +58,7 @@ public class EnemyController : CharacterBaseController
 
     public override void OnDead()
     {
+        OnDeath?.Invoke(EnemyData.RewardExp, EnemyData.RewardGold, EnemyData.RewardEnhanceStone); 
         stateMachine.ChangeState(stateMachine.DeadState);
         StartCoroutine(CODead()); 
     }

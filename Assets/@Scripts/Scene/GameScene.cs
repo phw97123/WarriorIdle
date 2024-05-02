@@ -19,11 +19,17 @@ public class GameScene : MonoBehaviour
 
     private void StartLoaded()
     {
+        // Player
         var player = Managers.ObjectManager.Spawn<PlayerController>(Vector3.zero); 
 
+        // MonsterSpawner
         _spawningPool = gameObject.AddComponent<SpawningPool>();
 
+        // Map 
         var map = Managers.ResourceManager.Instantiate("Map.prefab");
-        map.name = "@Map"; 
+        map.name = "@Map";
+
+        // SceneUI
+        Managers.UIManager.ShowSceneUI<UI_Hud>(); 
     }
 }

@@ -18,9 +18,8 @@ public class EnemyBaseState : IState
 
     public virtual void Update()
     {
-        // Object Managers 생기면 변경하기 
-        Target = null; 
-        Target = GameObject.FindGameObjectWithTag(Define.Tag.Player.ToString()).transform;
+        Target = null;
+        Target = Managers.ObjectManager.Player.transform; 
 
         if (Target != null)
         {

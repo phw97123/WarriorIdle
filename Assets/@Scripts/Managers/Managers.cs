@@ -8,10 +8,16 @@ public class Managers : MonoBehaviour
     private ResourceManager _resourceManager = new ResourceManager();
     private ObjectManager _objectManager = new ObjectManager();
     private PoolManager _poolManager = new PoolManager(); 
+    private UIManager _uiManager = new UIManager();
+    private GameManager _gameManager = new GameManager();
+    private CurrencyManager _currecncyManager = new CurrencyManager();
 
     public static ResourceManager ResourceManager { get { return Instance?._resourceManager; } }
     public static ObjectManager ObjectManager { get { return Instance?._objectManager; } }
     public static PoolManager PoolManager { get { return Instance?._poolManager; } }
+    public static UIManager UIManager { get { return Instance?._uiManager; } }
+    public static GameManager GameManager { get { return Instance?._gameManager; } }
+    public static CurrencyManager CurrencyManager { get { return Instance?._currecncyManager; } }
 
     public static Managers Instance
     {
@@ -30,6 +36,8 @@ public class Managers : MonoBehaviour
 
                 DontDestroyOnLoad(go);
                 s_instance = go.GetComponent<Managers>();
+
+                s_instance._currecncyManager.Init(); 
             }
             return s_instance;
         }
