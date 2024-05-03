@@ -13,6 +13,9 @@ public class ResourceManager
         {
             return resource as T;
         }
+        else
+            Debug.Log($"Failed to Load : {key}");
+
         return null;
     }
 

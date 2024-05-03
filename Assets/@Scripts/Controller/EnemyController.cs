@@ -10,7 +10,7 @@ public class EnemyController : CharacterBaseController
 
     private EnemyStateMachine stateMachine;
 
-    public event Action<int, int, int> OnDeath; 
+    public event Action<int, int, int, Define.CurrencyType> OnDeath; 
 
     public override bool Init()
     {
@@ -58,7 +58,6 @@ public class EnemyController : CharacterBaseController
 
     public override void OnDead()
     {
-        OnDeath?.Invoke(EnemyData.RewardExp, EnemyData.RewardGold, EnemyData.RewardEnhanceStone); 
         stateMachine.ChangeState(stateMachine.DeadState);
         StartCoroutine(CODead()); 
     }
@@ -68,7 +67,11 @@ public class EnemyController : CharacterBaseController
         yield return new WaitForSeconds(0.5f); 
 
         float animationLength = Animator.GetCurrentAnimatorStateInfo(0).length;
+        
         yield return new WaitForSeconds(animationLength);
+
+        ItemController ic = Managers.ObjectManager.Spawn<ItemController>(transform.position);
+        OnDeath?.Invoke(EnemyData.RewardExp, EnemyData.RewardGold, EnemyData.RewardEnhanceStone, ic.CurrencyType);
 
         Managers.ObjectManager.Despawn(this);
 

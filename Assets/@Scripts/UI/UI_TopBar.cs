@@ -25,10 +25,6 @@ public class UI_TopBar : UI_Base
         _icon.sprite = _playerData.Icon;
         _name.text = _playerData.Name;
 
-        // TODO : 재화 만들면 추가 
-        _gold.text = "10000"; 
-        _dia.text = "10000";
-
         UpdateExpUI();
         UpdateHpUI();
         UpdateMpUI();

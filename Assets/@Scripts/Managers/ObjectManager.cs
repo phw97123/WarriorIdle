@@ -8,6 +8,7 @@ public class ObjectManager
 {
     public PlayerController Player { get; private set; }
     public HashSet<EnemyController> Enemys { get; } = new HashSet<EnemyController>();
+    public HashSet<ItemController> Items { get; } = new HashSet<ItemController>();
 
     public T Spawn<T>(Vector3 position, int templateID = 0) where T : BaseController
     {
@@ -15,7 +16,7 @@ public class ObjectManager
 
         if (type == typeof(PlayerController))
         {
-            GameObject go = Managers.ResourceManager.Instantiate("Player.prefab", pooling: true);
+            GameObject go = Managers.ResourceManager.Instantiate(PLAYER_PREFAB_NAME, pooling: true);
             go.name = "Player";
 
             PlayerController pc = go.GetOrAddComponent<PlayerController>();
@@ -46,7 +47,7 @@ public class ObjectManager
                     break;
             }
 
-            GameObject go = Managers.ResourceManager.Instantiate(name + ".prefab", pooling: true) ;
+            GameObject go = Managers.ResourceManager.Instantiate(name + ".prefab", pooling: true);
             go.transform.position = position;
 
             EnemyController ec = go.GetOrAddComponent<EnemyController>();
@@ -55,6 +56,18 @@ public class ObjectManager
             ec.Init();
 
             return ec as T;
+        }
+        else if (type == typeof(ItemController))
+        {
+            GameObject go = Managers.ResourceManager.Instantiate(ITEM_PREFAB_NAME, pooling: true);
+            go.transform.position = position;
+
+            ItemController ic = go.GetOrAddComponent<ItemController>();
+            Items.Add(ic);
+
+            ic.Init();
+
+            return ic as T;
         }
 
         return null;
@@ -70,13 +83,17 @@ public class ObjectManager
         if (type == typeof(PlayerController))
         {
             Player = null;
-            Managers.ResourceManager.Destroy(obj.gameObject); 
         }
         else if (type == typeof(EnemyController))
         {
             Enemys.Remove(obj as EnemyController);
-            Managers.ResourceManager.Destroy(obj.gameObject);
         }
+        else if (type == typeof(ItemController))
+        {
+            Items.Remove(obj as ItemController);
+        }
+
+        Managers.ResourceManager.Destroy(obj.gameObject);
     }
 
     public void DespawnAllEnemy()
