@@ -14,6 +14,9 @@ public class PlayerData : CharacterData
     private float _exp = 0;
     private float _mp = 100;
 
+    public float CriticalDamage { get; set; } = 2f; 
+    public float CriticalChance { get; set; } = 0.3f;
+
     public event Action OnChangedMp;
     public event Action OnChangedExp;
 
@@ -62,11 +65,11 @@ public class PlayerData : CharacterData
     public float AttackRange { get; set; } = 1.5f;
     public float LastAttackRange { get; set; } = 1.7f;
     public int Damage { get; set; } = 30;
-    public float KnockbackForce { get; set; } = 150;
+    public float KnockbackForce { get; set; } = 50;
 
     public PlayerData()
     {
-        Speed = 20.0f;
+        Speed = 5.0f;
         HP = 100;
         MaxHp = 100;
     }
@@ -78,5 +81,11 @@ public class PlayerData : CharacterData
             Level++;
             Exp -= MaxExp;
         }
+    }
+
+    public void SetMax()
+    {
+        HP = MaxHp;
+        MP = MaxMp;
     }
 }

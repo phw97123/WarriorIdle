@@ -16,10 +16,11 @@ public class ItemController : BaseController
     public override bool Init()
     {
         base.Init();
+
+        Type = ObjectType.Item; 
+
         spriteRenderer = GetComponent<SpriteRenderer>();
-
         CurrencyType = SelectType();
-
         StartCoroutine(CORemove());
         return true;
     }

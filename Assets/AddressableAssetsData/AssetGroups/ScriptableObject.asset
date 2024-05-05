@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ScriptableObject
+  m_EditorClassIdentifier: 
+  m_GroupName: ScriptableObject
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ff7eda430baf42e43a7e7731c08e278e
+  m_SerializeEntries:
+  - m_GUID: 6f88e20f9771eae4c98b2a5bf8c315ff
+    m_Address: StageDataSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3c402647c5bee1a4d847b4d5f15696fd
+    m_Address: EnemyTypeDataSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: ff16d5ddac2eb0241b42c4d31d247ec5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 59c85f9c616046f459ef7d10bf7efb16, type: 2}
+    - {fileID: 11400000, guid: 3b4a049d96c221843855fbae5e6f4c57, type: 2}

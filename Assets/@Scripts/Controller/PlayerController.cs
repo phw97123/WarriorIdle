@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : CharacterBaseController
@@ -21,16 +22,16 @@ public class PlayerController : CharacterBaseController
         PlayerData = new PlayerData();
         stateMachine = new PlayerStateMachine(this);
 
-        hp = PlayerData.HP; 
+        hp = PlayerData.HP;
 
         stateMachine.ChangeState(stateMachine.IdleState);
 
-        Type = Define.objectType.Player;
+        Type = Define.ObjectType.Player;
 
         return true;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         stateMachine.Update();
     }
@@ -48,7 +49,18 @@ public class PlayerController : CharacterBaseController
                 {
                     EnemyController target = collider.GetComponent<EnemyController>();
                     if (target == null) return;
-                    target.OnDemeged(PlayerData.Damage);
+
+                    int damage = CalculateDamage();
+                    bool critical = false; 
+                    if (IsCriticalHit())
+                    {
+                        critical = true; 
+                        damage *= (int)PlayerData.CriticalDamage; 
+                    }
+
+                    target.OnDamaged(damage, critical);
+
+                    // Knockback
                     if (attackCount == 3)
                     {
                         Vector2 direction = (collider.transform.position - transform.position).normalized;
@@ -60,10 +72,21 @@ public class PlayerController : CharacterBaseController
         }
     }
 
-    public override void OnDemeged(int damage)
+    private bool IsCriticalHit()
     {
-        base.OnDemeged(damage);
-        PlayerData.HP = hp; 
+        float randomNum = UnityEngine.Random.Range(0f, 1f);
+        return randomNum <= PlayerData.CriticalChance; 
+    }
+
+    private int CalculateDamage()
+    {
+        return UnityEngine.Random.Range(PlayerData.Damage - 5, PlayerData.Damage + 10);
+    }
+
+    public override void OnDamaged(int damage, bool critical)
+    {
+        base.OnDamaged(damage, critical);
+        PlayerData.HP = hp;
     }
 
     public override void OnDead()
@@ -80,7 +103,7 @@ public class PlayerController : CharacterBaseController
         Managers.ObjectManager.DespawnAllEnemy();
 
         stateMachine.ChangeState(stateMachine.IdleState);
-        PlayerData.HP = PlayerData.MaxHp; 
+        PlayerData.HP = PlayerData.MaxHp;
         hp = PlayerData.HP;
 
         // 무적시간

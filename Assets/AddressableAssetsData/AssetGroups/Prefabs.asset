@@ -48,7 +48,7 @@ MonoBehaviour:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 80062d57029fa1142ac719c49a31a29c
-    m_Address: Map.prefab
+    m_Address: Stage_1_Map.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -61,6 +61,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6a1c2c4311b5d3d44bbd2b2ddd7bb68e
     m_Address: Item.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4d41e96dfef7dd24c8b853579d8a97f9
+    m_Address: DamageText.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bc191c4515118144291ee6a6c9e00d51
+    m_Address: Stage1_Boss_Goblin.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

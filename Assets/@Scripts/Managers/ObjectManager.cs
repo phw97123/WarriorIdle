@@ -2,11 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static Define;
 
 public class ObjectManager
 {
     public PlayerController Player { get; private set; }
+
+    private EnemyTypeDataSO _enemyTypeDataSO;
+
     public HashSet<EnemyController> Enemys { get; } = new HashSet<EnemyController>();
     public HashSet<ItemController> Items { get; } = new HashSet<ItemController>();
 
@@ -16,7 +20,7 @@ public class ObjectManager
 
         if (type == typeof(PlayerController))
         {
-            GameObject go = Managers.ResourceManager.Instantiate(PLAYER_PREFAB_NAME, pooling: true);
+            GameObject go = Managers.ResourceManager.Instantiate(PLAYER_PREFAB, pooling: true);
             go.name = "Player";
 
             PlayerController pc = go.GetOrAddComponent<PlayerController>();
@@ -28,24 +32,7 @@ public class ObjectManager
         }
         else if (type == typeof(EnemyController))
         {
-            string name = "";
-
-            switch (templateID)
-            {
-                case GOBLIN_ID:
-                    name = "Goblin";
-                    break;
-
-                case MUSHROOM_ID:
-                    name = "Mushroom";
-                    break;
-                case SKELETON_ID:
-                    name = "Skefleton";
-                    break;
-                case FLYINGEYE_ID:
-                    name = "FlyingEye";
-                    break;
-            }
+            string name = GetEnemyName(templateID);
 
             GameObject go = Managers.ResourceManager.Instantiate(name + ".prefab", pooling: true);
             go.transform.position = position;
@@ -59,7 +46,7 @@ public class ObjectManager
         }
         else if (type == typeof(ItemController))
         {
-            GameObject go = Managers.ResourceManager.Instantiate(ITEM_PREFAB_NAME, pooling: true);
+            GameObject go = Managers.ResourceManager.Instantiate(ITEM_PREFAB, pooling: true);
             go.transform.position = position;
 
             ItemController ic = go.GetOrAddComponent<ItemController>();
@@ -68,6 +55,17 @@ public class ObjectManager
             ic.Init();
 
             return ic as T;
+        }
+        else if (type == typeof(DamageTextController))
+        {
+            GameObject go = Managers.ResourceManager.Instantiate(DAMAGETEXT_PREFAB, pooling: true);
+            go.transform.position = position;
+
+            DamageTextController dtc = go.GetOrAddComponent<DamageTextController>();
+
+            dtc.Init();
+
+            return dtc as T;
         }
 
         return null;
@@ -100,6 +98,19 @@ public class ObjectManager
     {
         var enemys = Enemys.ToList();
         foreach (var enemy in enemys)
+        {
+            if (enemy.isDead) continue; 
             Despawn<EnemyController>(enemy);
+        }
+    }
+
+    private string GetEnemyName(int templateID)
+    {
+        if (_enemyTypeDataSO == null)
+            _enemyTypeDataSO = Managers.ResourceManager.Load<EnemyTypeDataSO>("EnemyTypeDataSO.asset");
+
+        if (_enemyTypeDataSO == null) return null;
+        EnemyTypeData data = _enemyTypeDataSO.EnemyTypes.Find(enemy => enemy.id == templateID);
+        return data.name;
     }
 }

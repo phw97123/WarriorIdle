@@ -1,6 +1,6 @@
 using System.Linq;
 
-public static class Define 
+public static class Define
 {
     public enum Tag
     {
@@ -17,10 +17,12 @@ public static class Define
         Death
     }
 
-    public enum objectType
+    public enum ObjectType
     {
-        Player, 
-        Enemy, 
+        Player,
+        Enemy,
+        Item,
+        DamageText
     }
 
     public enum CurrencyType
@@ -30,17 +32,20 @@ public static class Define
         EnhanceStone,
     }
 
-    public const int GOBLIN_ID = 1;
-    public const int MUSHROOM_ID = 2; 
-    public const int SKELETON_ID = 3;
-    public const int FLYINGEYE_ID = 4;
+    public enum StageType
+    {
+        Normal,
+        Boss,
+    }
 
-    public const string PLAYER_PREFAB_NAME = "Player.prefab"; 
-    public const string ITEM_PREFAB_NAME = "Item.prefab";
+    public const string PLAYER_PREFAB = "Player.prefab";
+    public const string ITEM_PREFAB = "Item.prefab";
+    public const string DAMAGETEXT_PREFAB = "DamageText.prefab";
+
 
     public const string GOLD_SPRITE = "popup elements_50";
-    public const string ENHANCESTONE_SPRTE = "Cristal"; 
+    public const string ENHANCESTONE_SPRTE = "Cristal";
 
     public const float RESPAWN_TIME = 3.0f;
-    public const float INVINCIBILITY_TIME = 1.0f; 
+    public const float INVINCIBILITY_TIME = 1.0f;
 }

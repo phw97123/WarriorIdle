@@ -31,7 +31,7 @@ public class CharacterBaseController : BaseController
         _sprite.flipX = dir.x < 0;
     }
 
-    public virtual void OnDemeged(int damage)
+    public virtual void OnDamaged(int damage, bool critical)
     {
         if (isDead)
             return;

@@ -1,16 +1,17 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : CharacterBaseController
 {
+    [SerializeField] private Transform _damageTextPos;
+
     public EnemyData EnemyData { get; private set; }
     public AnimationData AnimationData { get; private set; }
 
     private EnemyStateMachine stateMachine;
 
-    public event Action<int, int, int, Define.CurrencyType> OnDeath; 
+    public event Action<int, int, int, Define.CurrencyType> OnDeath;
 
     public override bool Init()
     {
@@ -20,21 +21,21 @@ public class EnemyController : CharacterBaseController
         EnemyData = new EnemyData();
         AnimationData = new AnimationData();
         stateMachine = new EnemyStateMachine(this);
-        
+
         hp = EnemyData.HP;
         stateMachine.ChangeState(stateMachine.IdleState);
 
-        Type = Define.objectType.Enemy;
+        Type = Define.ObjectType.Enemy;
 
         isDead = false;
 
         OnDeath -= Managers.GameManager.EnemyDeathRewards;
-        OnDeath += Managers.GameManager.EnemyDeathRewards; 
+        OnDeath += Managers.GameManager.EnemyDeathRewards;
 
         return true;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         stateMachine.Update();
     }
@@ -50,24 +51,39 @@ public class EnemyController : CharacterBaseController
                 if (collider.CompareTag(Define.Tag.Player.ToString()))
                 {
                     PlayerController target = collider.GetComponent<PlayerController>();
-                    target.OnDemeged(EnemyData.Damage);
+                    target.OnDamaged(EnemyData.Damage, false);
                 }
             }
         }
     }
 
+    public override void OnDamaged(int damage, bool critical)
+    {
+        base.OnDamaged(damage, critical);
+        if (isDead)
+            return;
+
+        var dtc = Managers.ObjectManager.Spawn<DamageTextController>(_damageTextPos.position);
+
+        dtc.Damage = damage;
+        if (critical)
+            dtc.SetColor();
+    }
+
     public override void OnDead()
     {
+        Managers.GameManager.KillCount++;
         stateMachine.ChangeState(stateMachine.DeadState);
-        StartCoroutine(CODead()); 
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(CODead());
     }
 
     private IEnumerator CODead()
     {
-        yield return new WaitForSeconds(0.5f); 
+        yield return new WaitForSeconds(0.5f);
 
         float animationLength = Animator.GetCurrentAnimatorStateInfo(0).length;
-        
+
         yield return new WaitForSeconds(animationLength);
 
         ItemController ic = Managers.ObjectManager.Spawn<ItemController>(transform.position);
@@ -75,7 +91,7 @@ public class EnemyController : CharacterBaseController
 
         Managers.ObjectManager.Despawn(this);
 
-        hp = EnemyData.MaxHp; 
-        isDead = false; 
+        hp = EnemyData.MaxHp;
+        isDead = false;
     }
 }

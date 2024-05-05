@@ -15,6 +15,7 @@ public class UI_TopBar : UI_Base
     [SerializeField] private Slider _expBar;
     [SerializeField] private Text _gold;
     [SerializeField] private Text _dia;
+    [SerializeField] private Text _enhanceStone;
 
     private PlayerData _playerData;
 
@@ -63,6 +64,7 @@ public class UI_TopBar : UI_Base
     private void UpdateCurrenyUI()
     {
         _gold.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.Gold);
-        _dia.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.Dia); 
+        _dia.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.Dia);
+        _enhanceStone.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.EnhanceStone); 
     }
 }

@@ -15,7 +15,7 @@ public class EnemyData : CharacterData
     public EnemyData()
     { 
         HP = 100;
-        Speed = 8.0f;
+        Speed = 3.0f;
         MaxHp = 100; 
     }
 }

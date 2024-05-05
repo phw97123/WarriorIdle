@@ -1,17 +1,23 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class SpawningPool : MonoBehaviour
 {
     private float _spawnInterval = 1.0f;
     private int _maxEnemyCount = 10;
-    Coroutine _coUpdateSpawningPool;
+    private Coroutine _coUpdateSpawningPool;
+
+    private GameManager _gameManager;
+    private ObjectManager _objectManager; 
 
     public bool Stopped { get; set; } = false;
 
     private void Start()
     {
-        _coUpdateSpawningPool = StartCoroutine(COUpdateSpawningPool()); 
+        _gameManager = Managers.GameManager; 
+        _objectManager = Managers.ObjectManager;
+        _coUpdateSpawningPool = StartCoroutine(COUpdateSpawningPool());
     }
 
     private IEnumerator COUpdateSpawningPool()
@@ -19,7 +25,7 @@ public class SpawningPool : MonoBehaviour
         while (true)
         {
             TrySpawn();
-            yield return new WaitForSeconds(_spawnInterval); 
+            yield return new WaitForSeconds(_spawnInterval);
         }
     }
 
@@ -27,14 +33,14 @@ public class SpawningPool : MonoBehaviour
     {
         if (Stopped) return;
 
-        int enemyCount = Managers.ObjectManager.Enemys.Count;
+        int enemyCount = _objectManager.Enemys.Count;
         if (enemyCount >= _maxEnemyCount)
             return;
 
-        Vector2 randPos = Utils.GenerateEnemySpawnPosition(Managers.ObjectManager.Player.transform.position, 10, 15);
+        Vector2 randPos = Utils.GenerateEnemySpawnPosition(_objectManager.Player.transform.position, 10, 15);
 
-        // TODO : Stage에 맞게 설정하기
-        EnemyController ec = Managers.ObjectManager.Spawn<EnemyController>(randPos,1); 
+        int randEnemy = Random.Range(_gameManager.StageData.enemyIDs[0], _gameManager.StageData.enemyIDs[_gameManager.StageData.enemyIDs.Count()-1]);
+        EnemyController ec =_objectManager.Spawn<EnemyController>(randPos, randEnemy);
     }
 }
 
