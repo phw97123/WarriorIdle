@@ -14,11 +14,10 @@ public class PlayerData : CharacterData
     private float _exp = 0;
     private float _mp = 100;
 
-    public float CriticalDamage { get; set; } = 2f; 
+    public float CriticalDamage { get; set; } = 2f;
     public float CriticalChance { get; set; } = 0.3f;
 
-    public event Action OnChangedMp;
-    public event Action OnChangedExp;
+    public event Action OnChangedStatus;
 
     public int Level
     {
@@ -29,7 +28,7 @@ public class PlayerData : CharacterData
                 _level = 1;
             else
                 _level = value;
-            OnChangedExp.Invoke();
+            OnChangedStatus.Invoke();
         }
     }
     public float Exp
@@ -44,7 +43,7 @@ public class PlayerData : CharacterData
                 _exp = value;
                 CheckLevelUp();
             }
-            OnChangedExp.Invoke();
+            OnChangedStatus.Invoke();
         }
     }
     public float MP
@@ -56,7 +55,7 @@ public class PlayerData : CharacterData
                 _mp = 0;
             else
                 _mp = value;
-            OnChangedMp.Invoke();
+            OnChangedStatus.Invoke();
         }
     }
 
@@ -69,23 +68,34 @@ public class PlayerData : CharacterData
 
     public PlayerData()
     {
-        Speed = 5.0f;
+        speed = 5.0f;
         HP = 100;
-        MaxHp = 100;
+        maxHp = 100;
     }
 
     private void CheckLevelUp()
     {
         while (Exp >= MaxExp)
         {
-            Level++;
+            LevelUp();
             Exp -= MaxExp;
         }
     }
 
     public void SetMax()
     {
-        HP = MaxHp;
+        HP = maxHp;
         MP = MaxMp;
+    }
+
+    private void LevelUp()
+    {
+        Level++;
+        maxHp *= Level *15;
+        MaxExp += Level * 15;
+        MaxMp += Level * 15;
+        Damage += Level * 3;
+        HP = maxHp;
+        MP = MaxMp; 
     }
 }

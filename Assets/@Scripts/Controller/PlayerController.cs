@@ -22,7 +22,7 @@ public class PlayerController : CharacterBaseController
         PlayerData = new PlayerData();
         stateMachine = new PlayerStateMachine(this);
 
-        hp = PlayerData.HP;
+        PlayerData.HP = PlayerData.maxHp; 
 
         stateMachine.ChangeState(stateMachine.IdleState);
 
@@ -85,8 +85,17 @@ public class PlayerController : CharacterBaseController
 
     public override void OnDamaged(int damage, bool critical)
     {
+        if (isDead)
+            return;
+
+        PlayerData.HP -= damage;
+        if (PlayerData.HP <= 0)
+        {
+            isDead = true;
+            OnDead();
+        }
+
         base.OnDamaged(damage, critical);
-        PlayerData.HP = hp;
     }
 
     public override void OnDead()
@@ -103,11 +112,11 @@ public class PlayerController : CharacterBaseController
         Managers.ObjectManager.DespawnAllEnemy();
 
         stateMachine.ChangeState(stateMachine.IdleState);
-        PlayerData.HP = PlayerData.MaxHp;
-        hp = PlayerData.HP;
 
-        // 公利矫埃
-        yield return new WaitForSeconds(1.0f);
+        PlayerData.HP = PlayerData.maxHp; 
+
+       // 公利矫埃
+       yield return new WaitForSeconds(1.0f);
         isDead = false;
     }
 }

@@ -42,7 +42,7 @@ public class EnemyBaseState : IState
     {
         float distance = Vector2.Distance(Target.position, stateMachine.Enemy.transform.position);
 
-        return stateMachine.Enemy.EnemyData.AttackRange >= distance; 
+        return stateMachine.Enemy.enemyData.attackRange >= distance; 
     }
 
     protected void StartAnimation(int animationHash)

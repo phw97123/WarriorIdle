@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class CharacterBaseController : BaseController
 {
-    public int hp;
     public bool isDead = false;
 
     // Component
@@ -15,12 +14,13 @@ public class CharacterBaseController : BaseController
     public override bool Init()
     {
         base.Init();
+
         Animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         _sprite = GetComponent<SpriteRenderer>();
 
-        return true; 
+        return true;
     }
 
     public void Move(Transform target, float speed)
@@ -33,17 +33,7 @@ public class CharacterBaseController : BaseController
 
     public virtual void OnDamaged(int damage, bool critical)
     {
-        if (isDead)
-            return;
-
-        hp -= damage;
-        if (hp <= 0)
-        {
-            isDead = true;
-            OnDead();
-        }
-        else
-            OnTakeHit();
+        OnTakeHit();
     }
 
     public virtual void OnDead()
@@ -65,13 +55,14 @@ public class CharacterBaseController : BaseController
 
     public virtual void OnTakeHit()
     {
-        StartCoroutine(COTakeHit());
+        if (gameObject.IsValid())
+            StartCoroutine(COTakeHit());
     }
 
     private IEnumerator COTakeHit()
     {
         _sprite.color = Color.red;
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
         _sprite.color = Color.white;
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,9 +11,24 @@ public class GameManager
     public PlayerController Player { get { return Managers.ObjectManager?.Player; } }
 
     // Stage
+    public StageData StageData { get { return _stageDataSO?.GetStageData(CurrentStageIndex); } }
     private StageDataSO _stageDataSO;
-    public int CurrentStageIndex { get; set; } = 1; 
-    public StageData StageData { get { return _stageDataSO?.GetStageData(CurrentStageIndex-1); } }
+    
+    public event Action<StageData> OnStageUiUpdate;
+    
+    private int _currentStageIndex;
+    public int CurrentStageIndex
+    {
+        get { return _currentStageIndex; }
+        set
+        {
+            _currentStageIndex = value;
+            if (value > _stageDataSO.stageDatas.Length-1)
+                _currentStageIndex = _stageDataSO.stageDatas.Length - 1;
+
+            OnStageUiUpdate?.Invoke(StageData); 
+        }
+    } 
 
     // Kill
     private int _killCount;
@@ -21,6 +37,7 @@ public class GameManager
     public void Init()
     {
         _stageDataSO = Managers.ResourceManager.Load<StageDataSO>("StageDataSO.asset");
+        CurrentStageIndex = 0; 
     }
 
     public int KillCount

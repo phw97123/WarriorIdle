@@ -18,8 +18,14 @@ MonoBehaviour:
   - id: 2
     name: Mushroom
   - id: 3
-    name: Skeleton
-  - id: 4
     name: Flyingeye
-  - id: 101
+  - id: 4
+    name: Skeleton
+  - id: 100
     name: Stage1_Boss_Goblin
+  - id: 101
+    name: Stage1_Boss_Mushroom
+  - id: 200
+    name: Stage2_Boss_Flyingeye
+  - id: 201
+    name: Stage2_Boss_Skeleton

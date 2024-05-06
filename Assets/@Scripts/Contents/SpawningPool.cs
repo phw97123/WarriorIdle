@@ -9,13 +9,13 @@ public class SpawningPool : MonoBehaviour
     private Coroutine _coUpdateSpawningPool;
 
     private GameManager _gameManager;
-    private ObjectManager _objectManager; 
+    private ObjectManager _objectManager;
 
     public bool Stopped { get; set; } = false;
 
     private void Start()
     {
-        _gameManager = Managers.GameManager; 
+        _gameManager = Managers.GameManager;
         _objectManager = Managers.ObjectManager;
         _coUpdateSpawningPool = StartCoroutine(COUpdateSpawningPool());
     }
@@ -39,8 +39,9 @@ public class SpawningPool : MonoBehaviour
 
         Vector2 randPos = Utils.GenerateEnemySpawnPosition(_objectManager.Player.transform.position, 10, 15);
 
-        int randEnemy = Random.Range(_gameManager.StageData.enemyIDs[0], _gameManager.StageData.enemyIDs[_gameManager.StageData.enemyIDs.Count()-1]);
-        EnemyController ec =_objectManager.Spawn<EnemyController>(randPos, randEnemy);
+        int randEnemy = Random.Range(0, _gameManager.StageData.enemyIDs.Count());
+
+        EnemyController ec = _objectManager.Spawn<EnemyController>(randPos, _gameManager.StageData.enemyIDs[randEnemy]);
     }
 }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Define;
 
 public class GameScene : MonoBehaviour
 {
@@ -8,9 +9,12 @@ public class GameScene : MonoBehaviour
 
     private Define.StageType _stageType;
 
-    private EnemyController _boss;
+    private BossController _boss;
 
     private FadeController _fadeController;
+
+    private float _remainingTime;
+    private bool _isRetryBoss = false;
 
     public Define.StageType StageType
     {
@@ -29,6 +33,7 @@ public class GameScene : MonoBehaviour
                         _spawningPool.Stopped = true;
                         break;
                 }
+
             }
         }
     }
@@ -48,6 +53,8 @@ public class GameScene : MonoBehaviour
 
     private void StartLoaded()
     {
+        Managers.GameManager.Init();
+
         // Player
         var player = Managers.ObjectManager.Spawn<PlayerController>(Vector3.zero);
 
@@ -59,57 +66,109 @@ public class GameScene : MonoBehaviour
         map.name = "@Map";
 
         // SceneUI
-        Managers.UIManager.ShowSceneUI<UI_Hud>();
+        var uiHud = Managers.UIManager.ShowSceneUI<UI_Hud>();
+        uiHud.UI_StageInfo.TryBossButtonInjection(MoveToBossStage);
+        uiHud.UI_StageInfo.UpdateUI(Managers.GameManager.StageData);
+        uiHud.UI_StageInfo.UpdateStageExp(Managers.GameManager.KillCount);
 
-        Managers.GameManager.Init();
+        Managers.GameManager.OnStageUiUpdate -= uiHud.UI_StageInfo.UpdateUI;
+        Managers.GameManager.OnStageUiUpdate += uiHud.UI_StageInfo.UpdateUI;
 
         Managers.GameManager.OnKillCountChanged -= HandleOnKillCountChanged;
         Managers.GameManager.OnKillCountChanged += HandleOnKillCountChanged;
 
+        Managers.GameManager.OnKillCountChanged -= uiHud.UI_StageInfo.UpdateStageExp;
+        Managers.GameManager.OnKillCountChanged += uiHud.UI_StageInfo.UpdateStageExp;
+
+        StageType = StageType.Normal;
+        Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
     }
 
+    #region Stage
     public void HandleOnKillCountChanged(int killCount)
     {
-        if (killCount == Managers.GameManager.StageData.nextStageEnemyCount)
+        if (killCount == Managers.GameManager.StageData.nextStageEnemyCount && !Managers.GameManager.StageData.isClear && !_isRetryBoss)
         {
-            Managers.GameManager.Player.PlayerData.SetMax();
-            StageType = Define.StageType.Boss;
-            Managers.ObjectManager.DespawnAllEnemy();
-
-            if (_fadeController == null)
-                _fadeController = Managers.UIManager.GetSceneUI<UI_Hud>().fadeController;
-
-            _fadeController.RegisterCallback(BossSpawn);
-            _fadeController.FadeInOut();
+            MoveToBossStage();
         }
+    }
+
+    private void MoveToBossStage()
+    {
+        StageType = Define.StageType.Boss;
+
+        Managers.GameManager.Player.PlayerData.SetMax();
+        StopAllCoroutines();
+        Managers.ObjectManager.DespawnAllEnemy();
+
+        if (_fadeController == null)
+            _fadeController = Managers.UIManager.GetSceneUI<UI_Hud>().FadeController;
+
+        _fadeController.RegisterCallback(() =>
+        {
+            BossSpawn();
+            Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
+        });
+        _fadeController.FadeInOut();
     }
 
     private void BossSpawn()
     {
         Vector2 spawnPos = Utils.GenerateEnemySpawnPosition(Managers.GameManager.Player.transform.position, 5, 10);
-        _boss = Managers.ObjectManager.Spawn<EnemyController>(spawnPos, Managers.GameManager.StageData.bossID);
+        _boss = Managers.ObjectManager.Spawn<BossController>(spawnPos, Managers.GameManager.StageData.bossID);
         StartCoroutine(BossStage());
+
+        Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.Init(_boss.enemyData);
+
+        _boss.enemyData.characterData.OnBossChangedHp -= Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.UpdateHpUI;
+        _boss.enemyData.characterData.OnBossChangedHp += Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.UpdateHpUI; 
     }
 
     private IEnumerator BossStage()
     {
-        yield return new WaitUntil(() => _boss.isDead || TimerExpired());
-        yield return new WaitForSeconds(3.0f); 
+        float startTime = Time.time;
+        float totalDuration = 60f;
+        _remainingTime = totalDuration;
 
-        MoveToStage(); 
+        while (!_boss.isDead && _remainingTime >= 0 && !Managers.GameManager.Player.isDead)
+        {
+            float elapsedTime = Time.time - startTime;
+            _remainingTime = totalDuration - elapsedTime;
+            Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.UpdateTimer(_remainingTime);
+            yield return null;
+        }
+
+        if (_boss.isDead)
+        {
+            Managers.GameManager.StageData.isClear = true;
+            Managers.GameManager.CurrentStageIndex++;
+            _isRetryBoss = false;
+        }
+        else if (Managers.GameManager.Player.isDead == true)
+        {
+            _isRetryBoss = true;
+        }
+        else
+        {
+            Managers.GameManager.KillCount = Managers.GameManager.StageData.nextStageEnemyCount;
+        }
+
+        yield return new WaitForSeconds(3.0f);
+
+        MoveToNormalStage();
     }
 
-    private bool TimerExpired()
+    private void MoveToNormalStage()
     {
-        return Time.timeSinceLevelLoad >= 60f;
-    }
+        Managers.GameManager.KillCount = 0;
 
-    private void MoveToStage()
-    {
-        Managers.GameManager.KillCount = 0; 
-        _fadeController.RegisterCallback(() => StageType = Define.StageType.Normal);
+        _fadeController.RegisterCallback(() =>
+        {
+            StageType = Define.StageType.Normal;
+            Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
+        });
+
         _fadeController.FadeInOut();
-        //if (_boss.isDead)
-        //    Managers.GameManager.CurrentStageIndex++;
     }
+    #endregion 
 }

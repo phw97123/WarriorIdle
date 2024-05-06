@@ -50,7 +50,7 @@ public class PlayerBaseState : IState
         Transform nearestEnemy = null;
         float nearestDistance = Mathf.Infinity;
 
-        foreach (var enemyObject in Managers.ObjectManager.Enemys)
+        foreach (var enemyObject in Managers.ObjectManager.Enemys )
         {
             Transform enemyTransform = enemyObject.transform;
             float distance = Vector2.Distance(stateMachine.Player.transform.position, enemyTransform.position);

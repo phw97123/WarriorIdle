@@ -6,23 +6,24 @@ public class EnemyController : CharacterBaseController
 {
     [SerializeField] private Transform _damageTextPos;
 
-    public EnemyData EnemyData { get; private set; }
+    public EnemyDataSO enemyData;
     public AnimationData AnimationData { get; private set; }
 
-    private EnemyStateMachine stateMachine;
+    protected EnemyStateMachine stateMachine;
 
-    public event Action<int, int, int, Define.CurrencyType> OnDeath;
+    public Action<int, int, int, Define.CurrencyType> OnDeath;
 
     public override bool Init()
     {
-        if (base.Init() == false)
-            return false;
+        base.Init();
 
-        EnemyData = new EnemyData();
-        AnimationData = new AnimationData();
-        stateMachine = new EnemyStateMachine(this);
+        if (AnimationData == null)
+            AnimationData = new AnimationData();
 
-        hp = EnemyData.HP;
+        if (stateMachine == null)
+            stateMachine = new EnemyStateMachine(this);
+
+        enemyData.characterData.HP = enemyData.characterData.maxHp;
         stateMachine.ChangeState(stateMachine.IdleState);
 
         Type = Define.ObjectType.Enemy;
@@ -43,7 +44,7 @@ public class EnemyController : CharacterBaseController
     // Animation Event
     public void Attack()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, EnemyData.AttackRange);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, enemyData.attackRange);
         if (colliders != null)
         {
             foreach (Collider2D collider in colliders)
@@ -51,7 +52,7 @@ public class EnemyController : CharacterBaseController
                 if (collider.CompareTag(Define.Tag.Player.ToString()))
                 {
                     PlayerController target = collider.GetComponent<PlayerController>();
-                    target.OnDamaged(EnemyData.Damage, false);
+                    target.OnDamaged(enemyData.damage, false);
                 }
             }
         }
@@ -59,15 +60,23 @@ public class EnemyController : CharacterBaseController
 
     public override void OnDamaged(int damage, bool critical)
     {
-        base.OnDamaged(damage, critical);
         if (isDead)
             return;
+
+        enemyData.characterData.HP -= damage;
+        if (enemyData.characterData.HP <= 0)
+        {
+            isDead = true;
+            OnDead();
+        }
 
         var dtc = Managers.ObjectManager.Spawn<DamageTextController>(_damageTextPos.position);
 
         dtc.Damage = damage;
         if (critical)
             dtc.SetColor();
+
+        base.OnDamaged(damage, critical);
     }
 
     public override void OnDead()
@@ -87,11 +96,9 @@ public class EnemyController : CharacterBaseController
         yield return new WaitForSeconds(animationLength);
 
         ItemController ic = Managers.ObjectManager.Spawn<ItemController>(transform.position);
-        OnDeath?.Invoke(EnemyData.RewardExp, EnemyData.RewardGold, EnemyData.RewardEnhanceStone, ic.CurrencyType);
+
+        OnDeath?.Invoke(enemyData.rewardExp, enemyData.rewardGold, enemyData.rewardEnhanceStone, ic.CurrencyType);
 
         Managers.ObjectManager.Despawn(this);
-
-        hp = EnemyData.MaxHp;
-        isDead = false;
     }
 }

@@ -22,6 +22,6 @@ public class EnemyRunState : EnemyBaseState
     public override void Update()
     {
         base.Update();
-        stateMachine.Enemy.Move(Target, stateMachine.Enemy.EnemyData.Speed); 
+        stateMachine.Enemy.Move(Target, stateMachine.Enemy.enemyData.characterData.speed); 
     }
 }

@@ -6,8 +6,9 @@ using UnityEngine;
 public class StageData
 {
     public int nextStageEnemyCount;
-    public int stageIndex;
+    public string stageName;
     public string mapName;
     public int bossID;
     public int[] enemyIDs;
+    public bool isClear = false;
 }

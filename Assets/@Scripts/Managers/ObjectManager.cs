@@ -13,6 +13,7 @@ public class ObjectManager
 
     public HashSet<EnemyController> Enemys { get; } = new HashSet<EnemyController>();
     public HashSet<ItemController> Items { get; } = new HashSet<ItemController>();
+    public BossController StageBoss { get; private set; }
 
     public T Spawn<T>(Vector3 position, int templateID = 0) where T : BaseController
     {
@@ -67,6 +68,19 @@ public class ObjectManager
 
             return dtc as T;
         }
+        else if (type == typeof(BossController))
+        {
+            string name = GetEnemyName(templateID);
+            GameObject go = Managers.ResourceManager.Instantiate(name + ".prefab");
+            go.transform.position = position;
+
+            BossController bc = go.GetOrAddComponent<BossController>();
+            StageBoss = bc; 
+            Enemys.Add(bc); 
+
+            bc.Init();
+            return bc as T;
+        }
 
         return null;
     }
@@ -90,6 +104,11 @@ public class ObjectManager
         {
             Items.Remove(obj as ItemController);
         }
+        else if (type == typeof(BossController))
+        {
+            Enemys.Remove(obj as BossController);
+            StageBoss = null; 
+        }
 
         Managers.ResourceManager.Destroy(obj.gameObject);
     }
@@ -104,12 +123,11 @@ public class ObjectManager
         }
     }
 
-    private string GetEnemyName(int templateID)
+    public string GetEnemyName(int templateID)
     {
         if (_enemyTypeDataSO == null)
             _enemyTypeDataSO = Managers.ResourceManager.Load<EnemyTypeDataSO>("EnemyTypeDataSO.asset");
 
-        if (_enemyTypeDataSO == null) return null;
         EnemyTypeData data = _enemyTypeDataSO.EnemyTypes.Find(enemy => enemy.id == templateID);
         return data.name;
     }

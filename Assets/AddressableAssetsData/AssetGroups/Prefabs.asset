@@ -36,7 +36,7 @@ MonoBehaviour:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 86b906d9b19a0284bab57c4c2771b2f8
-    m_Address: Flying eye.prefab
+    m_Address: Flyingeye.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -73,6 +73,24 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bc191c4515118144291ee6a6c9e00d51
     m_Address: Stage1_Boss_Goblin.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6fea299226eaaa4eb13fbf469098b3e
+    m_Address: Stage1_Boss_Mushroom.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c76cae79b054b114b933f785a7cb9c6f
+    m_Address: Stage2_Boss_Skeleton.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2547346b7027df445b56d5937b0e9b15
+    m_Address: Stage2_Boss_Flyingeye.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

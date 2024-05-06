@@ -21,6 +21,7 @@ public static class Define
     {
         Player,
         Enemy,
+        Boss,
         Item,
         DamageText
     }

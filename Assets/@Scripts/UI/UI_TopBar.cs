@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,19 +17,18 @@ public class UI_TopBar : UI_Base
     [SerializeField] private Text _gold;
     [SerializeField] private Text _dia;
     [SerializeField] private Text _enhanceStone;
+    [SerializeField] private Text _exp;
 
     private PlayerData _playerData;
 
-    private void Start()
+    public void Init()
     {
         _playerData = Managers.ObjectManager.Player.PlayerData;
 
         _icon.sprite = _playerData.Icon;
         _name.text = _playerData.Name;
 
-        UpdateExpUI();
-        UpdateHpUI();
-        UpdateMpUI();
+        UpdateUI();
         UpdateCurrenyUI();
 
         Bind(); 
@@ -36,29 +36,30 @@ public class UI_TopBar : UI_Base
 
     private void Bind()
     {
-        _playerData.OnChangedExp += UpdateExpUI;
-        _playerData.OnChangedHp += UpdateHpUI;
-        _playerData.OnChangedMp += UpdateMpUI;
-
+        _playerData.OnChangedStatus -= UpdateUI;
+        _playerData.OnChangedStatus += UpdateUI;
+        _playerData.OnChangedHp -= UpdateUI;
+        _playerData.OnChangedHp += UpdateUI; 
+        Managers.CurrencyManager.OnChangedCurrency -= UpdateCurrenyUI;
         Managers.CurrencyManager.OnChangedCurrency += UpdateCurrenyUI; 
     }
-
-    private void UpdateExpUI()
+  
+    private void UpdateUI()
     {
         _level.text = $"Lv.{_playerData.Level}";
-        _expBar.value = (float) _playerData.Exp / _playerData.MaxExp;
-    }
+        _expBar.value = (float)_playerData.Exp / _playerData.MaxExp;
 
-    private void UpdateHpUI()
-    {
-        _hpBar.fillAmount = (float)_playerData.HP / _playerData.MaxHp;
-        _hpText.text = $"{_playerData.HP} / {_playerData.MaxHp}";
-    }
+        _hpBar.fillAmount = (float)_playerData.HP / _playerData.maxHp;
+        _hpText.text = $"{_playerData.HP} / {_playerData.maxHp}";
 
-    private void UpdateMpUI()
-    {
         _mpBar.fillAmount = (float)_playerData.MP / _playerData.MaxMp;
         _mpText.text = $"{_playerData.MP} / {_playerData.MaxMp}";
+
+        _exp.text = $"{((float)_playerData.Exp / _playerData.MaxExp * 100):F2}%"; 
+
+        _gold.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.Gold);
+        _dia.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.Dia);
+        _enhanceStone.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.EnhanceStone);
     }
 
     private void UpdateCurrenyUI()
