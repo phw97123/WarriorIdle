@@ -25,6 +25,8 @@ public class UI_BottomBar : UI_Base
 
     private UIManager _uiManager;
 
+    private GrowthController _controller;
+
     public override bool Init()
     {
         if (base.Init() == false) return false;

@@ -1,7 +1,9 @@
+using JetBrains.Annotations;
 using System;
 using System.Runtime.InteropServices;
 using UnityEditorInternal;
 using UnityEngine;
+using static Define;
 
 public class PlayerData : CharacterData
 {
@@ -14,8 +16,8 @@ public class PlayerData : CharacterData
     private float _exp = 0;
     private float _mp = 100;
 
-    public float CriticalDamage { get; set; } = 2f;
-    public float CriticalChance { get; set; } = 0.3f;
+    public float CriticalDamage { get; set; } = 1.5f;
+    public float CriticalChance { get; set; } = 0.2f;
 
     public event Action OnChangedStatus;
 
@@ -91,11 +93,33 @@ public class PlayerData : CharacterData
     private void LevelUp()
     {
         Level++;
-        maxHp *= Level *15;
+        maxHp *= Level * 15;
         MaxExp += Level * 15;
         MaxMp += Level * 15;
         Damage += Level * 3;
         HP = maxHp;
-        MP = MaxMp; 
+        MP = MaxMp;
+    }
+
+    public void UpgradeStatus(StatusType type, int increase, float percentIncrease)
+    {
+        switch (type)
+        {
+            case StatusType.Damage:
+                Damage += increase; 
+                break;
+            case StatusType.MaxHp:
+                MaxExp += increase;
+                break;
+            case StatusType.MaxMP:
+                MaxMp += increase;
+                break;
+            case StatusType.CriticalChance:
+                CriticalChance += percentIncrease; 
+                break;
+            case StatusType.CriticalDamage:
+                CriticalDamage += percentIncrease; 
+                break;
+        }
     }
 }

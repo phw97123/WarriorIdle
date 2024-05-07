@@ -19,6 +19,17 @@ public class ResourceManager
         return null;
     }
 
+    public List<T> LoadAll<T>() where T : UnityEngine.Object
+    {
+        List<T> list = new List<T>();
+        foreach(var resource in _resources.Values)
+        {
+            if (resource is T t)
+                list.Add(t);
+        }
+        return list; 
+    }
+
     public GameObject Instantiate(string key, Transform parent = null, bool pooling = false)
     {
         GameObject prefab = Load<GameObject>($"{key}");

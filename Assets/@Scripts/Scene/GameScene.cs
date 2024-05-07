@@ -82,6 +82,10 @@ public class GameScene : MonoBehaviour
 
         StageType = StageType.Normal;
         Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
+
+        // Controller
+        GameObject controllerRote = new GameObject() { name = "@Controller" }; 
+        Utils.CreateGameObject<GrowthController>(controllerRote.transform); 
     }
 
     #region Stage

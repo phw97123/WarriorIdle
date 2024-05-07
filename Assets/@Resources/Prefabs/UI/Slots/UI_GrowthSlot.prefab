@@ -314,6 +314,7 @@ GameObject:
   - component: {fileID: 4848447200530494345}
   - component: {fileID: 3140159615715905284}
   - component: {fileID: 8950750797411721123}
+  - component: {fileID: 1193816047938483391}
   m_Layer: 5
   m_Name: EnforceButton
   m_TagString: Untagged
@@ -405,7 +406,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -424,6 +425,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1193816047938483391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3830807287350901878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b35dff21b5abc82418d2fe2475afa80a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4592417458935559418
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +526,7 @@ GameObject:
   - component: {fileID: 7159319703641961251}
   - component: {fileID: 4412590435089785381}
   - component: {fileID: 3308919589298073318}
+  - component: {fileID: 5078671657061668658}
   m_Layer: 5
   m_Name: UI_GrowthSlot
   m_TagString: Untagged
@@ -539,8 +553,8 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1300, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -582,6 +596,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5078671657061668658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4770098703964896725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 552b6c76ba325c24085a322b2cf5bfbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: {fileID: 1893621727696612966}
+  _levelText: {fileID: 4902298364065022682}
+  _totalIncrease: {fileID: 1899294210179583106}
+  _price: {fileID: 73928718298676726}
+  _upgradeButton: {fileID: 8950750797411721123}
 --- !u!1 &5895538376391538183
 GameObject:
   m_ObjectHideFlags: 0

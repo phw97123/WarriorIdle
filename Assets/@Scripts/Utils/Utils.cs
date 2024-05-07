@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class Utils 
@@ -15,5 +18,12 @@ public class Utils
         Vector2 spawnPosition = characterPosition + new Vector2(xDist, yDist);
 
         return spawnPosition;
+    }
+
+    public static void CreateGameObject<T>(Transform parent = null) where T : BaseController
+    {
+        GameObject go = new GameObject() { name = typeof(T).Name };
+        go.AddComponent<T>();
+        go.transform.SetParent(parent);
     }
 }
