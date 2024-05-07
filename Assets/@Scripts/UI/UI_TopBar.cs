@@ -21,8 +21,11 @@ public class UI_TopBar : UI_Base
 
     private PlayerData _playerData;
 
-    public void Init()
+    public override bool Init()
     {
+        if (base.Init() == false)
+            return false; 
+
         _playerData = Managers.ObjectManager.Player.PlayerData;
 
         _icon.sprite = _playerData.Icon;
@@ -31,7 +34,9 @@ public class UI_TopBar : UI_Base
         UpdateUI();
         UpdateCurrenyUI();
 
-        Bind(); 
+        Bind();
+
+        return true; 
     }
 
     private void Bind()

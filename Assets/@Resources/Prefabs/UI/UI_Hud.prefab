@@ -2160,6 +2160,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bab66f10dad6dd409a058e345134fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _growth: {fileID: 3766030258623123883}
+  _shop: {fileID: 3748118829627756411}
+  _summons: {fileID: 3697628931785704302}
+  _equipment: {fileID: 2776702733273555328}
+  _skill: {fileID: 7827625637763411755}
+  _dungeon: {fileID: 8588831496862285798}
 --- !u!1 &2289498728316445970
 GameObject:
   m_ObjectHideFlags: 0

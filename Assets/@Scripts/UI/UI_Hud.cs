@@ -10,18 +10,24 @@ public class UI_Hud : UI_Base
     public UI_StageInfo UI_StageInfo { get; private set; }
     public UI_BossStageInfo UI_BossStageInfo { get; private set; }
 
-    private void Awake()
+    public override bool Init()
     {
+        if(base.Init() == false) 
+            return false;
+
         UI_TopBar = GetComponentInChildren<UI_TopBar>();
-        if (UI_TopBar != null)
-            UI_TopBar.Init(); 
+        //if (UI_TopBar != null)
+        //    UI_TopBar.Init(); 
+
         UI_BottomBar = GetComponentInChildren<UI_BottomBar>();
         UI_StageInfo = GetComponentInChildren<UI_StageInfo>();
-        if (UI_StageInfo != null)
-            UI_StageInfo.Init();
-        UI_BossStageInfo = GetComponentInChildren<UI_BossStageInfo>();
+        //if (UI_StageInfo != null)
+        //    UI_StageInfo.Init();
 
+        UI_BossStageInfo = GetComponentInChildren<UI_BossStageInfo>();
         FadeController = GetComponent<FadeController>();
+
+        return true;
     }
 
     public void ActivateStageInfo(Define.StageType type)

@@ -95,6 +95,42 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5463eea729a11444a8a001c479ca85cb
+    m_Address: UI_GrowthPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44638276aafb9a84398af5abaaf18039
+    m_Address: UI_ShopPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 640935506540b764297ff24b3d77c8e3
+    m_Address: UI_SummonsPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4426249c31040f47befe345e05d55ad
+    m_Address: UI_EquipmentPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae06cdd1b1b02f44683fcd9882fb2785
+    m_Address: UI_SkillPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eff5b9c6acccfcc45942ee263d40b3f1
+    m_Address: UI_DungeonPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ff16d5ddac2eb0241b42c4d31d247ec5, type: 2}
   m_SchemaSet:

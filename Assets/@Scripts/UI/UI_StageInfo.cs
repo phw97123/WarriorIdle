@@ -17,10 +17,15 @@ public class UI_StageInfo : UI_Base
 
     private int _nextStageEnemyCount;
 
-    public void Init()
+    public override bool Init()
     {
+        if (base.Init() == false)
+            return false; 
+
         _gameManager = Managers.GameManager;
         _tryBossButton.onClick.AddListener(OnClickTryBossButton);
+
+        return true; 
     }
 
     public void TryBossButtonInjection(Action onClickTryBossButton)
