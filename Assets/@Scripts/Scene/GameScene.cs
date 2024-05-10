@@ -85,7 +85,8 @@ public class GameScene : MonoBehaviour
 
         // Controller
         GameObject controllerRote = new GameObject() { name = "@Controller" }; 
-        Utils.CreateGameObject<GrowthController>(controllerRote.transform); 
+        Utils.CreateGameObject<GrowthController>(controllerRote.transform);
+        Utils.CreateGameObject<EquipmentController>(controllerRote.transform); 
     }
 
     #region Stage

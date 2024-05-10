@@ -10,7 +10,7 @@ public class BossController : EnemyController
             return false;
 
         Type = Define.ObjectType.Boss;
-        enemyData.characterData.HP = enemyData.characterData.maxHp;
+        enemyData.characterData.Hp = enemyData.characterData.MaxHp;
 
         return true;
     }

@@ -13,6 +13,9 @@ public class PlayerController : CharacterBaseController
     // Etc
     private PlayerStateMachine stateMachine;
 
+    private EquipmentData _equippedWeapon;
+    private EquipmentData _equippedArmor;
+
     public override bool Init()
     {
         if (base.Init() == false)
@@ -22,7 +25,7 @@ public class PlayerController : CharacterBaseController
         PlayerData = new PlayerData();
         stateMachine = new PlayerStateMachine(this);
 
-        PlayerData.HP = PlayerData.maxHp; 
+        PlayerData.Hp = PlayerData.MaxHp;
 
         stateMachine.ChangeState(stateMachine.IdleState);
 
@@ -51,11 +54,11 @@ public class PlayerController : CharacterBaseController
                     if (target == null) return;
 
                     int damage = CalculateDamage();
-                    bool critical = false; 
+                    bool critical = false;
                     if (IsCriticalHit())
                     {
-                        critical = true; 
-                        damage *= (int)PlayerData.CriticalDamage; 
+                        critical = true;
+                        damage *= (int)PlayerData.CriticalDamage;
                     }
 
                     target.OnDamaged(damage, critical);
@@ -75,7 +78,7 @@ public class PlayerController : CharacterBaseController
     private bool IsCriticalHit()
     {
         float randomNum = UnityEngine.Random.Range(0f, 1f);
-        return randomNum <= PlayerData.CriticalChance; 
+        return randomNum <= PlayerData.CriticalChance;
     }
 
     private int CalculateDamage()
@@ -88,8 +91,8 @@ public class PlayerController : CharacterBaseController
         if (isDead)
             return;
 
-        PlayerData.HP -= damage;
-        if (PlayerData.HP <= 0)
+        PlayerData.Hp -= damage;
+        if (PlayerData.Hp <= 0)
         {
             isDead = true;
             OnDead();
@@ -113,10 +116,65 @@ public class PlayerController : CharacterBaseController
 
         stateMachine.ChangeState(stateMachine.IdleState);
 
-        PlayerData.HP = PlayerData.maxHp; 
+        PlayerData.Hp = PlayerData.MaxHp;
 
-       // 公利矫埃
-       yield return new WaitForSeconds(1.0f);
+        // 公利矫埃
+        yield return new WaitForSeconds(1.0f);
         isDead = false;
+    }
+
+    public void Equip(EquipmentData equipmentData)
+    {
+        switch (equipmentData.equipmentType)
+        {
+            case Define.EquipmentType.Weapon:
+                UnEquip(equipmentData.equipmentType);
+                _equippedWeapon = equipmentData;
+                _equippedWeapon.isEquipped = true;
+                PlayerData.Damage += equipmentData.equippedEffect;
+                break;
+            case Define.EquipmentType.Armor:
+                UnEquip(equipmentData.equipmentType);
+                _equippedArmor = equipmentData;
+                _equippedArmor.isEquipped = true;
+                PlayerData.MaxHp += equipmentData.equippedEffect;
+                break;
+
+        }
+    }
+
+    public void UnEquip(Define.EquipmentType type)
+    {
+        switch (type)
+        {
+            case Define.EquipmentType.Weapon:
+                if (_equippedWeapon == null) return;
+                PlayerData.Damage -= _equippedWeapon.equippedEffect;
+                _equippedWeapon.isEquipped = false;
+                _equippedWeapon = null;
+
+                break;
+            case Define.EquipmentType.Armor:
+                if (_equippedArmor == null) return;
+                PlayerData.MaxHp -= _equippedArmor.equippedEffect;
+                _equippedArmor.isEquipped = false;
+                _equippedArmor = null;
+                break;
+        }
+    }
+
+    public void UpgradeEquipment(Define.EquipmentType type, int prevEffect, int newEffect)
+    {
+        switch(type)
+        {
+            case Define.EquipmentType.Weapon:
+                PlayerData.Damage -= prevEffect;
+                PlayerData.Damage += newEffect;
+                break;
+            case Define.EquipmentType.Armor:
+                PlayerData.MaxHp -= prevEffect;
+                PlayerData.MaxHp += newEffect;
+                break; 
+        }
     }
 }

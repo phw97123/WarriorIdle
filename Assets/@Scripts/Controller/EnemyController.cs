@@ -23,7 +23,7 @@ public class EnemyController : CharacterBaseController
         if (stateMachine == null)
             stateMachine = new EnemyStateMachine(this);
 
-        enemyData.characterData.HP = enemyData.characterData.maxHp;
+        enemyData.characterData.Hp = enemyData.characterData.MaxHp;
         stateMachine.ChangeState(stateMachine.IdleState);
 
         Type = Define.ObjectType.Enemy;
@@ -63,8 +63,8 @@ public class EnemyController : CharacterBaseController
         if (isDead)
             return;
 
-        enemyData.characterData.HP -= damage;
-        if (enemyData.characterData.HP <= 0)
+        enemyData.characterData.Hp -= damage;
+        if (enemyData.characterData.Hp <= 0)
         {
             isDead = true;
             OnDead();

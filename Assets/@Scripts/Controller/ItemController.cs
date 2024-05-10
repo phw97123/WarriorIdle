@@ -1,7 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using TreeEditor;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.U2D;
 using static Define;
@@ -27,14 +24,14 @@ public class ItemController : BaseController
 
     private CurrencyType SelectType()
     {
-        CurrencyType type = UnityEngine.Random.Range(0, 2) == 0 ? CurrencyType.Gold : CurrencyType.EnhanceStone;
+        CurrencyType type = UnityEngine.Random.Range(0, 2) == 0 ? CurrencyType.Gold : CurrencyType.UpgradeStone;
 
         switch (type)
         {
             case CurrencyType.Gold:
                 spriteRenderer.sprite = Managers.ResourceManager.Load<SpriteAtlas>("ItemAtlas.spriteatlas").GetSprite(GOLD_SPRITE);
                 break;
-            case CurrencyType.EnhanceStone:
+            case CurrencyType.UpgradeStone:
                 spriteRenderer.sprite = Managers.ResourceManager.Load<SpriteAtlas>("ItemAtlas.spriteatlas").GetSprite(ENHANCESTONE_SPRTE);
                 break;
         }

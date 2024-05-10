@@ -71,8 +71,8 @@ public class PlayerData : CharacterData
     public PlayerData()
     {
         speed = 5.0f;
-        HP = 100;
-        maxHp = 100;
+        Hp = 100;
+        MaxHp = 100;
     }
 
     private void CheckLevelUp()
@@ -86,18 +86,18 @@ public class PlayerData : CharacterData
 
     public void SetMax()
     {
-        HP = maxHp;
+        Hp = MaxHp;
         MP = MaxMp;
     }
 
     private void LevelUp()
     {
         Level++;
-        maxHp *= Level * 15;
+        MaxHp += Level * 15;
         MaxExp += Level * 15;
         MaxMp += Level * 15;
         Damage += Level * 3;
-        HP = maxHp;
+        Hp = MaxHp;
         MP = MaxMp;
     }
 
@@ -109,7 +109,7 @@ public class PlayerData : CharacterData
                 Damage += increase; 
                 break;
             case StatusType.MaxHp:
-                MaxExp += increase;
+                MaxHp += increase;
                 break;
             case StatusType.MaxMP:
                 MaxMp += increase;

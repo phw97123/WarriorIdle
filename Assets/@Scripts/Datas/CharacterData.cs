@@ -5,10 +5,11 @@ using UnityEngine;
 public class CharacterData
 {
     public event Action OnChangedHp;
-    public event Action<int> OnBossChangedHp;   
+    public event Action<int> OnBossChangedHp;
+    private int _maxHp = 100; 
     private int _hp = 100;
 
-    public int HP
+    public int Hp
     {
         get { return _hp; }
         set
@@ -25,5 +26,13 @@ public class CharacterData
 
     public float speed  = 15.0f;
 
-    public int maxHp  = 100;
+    public int MaxHp
+    {
+        get { return _maxHp;  }
+        set
+        {
+            _maxHp = value;
+            OnChangedHp?.Invoke();
+        }
+    }
 }

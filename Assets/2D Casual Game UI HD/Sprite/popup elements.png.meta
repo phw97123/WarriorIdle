@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -1058,10 +1058,10 @@ TextureImporter:
       name: popup elements_45
       rect:
         serializedVersion: 2
-        x: 7262
-        y: 2392
-        width: 126
-        height: 137
+        x: 7272
+        y: 2400
+        width: 106
+        height: 122
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1079,10 +1079,10 @@ TextureImporter:
       name: popup elements_46
       rect:
         serializedVersion: 2
-        x: 7411
-        y: 2401
-        width: 139
-        height: 130
+        x: 7420
+        y: 2409
+        width: 122
+        height: 114
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1100,10 +1100,10 @@ TextureImporter:
       name: popup elements_47
       rect:
         serializedVersion: 2
-        x: 7575
-        y: 2401
-        width: 141
-        height: 125
+        x: 7583
+        y: 2411
+        width: 125
+        height: 108
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

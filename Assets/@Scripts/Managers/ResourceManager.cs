@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.UIElements;
 
 public class ResourceManager
 {
@@ -11,6 +13,11 @@ public class ResourceManager
     {
         if(_resources.TryGetValue(key, out UnityEngine.Object resource))
         {
+            if(key.Contains(".sprite") && resource is Texture2D value)
+            {
+                Sprite sprite = Sprite.Create(value, new Rect(0, 0, value.width, value.height), Vector2.zero);
+                return sprite as T; 
+            }
             return resource as T;
         }
         else
@@ -25,7 +32,9 @@ public class ResourceManager
         foreach(var resource in _resources.Values)
         {
             if (resource is T t)
+            {
                 list.Add(t);
+            }
         }
         return list; 
     }
@@ -94,6 +103,4 @@ public class ResourceManager
         }; 
     }
     #endregion
-
-
 }

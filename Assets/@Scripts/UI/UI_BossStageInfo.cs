@@ -16,12 +16,15 @@ public class UI_BossStageInfo : UI_Base
     {
         this.data = data;
         _name.text = data.enemyName;
-        UpdateHpUI(data.characterData.HP); 
+        UpdateHpUI(data.characterData.Hp); 
     }
 
     public void UpdateHpUI(int hp)
     {
-        float progress = Mathf.Min((float)hp / data.characterData.maxHp, 0.0f);
+        float progress = (float)hp / data.characterData.MaxHp;
+        if (progress< 0)
+            progress = 0;
+
         _hp.text = $"{((float)progress * 100):F2}%";
         _hpSlider.value = (float)progress;
     }

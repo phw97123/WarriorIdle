@@ -59,8 +59,8 @@ public class GameManager
             case Define.CurrencyType.Gold:
                 Managers.CurrencyManager.AddCurrency(Define.CurrencyType.Gold, goldValue);
                 break;
-            case Define.CurrencyType.EnhanceStone:
-                Managers.CurrencyManager.AddCurrency(Define.CurrencyType.EnhanceStone, enhanceStoneValue);
+            case Define.CurrencyType.UpgradeStone:
+                Managers.CurrencyManager.AddCurrency(Define.CurrencyType.UpgradeStone, enhanceStoneValue);
                 break;
         }
     }

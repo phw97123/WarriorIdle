@@ -54,8 +54,8 @@ public class UI_TopBar : UI_Base
         _level.text = $"Lv.{_playerData.Level}";
         _expBar.value = (float)_playerData.Exp / _playerData.MaxExp;
 
-        _hpBar.fillAmount = (float)_playerData.HP / _playerData.maxHp;
-        _hpText.text = $"{_playerData.HP} / {_playerData.maxHp}";
+        _hpBar.fillAmount = (float)_playerData.Hp / _playerData.MaxHp;
+        _hpText.text = $"{_playerData.Hp} / {_playerData.MaxHp}";
 
         _mpBar.fillAmount = (float)_playerData.MP / _playerData.MaxMp;
         _mpText.text = $"{_playerData.MP} / {_playerData.MaxMp}";
@@ -64,13 +64,13 @@ public class UI_TopBar : UI_Base
 
         _gold.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.Gold);
         _dia.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.Dia);
-        _enhanceStone.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.EnhanceStone);
+        _enhanceStone.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.UpgradeStone);
     }
 
     private void UpdateCurrenyUI()
     {
         _gold.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.Gold);
         _dia.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.Dia);
-        _enhanceStone.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.EnhanceStone); 
+        _enhanceStone.text = Managers.CurrencyManager.GetCurrencyAmount(Define.CurrencyType.UpgradeStone); 
     }
 }

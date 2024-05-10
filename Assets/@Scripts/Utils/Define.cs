@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Linq;
 
 public static class Define
@@ -30,7 +31,7 @@ public static class Define
     {
         Gold,
         Dia,
-        EnhanceStone,
+        UpgradeStone,
     }
 
     public enum StageType
@@ -48,10 +49,34 @@ public static class Define
         CriticalDamage,
     }
 
+    public enum EquipmentType
+    {
+        Weapon,
+        Armor
+    }
+
+    public enum SummonsType
+    {
+        Weapon,
+        Armor,
+        Skill
+    }
+
+    public enum Rarity
+    {
+        Common, 
+        Rare,
+        Epic,
+        Ancient, 
+        Legendary,
+        MyThology,
+    }
+
     public const string PLAYER_PREFAB = "Player.prefab";
     public const string ITEM_PREFAB = "Item.prefab";
     public const string DAMAGETEXT_PREFAB = "DamageText.prefab";
     public const string UIGROWTHSLOT_PREFAB = "UI_GrowthSlot.prefab";
+    public const string UIEQUIPMENTSLOT_PREFAB = "UI_EquipmentSlot.prefab"; 
 
 
     public const string GOLD_SPRITE = "popup elements_50";
