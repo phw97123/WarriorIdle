@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawningPool : MonoBehaviour
 {
     private float _spawnInterval = 1.0f;
-    private int _maxEnemyCount = 5;
+    private int _maxEnemyCount = 50;
     private Coroutine _coUpdateSpawningPool;
 
     private GameManager _gameManager;

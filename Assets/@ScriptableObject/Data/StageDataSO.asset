@@ -13,37 +13,37 @@ MonoBehaviour:
   m_Name: StageDataSO
   m_EditorClassIdentifier: 
   stageDatas:
-  - nextStageEnemyCount: 1
+  - nextStageEnemyCount: 5
     stageName: 1-1
     mapName: Stage_1_Map
     bossID: 100
     enemyIDs: 01000000
-    isClear: 1
-  - nextStageEnemyCount: 10
+    isClear: 0
+  - nextStageEnemyCount: 7
     stageName: 1-2
     mapName: Stage_1_Map
     bossID: 100
     enemyIDs: 0100000002000000
-    isClear: 1
-  - nextStageEnemyCount: 10
+    isClear: 0
+  - nextStageEnemyCount: 9
     stageName: 1-3
     mapName: Stage_1_Map
     bossID: 101
     enemyIDs: 0100000002000000
-    isClear: 1
-  - nextStageEnemyCount: 7
+    isClear: 0
+  - nextStageEnemyCount: 11
     stageName: 2-1
     mapName: Stage_2_Map
     bossID: 200
     enemyIDs: 03000000
-    isClear: 1
-  - nextStageEnemyCount: 9
+    isClear: 0
+  - nextStageEnemyCount: 13
     stageName: 2-2
     mapName: Stage_2_Map
     bossID: 200
     enemyIDs: 0300000004000000
-    isClear: 1
-  - nextStageEnemyCount: 12
+    isClear: 0
+  - nextStageEnemyCount: 15
     stageName: 2-3
     mapName: Stage_2_Map
     bossID: 201

@@ -52,6 +52,8 @@ public class PlayerBaseState : IState
 
         foreach (var enemyObject in Managers.ObjectManager.Enemys )
         {
+            if (enemyObject.isDead) continue; 
+
             Transform enemyTransform = enemyObject.transform;
             float distance = Vector2.Distance(stateMachine.Player.transform.position, enemyTransform.position);
 

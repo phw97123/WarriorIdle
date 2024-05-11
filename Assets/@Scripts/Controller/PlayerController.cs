@@ -51,7 +51,7 @@ public class PlayerController : CharacterBaseController
                 if (collider.CompareTag("Enemy"))
                 {
                     EnemyController target = collider.GetComponent<EnemyController>();
-                    if (target == null) return;
+                    if (target == null || target.isDead) return;
 
                     int damage = CalculateDamage();
                     bool critical = false;

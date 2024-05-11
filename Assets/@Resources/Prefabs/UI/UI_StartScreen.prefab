@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 4300691791181014603}
   - component: {fileID: 3444685977255154234}
   - component: {fileID: 7446092557717753936}
+  - component: {fileID: 1292380084983905538}
   m_Layer: 5
   m_Name: UI_StartScreen
   m_TagString: Untagged
@@ -188,6 +189,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1292380084983905538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2452066965284156846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5053ef805406748bb73731a575edc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startButton: {fileID: 7027262090342672223}
+  _touchImage: {fileID: 1763750997875015522}
 --- !u!1 &2723915818557599103
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,7 +834,7 @@ GameObject:
   - component: {fileID: 2254730439999420827}
   - component: {fileID: 1763750997875015522}
   m_Layer: 5
-  m_Name: Image
+  m_Name: TouchImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
