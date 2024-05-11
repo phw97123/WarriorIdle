@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,9 +14,9 @@ public class GameManager
     // Stage
     public StageData StageData { get { return _stageDataSO?.GetStageData(CurrentStageIndex); } }
     private StageDataSO _stageDataSO;
-    
+
     public event Action<StageData> OnStageUiUpdate;
-    
+
     private int _currentStageIndex;
     public int CurrentStageIndex
     {
@@ -23,12 +24,12 @@ public class GameManager
         set
         {
             _currentStageIndex = value;
-            if (value > _stageDataSO.stageDatas.Length-1)
+            if (value > _stageDataSO.stageDatas.Length - 1)
                 _currentStageIndex = _stageDataSO.stageDatas.Length - 1;
 
-            OnStageUiUpdate?.Invoke(StageData); 
+            OnStageUiUpdate?.Invoke(StageData);
         }
-    } 
+    }
 
     // Kill
     private int _killCount;
@@ -37,7 +38,7 @@ public class GameManager
     public void Init()
     {
         _stageDataSO = Managers.ResourceManager.Load<StageDataSO>("StageDataSO.asset");
-        CurrentStageIndex = 0; 
+        CurrentStageIndex = 0;
     }
 
     public int KillCount
@@ -62,6 +63,14 @@ public class GameManager
             case Define.CurrencyType.UpgradeStone:
                 Managers.CurrencyManager.AddCurrency(Define.CurrencyType.UpgradeStone, enhanceStoneValue);
                 break;
+        }
+    }
+
+    public void SetStageMap()
+    {
+        if (_stageDataSO != null)
+        {
+
         }
     }
 }

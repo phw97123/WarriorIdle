@@ -15,7 +15,8 @@ public class EnemyController : CharacterBaseController
 
     public override bool Init()
     {
-        base.Init();
+        if (base.Init() == false)
+            return false; 
 
         if (AnimationData == null)
             AnimationData = new AnimationData();
@@ -23,10 +24,9 @@ public class EnemyController : CharacterBaseController
         if (stateMachine == null)
             stateMachine = new EnemyStateMachine(this);
 
-        enemyData.characterData.Hp = enemyData.characterData.MaxHp;
         stateMachine.ChangeState(stateMachine.IdleState);
 
-        Type = Define.ObjectType.Enemy;
+        CharacterType = Define.ObjectType.Enemy;
 
         isDead = false;
 
@@ -99,6 +99,8 @@ public class EnemyController : CharacterBaseController
 
         OnDeath?.Invoke(enemyData.rewardExp, enemyData.rewardGold, enemyData.rewardEnhanceStone, ic.CurrencyType);
 
+        enemyData.characterData.Hp = enemyData.characterData.MaxHp;
+        isDead = false; 
         Managers.ObjectManager.Despawn(this);
     }
 }

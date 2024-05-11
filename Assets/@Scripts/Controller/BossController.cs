@@ -9,7 +9,7 @@ public class BossController : EnemyController
         if (base.Init() == false)
             return false;
 
-        Type = Define.ObjectType.Boss;
+        CharacterType = Define.ObjectType.Boss;
         enemyData.characterData.Hp = enemyData.characterData.MaxHp;
 
         return true;

@@ -756,6 +756,7 @@ GameObject:
   - component: {fileID: 4555977026014966596}
   - component: {fileID: 7794232378351623993}
   - component: {fileID: 4405453060037024413}
+  - component: {fileID: 3832971369934128964}
   m_Layer: 5
   m_Name: UI_SummonsSlots
   m_TagString: Untagged
@@ -827,6 +828,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3832971369934128964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483726500628807995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e4b3698c0f69b458cda8f74dfd7b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3384950435875679255
 GameObject:
   m_ObjectHideFlags: 0

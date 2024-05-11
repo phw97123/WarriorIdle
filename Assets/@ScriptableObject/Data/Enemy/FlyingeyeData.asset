@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Flyingeye
   characterData:
+    _maxHp: 300
     speed: 1.3
-    maxHp: 130
   attackRange: 1.5
-  damage: 20
+  damage: 40
   rewardExp: 50
   rewardGold: 130
   rewardEnhanceStone: 50

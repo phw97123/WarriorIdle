@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Skeleton
   characterData:
+    _maxHp: 350
     speed: 1
-    maxHp: 140
   attackRange: 1.3
-  damage: 30
+  damage: 50
   rewardExp: 60
   rewardGold: 140
   rewardEnhanceStone: 60

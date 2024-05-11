@@ -15,7 +15,7 @@ public class DamageTextController : BaseController
     {
         base.Init();
 
-        Type = Define.ObjectType.DamageText;
+        CharacterType = Define.ObjectType.DamageText;
         _text = GetComponent<TextMeshPro>();
         StartCoroutine(COFade());
         _text.color = Color.white;

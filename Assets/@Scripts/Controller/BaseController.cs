@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseController : MonoBehaviour
 {
-    public Define.ObjectType Type { get; protected set; }
+    public Define.ObjectType CharacterType { get; protected set; }
 
     private bool _init = false; 
 

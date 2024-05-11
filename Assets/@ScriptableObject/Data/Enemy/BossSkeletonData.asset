@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: BossSkeleton
   characterData:
+    _maxHp: 1000
     speed: 1
-    maxHp: 800
   attackRange: 1.5
   damage: 110
   rewardExp: 400

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: BossMushroom
   characterData:
+    _maxHp: 600
     speed: 1
-    maxHp: 400
   attackRange: 1.5
   damage: 50
   rewardExp: 200

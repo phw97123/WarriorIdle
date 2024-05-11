@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Mushroom
   characterData:
+    _maxHp: 150
     speed: 1
-    maxHp: 120
   attackRange: 1.5
-  damage: 15
+  damage: 30
   rewardExp: 40
   rewardGold: 120
   rewardEnhanceStone: 70

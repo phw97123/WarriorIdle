@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 8173828706355299629}
   - component: {fileID: 7913266544747349569}
   - component: {fileID: 6196641673960162460}
-  - component: {fileID: 7057739486821696474}
+  - component: {fileID: 2940202357051682408}
   m_Layer: 5
   m_Name: UI_SummonsPanel
   m_TagString: Untagged
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7057739486821696474
+--- !u!114 &2940202357051682408
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b901f49a984fda14da5f70675126e2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _parent: {fileID: 0}
 --- !u!1 &625310161968525252
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,7 +312,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4008283545771678548
 CanvasRenderer:

@@ -14,7 +14,7 @@ public class ItemController : BaseController
     {
         base.Init();
 
-        Type = ObjectType.Item; 
+        CharacterType = ObjectType.Item; 
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         CurrencyType = SelectType();

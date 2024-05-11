@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StageDataSO
   m_EditorClassIdentifier: 
   stageDatas:
-  - nextStageEnemyCount: 10
+  - nextStageEnemyCount: 1
     stageName: 1-1
     mapName: Stage_1_Map
     bossID: 100
@@ -30,7 +30,7 @@ MonoBehaviour:
     mapName: Stage_1_Map
     bossID: 101
     enemyIDs: 0100000002000000
-    isClear: 0
+    isClear: 1
   - nextStageEnemyCount: 7
     stageName: 2-1
     mapName: Stage_1_Map

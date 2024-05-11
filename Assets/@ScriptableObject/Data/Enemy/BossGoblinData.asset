@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: BossGoblin
   characterData:
+    _maxHp: 400
     speed: 1
-    maxHp: 200
   attackRange: 1.5
   damage: 30
   rewardExp: 100

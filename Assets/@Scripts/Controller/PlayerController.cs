@@ -29,7 +29,7 @@ public class PlayerController : CharacterBaseController
 
         stateMachine.ChangeState(stateMachine.IdleState);
 
-        Type = Define.ObjectType.Player;
+        CharacterType = Define.ObjectType.Player;
 
         return true;
     }
@@ -64,7 +64,7 @@ public class PlayerController : CharacterBaseController
                     target.OnDamaged(damage, critical);
 
                     // Knockback
-                    if (attackCount == 3)
+                    if (attackCount == 3 && target.CharacterType != Define.ObjectType.Boss)
                     {
                         Vector2 direction = (collider.transform.position - transform.position).normalized;
                         if (!target.isDead)
@@ -176,5 +176,10 @@ public class PlayerController : CharacterBaseController
                 PlayerData.MaxHp += newEffect;
                 break; 
         }
+    }
+
+    public void OnPlayerChangedIdleStage()
+    {
+        stateMachine.ChangeState(stateMachine.IdleState); 
     }
 }

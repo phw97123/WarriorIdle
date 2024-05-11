@@ -6,8 +6,8 @@ public class CharacterData
 {
     public event Action OnChangedHp;
     public event Action<int> OnBossChangedHp;
-    private int _maxHp = 100; 
     private int _hp = 100;
+    [SerializeField] private int _maxHp; 
 
     public int Hp
     {
