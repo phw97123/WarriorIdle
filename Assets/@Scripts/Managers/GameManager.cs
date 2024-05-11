@@ -68,9 +68,26 @@ public class GameManager
 
     public void SetStageMap()
     {
-        if (_stageDataSO != null)
-        {
+        string stageName = _stageDataSO.stageDatas[CurrentStageIndex].mapName;
 
+        GameObject go = GameObject.Find("@Map");
+        if(_stageDataSO != null)
+        {
+            if (go == null)
+            {
+                go = new GameObject() { name = "@Map" };
+                go = Managers.ResourceManager.Instantiate(stageName + ".prefab",go.transform);
+                go.GetComponentInChildren<MapTileController>().MapName = stageName;
+            }
+            else
+            {
+                var map = go.GetComponentInChildren<MapTileController>();
+                if (stageName == map.MapName) return;
+
+                Managers.ResourceManager.Destroy(go.transform.GetChild(0).gameObject);
+                var newMap = Managers.ResourceManager.Instantiate(stageName + ".prefab",go.transform);
+                newMap.GetComponentInChildren<MapTileController>().MapName = stageName;
+            }
         }
     }
 }

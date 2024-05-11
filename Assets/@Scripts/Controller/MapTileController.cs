@@ -5,6 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class MapTileController : MonoBehaviour
 {
+    public string MapName { get; set; }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         Camera camera = collision.gameObject.GetComponent<Camera>();

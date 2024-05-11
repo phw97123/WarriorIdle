@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
@@ -61,8 +62,7 @@ public class GameScene : MonoBehaviour
         _spawningPool = gameObject.AddComponent<SpawningPool>();
 
         // Map 
-        var map = Managers.ResourceManager.Instantiate("Stage_1_Map.prefab");
-        map.name = "@Map";
+        Managers.GameManager.SetStageMap();
 
         // SceneUI
         var uiHud = Managers.UIManager.ShowSceneUI<UI_Hud>();
@@ -150,14 +150,16 @@ public class GameScene : MonoBehaviour
     private void MoveToNormalStage()
     {
         Managers.GameManager.Player.PlayerData.SetMax();
-        StageType = Define.StageType.Normal;
-        Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
+        _fadeController.RegisterCallback(() =>
+        {
+            StageType = Define.StageType.Normal;
+            Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
 
-        //_fadeController.RegisterCallback(() =>
-        //{
-        //});
-
+        });
         _fadeController.FadeInOut();
+
+        Managers.GameManager.SetStageMap();
     }
     #endregion 
+
 }
