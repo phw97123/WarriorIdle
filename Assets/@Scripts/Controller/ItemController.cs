@@ -41,7 +41,7 @@ public class ItemController : BaseController
 
     private IEnumerator CORemove()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(.7f);
 
         Transform player = Managers.ObjectManager.Player.transform;
 

@@ -16,7 +16,7 @@ public class PlayerAttackState : PlayerBaseState
     public override void Update()
     {
         base.Update();
-        if (nearestEnemy.isDead)
+        if (nearestEnemy == null || nearestEnemy.isDead)
             return;
     }
 

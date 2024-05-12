@@ -29,10 +29,10 @@ public class SummonsData
     public void AddExp (int addValue)
     {
         CurrentExp += addValue; 
-        while(CurrentExp > maxExp && level < SummonsDataSO.maxLevel)
+        while(CurrentExp >= maxExp && level < SummonsDataSO.maxLevel)
         {
             LevelUp();
-            CurrentExp -= maxExp; 
+           
         }
         onExpChanged?.Invoke(this); 
     }
@@ -40,6 +40,7 @@ public class SummonsData
     private void LevelUp()
     {
         level++;
+        CurrentExp -= maxExp;
         maxExp += maxExp / 5;
         onLevelChanged?.Invoke(this);
     }

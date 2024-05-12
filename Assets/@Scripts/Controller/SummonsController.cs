@@ -84,7 +84,7 @@ public class SummonsController : BaseController
         _summonsPopup.OpenUI();
         SummonsEquipment(count, type, _summonsPopup.GetParent());
     }
-
+    
     private void ShowSummonsSkillPopup(int count, SummonsType type)
     {
         _summonsPopup.OpenUI();
@@ -97,6 +97,7 @@ public class SummonsController : BaseController
         SummonsData data = datas[(int)type];
 
         Managers.CurrencyManager.SubtractCurrency(CurrencyType.Dia, data.Price);
+        data.AddExp(data.Price * 10); 
 
         List<float> probabilityArray = data.SummonsDataSO.Getprobalility(data.level);
         for (int i = 0; i < count; i++)

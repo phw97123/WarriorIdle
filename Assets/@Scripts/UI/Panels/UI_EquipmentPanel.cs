@@ -59,7 +59,8 @@ public class UI_EquipmentPanel : UI_Base
     public override void OpenUI()
     {
         base.OpenUI();
-        _weaponTab.isOn = true;
+        OnChangedTab(_tabType);
+        _weaponTab.isOn = true; 
     }
 
     private void OnCreateSlots()
