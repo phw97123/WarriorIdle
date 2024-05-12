@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class UI_SummonsPanel : UI_Base
 {
-    //[SerializeField] private Transform _parent;
+    [SerializeField] private Transform _parent;
 
     private Action<Transform> _onCreatedSlots; 
 
@@ -15,7 +15,7 @@ public class UI_SummonsPanel : UI_Base
         if (base.Init() == false)
             return false;
 
-        //OnCreatedSlots(_parent);
+        OnCreatedSlots(_parent);
 
         return true; 
     }
@@ -25,8 +25,10 @@ public class UI_SummonsPanel : UI_Base
         _onCreatedSlots?.Invoke(parent); 
     }
 
-    public  void CreatedSlots(Action<Transform> action)
+    public  void CreatedSlotsInjection(Action<Transform> action)
     {
         _onCreatedSlots = action;
     } 
+
+
 }

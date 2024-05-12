@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class UI_EquipmentIconSlot : MonoBehaviour
+public class UI_EquipmentIconSlot : UI_Base
 {
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Text _name;
+    [SerializeField] private Image _icon;
 
-    void Update()
+    public void UpdateUI(EquipmentData data)
     {
-        
+        _name.text = $"{data.rarityName}{data.level}";
+        _icon.sprite = data.icon; 
     }
 }

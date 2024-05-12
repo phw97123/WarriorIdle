@@ -9,34 +9,22 @@ using static Define;
 
 public class EquipmentController : BaseController
 {
-    private Dictionary<EquipmentType, List<EquipmentData>> _allEquipmentDatas;
+    private Dictionary<EquipmentType, List<EquipmentData>> _allEquipmentDatas { get { return Managers.GameManager?.AllEquipmentDatas; } }
     private UI_EquipmentPanel _equipmentPanel;
     private UI_UpgradePopup _upgradePopup;
     private List<UI_EquipmentSlot> _slots;
-    private int _rarityMaxLevel = 4;
+
+    public Action OnCreateData; 
 
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
 
-        _allEquipmentDatas = new Dictionary<EquipmentType, List<EquipmentData>>();
         _slots = new List<UI_EquipmentSlot>(24);
-
-        CreateAllWeapon();
-        CreateAllArmor();
 
         AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Weapon][0]);
         AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Armor][0]);
-        AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Weapon][1]);
-        AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Weapon][2]);
-        AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Weapon][3]);
-        AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Weapon][4]);
-        AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Weapon][5]);
-        AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Weapon][5]);
-        AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Weapon][5]);
-        AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Weapon][5]);
-        AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Weapon][5]);
 
         Managers.UIManager.TryGetUIComponent(out _equipmentPanel);
         Managers.UIManager.TryGetUIComponent(out _upgradePopup);
@@ -54,54 +42,6 @@ public class EquipmentController : BaseController
         _upgradePopup.CloseButtonInjection(UpgradePopupCloseUI);
 
         return true;
-    }
-
-    private void CreateAllWeapon()
-    {
-        int prevEffect = 0;
-        int rarityEffect = 1;
-        List<EquipmentData> weaponDatas = new List<EquipmentData>();
-        foreach (Rarity rarity in Enum.GetValues(typeof(Rarity)))
-        {
-            for (int rarityLevel = 1; rarityLevel <= _rarityMaxLevel; rarityLevel++)
-            {
-                string fileName = $"Weapon{rarity}{rarityLevel}.sprite";
-                string name = GetRarityName(rarity);
-                Sprite icon = Managers.ResourceManager.Load<Sprite>(fileName);
-                int equippedEffect = 3 + prevEffect + rarityEffect;
-                int upgradeStone = 150 + prevEffect + rarityEffect;
-
-                EquipmentData data = new EquipmentData(name, icon, rarityLevel, EquipmentType.Weapon, rarity, equippedEffect, upgradeStone);
-                weaponDatas.Add(data);
-                prevEffect = equippedEffect;
-            }
-            rarityEffect += 6;
-        }
-        _allEquipmentDatas.Add(EquipmentType.Weapon, weaponDatas);
-    }
-
-    private void CreateAllArmor()
-    {
-        int prevEffect = 0;
-        int rarityEffect = 1;
-        List<EquipmentData> armorDatas = new List<EquipmentData>();
-        foreach (Rarity rarity in Enum.GetValues(typeof(Rarity)))
-        {
-            for (int rarityLevel = 1; rarityLevel <= _rarityMaxLevel; rarityLevel++)
-            {
-                string fileName = $"Armor{rarity}{rarityLevel}.sprite";
-                string name = GetRarityName(rarity);
-                Sprite icon = Managers.ResourceManager.Load<Sprite>(fileName);
-                int equippedEffect = 1 + prevEffect + rarityEffect;
-                int upgradeStone = 150 + prevEffect + rarityEffect;
-
-                EquipmentData data = new EquipmentData(name, icon, rarityLevel, EquipmentType.Armor, rarity, equippedEffect, upgradeStone);
-                armorDatas.Add(data);
-                prevEffect = equippedEffect;
-            }
-            rarityEffect += 3;
-        }
-        _allEquipmentDatas.Add(EquipmentType.Armor, armorDatas);
     }
 
     private void CreateSlots(Transform parent)
@@ -308,25 +248,5 @@ public class EquipmentController : BaseController
         var selecteSlot = _slots.FirstOrDefault(slot => slot.isSelected);
         _equipmentPanel.UpdateSlotInfo(selecteSlot.Data);
         selecteSlot.UpdateUI(selecteSlot.Data);
-    }
-
-    public string GetRarityName(Rarity rarity)
-    {
-        switch (rarity)
-        {
-            case Rarity.Common:
-                return "일반";
-            case Rarity.Rare:
-                return "레어";
-            case Rarity.Epic:
-                return "에픽";
-            case Rarity.Ancient:
-                return "영웅";
-            case Rarity.Legendary:
-                return "전설";
-            case Rarity.MyThology:
-                return "신화";
-        }
-        return null;
     }
 }

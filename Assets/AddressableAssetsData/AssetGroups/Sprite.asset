@@ -113,50 +113,50 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0acdb73efd145844bbaaae52d7f1c62b
-    m_Address: ArmorMyThology1.sprite
+  - m_GUID: b3c939bcb0c5aee4ca9ab0212f2bc598
+    m_Address: WeaponMythical4.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4f842c48ebb9d5540acbda9dae389141
-    m_Address: ArmorMyThology2.sprite
+  - m_GUID: 1b7d871dcac09ee4cb7794faa06f29fb
+    m_Address: WeaponMythical3.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dede70b89586221478e221e516b88a3f
-    m_Address: ArmorMyThology3.sprite
+  - m_GUID: 76eaa99a7a88bac4d88b724340b28bd0
+    m_Address: WeaponMythical2.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: afbc30150c7d28544ae0b64b2389ddb6
-    m_Address: ArmorMyThology4.sprite
+  - m_GUID: d3c331d5606c87e42acf98955ca54274
+    m_Address: WeaponMythical1.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 11f2a666a752a8c41ba745c97a318dd1
-    m_Address: ArmorRare1.sprite
+  - m_GUID: c3fe1c952a826f84b8e03af016a262ea
+    m_Address: ArmorRare4.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 105774b9b1e38414d94cd73897f40ee2
-    m_Address: ArmorRare2.sprite
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1758ddb27a32e2c44b4391a5a4a403bd
+  - m_GUID: e86c65ac7e2597f4ebd8a7f706d108d7
     m_Address: ArmorRare3.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 805ff073fe37e0d4292459e2bed8d4e2
-    m_Address: ArmorRare4.sprite
+  - m_GUID: bf0d258a4fa1380498a843faea2cc211
+    m_Address: ArmorRare2.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c686efacc0350f45b28d22e4b36e666
+    m_Address: ArmorRare1.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -257,49 +257,97 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d3c331d5606c87e42acf98955ca54274
-    m_Address: WeaponMyThology1.sprite
+  - m_GUID: afbc30150c7d28544ae0b64b2389ddb6
+    m_Address: ArmorMythical4.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 76eaa99a7a88bac4d88b724340b28bd0
-    m_Address: WeaponMyThology2.sprite
+  - m_GUID: dede70b89586221478e221e516b88a3f
+    m_Address: ArmorMythical3.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1b7d871dcac09ee4cb7794faa06f29fb
-    m_Address: WeaponMyThology3.sprite
+  - m_GUID: 4f842c48ebb9d5540acbda9dae389141
+    m_Address: ArmorMythical2.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b3c939bcb0c5aee4ca9ab0212f2bc598
-    m_Address: WeaponMyThology4.sprite
+  - m_GUID: 0acdb73efd145844bbaaae52d7f1c62b
+    m_Address: ArmorMythical1.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 805ff073fe37e0d4292459e2bed8d4e2
+    m_Address: ArmorHeroic4.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1758ddb27a32e2c44b4391a5a4a403bd
+    m_Address: ArmorHeroic3.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 105774b9b1e38414d94cd73897f40ee2
+    m_Address: ArmorHeroic2.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 11f2a666a752a8c41ba745c97a318dd1
+    m_Address: ArmorHeroic1.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 47da9ee59d7b564428261e8736225d92
-    m_Address: WeaponRare1.sprite
+    m_Address: WeaponHeroic1.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2748645ae1e4eb54f99081ae86db053f
-    m_Address: WeaponRare2.sprite
+    m_Address: WeaponHeroic2.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 207d704599e16344d82b5c00125022a6
-    m_Address: WeaponRare3.sprite
+    m_Address: WeaponHeroic3.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 95af011d6b48d7c4dbe73b6e80639998
+    m_Address: WeaponHeroic4.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96722ec861408624daf0920146a32baa
+    m_Address: WeaponRare1.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 050d19281962be64d9a7d107011d1278
+    m_Address: WeaponRare2.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 980abccc29d86d64ab41ec339ce90bc5
+    m_Address: WeaponRare3.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f1338016540ce5e49921c6b20198a648
     m_Address: WeaponRare4.sprite
     m_ReadOnly: 0
     m_SerializedLabels:

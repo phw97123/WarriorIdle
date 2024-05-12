@@ -68,15 +68,18 @@ public static class Define
         Rare,
         Epic,
         Ancient, 
+        Heroic,
         Legendary,
-        MyThology,
+        Mythical,
     }
 
     public const string PLAYER_PREFAB = "Player.prefab";
     public const string ITEM_PREFAB = "Item.prefab";
     public const string DAMAGETEXT_PREFAB = "DamageText.prefab";
     public const string UIGROWTHSLOT_PREFAB = "UI_GrowthSlot.prefab";
-    public const string UIEQUIPMENTSLOT_PREFAB = "UI_EquipmentSlot.prefab"; 
+    public const string UIEQUIPMENTSLOT_PREFAB = "UI_EquipmentSlot.prefab";
+    public const string UISUMMONSSLOT_PREFAB = "UI_SummonsSlot.prefab";
+    public const string UIEQUIPMENTICONSLOT_PREFAB = "UI_EquipmentIconSlot.prefab"; 
 
 
     public const string GOLD_SPRITE = "popup elements_50";

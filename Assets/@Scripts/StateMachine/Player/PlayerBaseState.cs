@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerBaseState : IState
 {
     protected PlayerStateMachine stateMachine;
-    protected Transform nearestEnemy = null;
+    protected EnemyController nearestEnemy = null;
 
     public PlayerBaseState(PlayerStateMachine stateMachine)
     {
@@ -45,22 +45,22 @@ public class PlayerBaseState : IState
         stateMachine.Player.Animator.SetBool(animationHash, false);
     }
 
-    public Transform FindNearestEnemy()
+    public EnemyController FindNearestEnemy()
     {
-        Transform nearestEnemy = null;
+        EnemyController nearestEnemy = null;
         float nearestDistance = Mathf.Infinity;
 
         foreach (var enemyObject in Managers.ObjectManager.Enemys )
         {
-            if (enemyObject.isDead) continue; 
+            if (enemyObject.isDead) continue;
 
-            Transform enemyTransform = enemyObject.transform;
-            float distance = Vector2.Distance(stateMachine.Player.transform.position, enemyTransform.position);
+            EnemyController enemy = enemyObject;
+            float distance = Vector2.Distance(stateMachine.Player.transform.position, enemy.transform.position);
 
             if (distance < nearestDistance)
             {
                 nearestDistance = distance;
-                nearestEnemy = enemyTransform;
+                nearestEnemy = enemy;
             }
         }
 

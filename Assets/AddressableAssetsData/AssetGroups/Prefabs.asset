@@ -161,6 +161,30 @@ MonoBehaviour:
     m_SerializedLabels:
     - StartScene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 684e8da389918664fbb8e2e99f245f5f
+    m_Address: UI_SummonsSlot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 835618f2f9c364048a8c64d09cf550c3
+    m_Address: UI_SummonsPopup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bbd1276b736684c46b7fa329bcd67e0b
+    m_Address: UI_EquipmentIconSlot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 38aa42060a2507a4ba0b844e0584dfdf
+    m_Address: UI_SummonsPercentagePopup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ff16d5ddac2eb0241b42c4d31d247ec5, type: 2}
   m_SchemaSet:

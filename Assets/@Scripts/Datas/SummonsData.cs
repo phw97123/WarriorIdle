@@ -1,23 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
+
+
 
 public class SummonsData 
 {
-    public Define.SummonsType type;
-    public int currentExp;
-    public int maxExp;
+    public Action<SummonsData> onExpChanged;
+    public Action<SummonsData> onLevelChanged; 
+    public SummonsDataSO SummonsDataSO { get; }
+    public int CurrentExp { get; private set; }
     public int level; 
-    public int maxLevel;
-    public int price; 
+    public int maxExp;
 
-    public SummonsData(Define.SummonsType type, int currentExp, int maxExp, int level, int maxLevel, int price)
+    public int Price { get; } = 10;
+
+    public SummonsData(SummonsDataSO SummonsDataSO)
     {
-        this.type = type;
-        this.currentExp = currentExp;
-        this.maxExp = maxExp;
-        this.level = level;
-        this.maxLevel = maxLevel;
-        this.price = price;
+        CurrentExp = 0;
+        level = 1;
+        maxExp = 200; 
+
+        this.SummonsDataSO = SummonsDataSO; 
+    }
+
+    public void AddExp (int addValue)
+    {
+        CurrentExp += addValue; 
+        while(CurrentExp > maxExp && level < SummonsDataSO.maxLevel)
+        {
+            LevelUp();
+            CurrentExp -= maxExp; 
+        }
+        onExpChanged?.Invoke(this); 
+    }
+
+    private void LevelUp()
+    {
+        level++;
+        maxExp += maxExp / 5;
+        onLevelChanged?.Invoke(this);
     }
 }

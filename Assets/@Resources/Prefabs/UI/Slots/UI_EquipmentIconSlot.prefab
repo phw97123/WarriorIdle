@@ -192,10 +192,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4452519394141287984
 CanvasRenderer:
@@ -247,3 +247,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475504db07e97e944bf7606c9e65962a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _name: {fileID: 8881661333687739507}
+  _icon: {fileID: 316456928963430374}

@@ -4,6 +4,7 @@ using static Define;
 
 public class EquipmentData 
 {
+    public string typeName; 
     public string rarityName;
     public Sprite icon;
     public int quantity;
@@ -16,13 +17,14 @@ public class EquipmentData
     public bool isEquipped;
     public int upgradeStone; 
 
-    public EquipmentData(string rarityName, Sprite icon, int rarityLevel,EquipmentType equipmentType, Rarity rarity, int equippedEffect, int upgradeStone)
+    public EquipmentData(string typeName, string rarityName, Sprite icon, int rarityLevel,EquipmentType equipmentType, Rarity rarity, int equippedEffect, int upgradeStone)
     {
         quantity = 0;
         level = 1;
         rarityMaxLevel = 4;
         isEquipped = false;
 
+        this.typeName = typeName; 
         this.equipmentType = equipmentType;
         this.rarityName = rarityName;
         this.icon = icon;
