@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class GrowthController : BaseController
 {
-    private Dictionary<Define.StatusType, GrowthData> _datas = new Dictionary<Define.StatusType, GrowthData>();
     private UI_GrowthPanel _growthPanel;
+
+    private Dictionary<Define.StatusType, GrowthData> _datas = new Dictionary<Define.StatusType, GrowthData>();
     private List<UI_GrowthSlot> _slots = new List<UI_GrowthSlot>();
 
     public override bool Init()

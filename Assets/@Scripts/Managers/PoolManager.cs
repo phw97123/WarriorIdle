@@ -64,8 +64,6 @@ class Pool
     #endregion
 }
 
-
-
 public class PoolManager 
 {
     private Dictionary<string, Pool> _pools = new Dictionary<string, Pool>();

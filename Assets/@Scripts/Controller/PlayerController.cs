@@ -63,12 +63,21 @@ public class PlayerController : CharacterBaseController
 
                     target.OnDamaged(damage, critical);
 
+                    if (attackCount == 1)
+                        Managers.SoundManager.Play(Define.SWORD1);
+                    else if (attackCount == 2)
+                        Managers.SoundManager.Play(Define.SWORD2);
+                    else
+                        Managers.SoundManager.Play(Define.SWORD3);
+
                     // Knockback
                     if (attackCount == 3 && target.CharacterType != Define.ObjectType.Boss)
                     {
                         Vector2 direction = (collider.transform.position - transform.position).normalized;
                         if (!target.isDead)
+                        {
                             target.OnKnockback(direction * PlayerData.KnockbackForce);
+                        }
                     }
                 }
             }

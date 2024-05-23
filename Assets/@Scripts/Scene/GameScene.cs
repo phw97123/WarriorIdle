@@ -54,6 +54,7 @@ public class GameScene : MonoBehaviour
     private void StartLoaded()
     {
         Managers.GameManager.Init();
+        Managers.SoundManager.Init(); 
 
         // Player
         var player = Managers.ObjectManager.Spawn<PlayerController>(Vector3.zero);
@@ -98,12 +99,13 @@ public class GameScene : MonoBehaviour
         if (_fadeController == null)
             _fadeController = Managers.UIManager.GetSceneUI<UI_Hud>().FadeController;
 
-        _fadeController.RegisterCallback(() =>
+        _fadeController.RegisterCompletedCallback(BossSpawn); 
+
+        _fadeController.RegisterFadeInCallback(() =>
         {
-            BossSpawn();
             Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
-        });
-        _fadeController.FadeInOut();
+        }); 
+        _fadeController.StartFade();
     }
 
     private void BossSpawn()
@@ -151,13 +153,18 @@ public class GameScene : MonoBehaviour
     private void MoveToNormalStage()
     {
         Managers.GameManager.Player.PlayerData.SetMax();
-        _fadeController.RegisterCallback(() =>
+        //_fadeController.RegisterCompletedCallback(() =>
+        //{
+        //});
+
+        _fadeController.RegisterFadeInCallback(() =>
         {
             StageType = Define.StageType.Normal;
             Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
-
         });
-        _fadeController.FadeInOut();
+
+
+        _fadeController.StartFade();
 
         Managers.GameManager.SetStageMap();
     }

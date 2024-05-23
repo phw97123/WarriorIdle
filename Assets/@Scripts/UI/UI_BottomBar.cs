@@ -1,10 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_BottomBar : UI_Base
@@ -52,6 +46,8 @@ public class UI_BottomBar : UI_Base
 
     private void OnToggleChanged<T>(bool isOn, T panel) where T : UI_Base
     {
+        Managers.SoundManager.Play(Define.UI_BUTTON); 
+
         if (isOn)
             panel.OpenUI();
         else 

@@ -6,27 +6,16 @@ using UnityEngine;
 public class FadeController : MonoBehaviour
 {
     [SerializeField] private GameObject _panel;
-    private Action onCompleteCallback;
+    private Action _onFadeInCallback;
+    private Action _oncCompletedCallback;
 
-    public void FadeOut()
+    public void StartFade()
     {
         _panel.SetActive(true);
-        StartCoroutine(COFadeOut());
+        StartCoroutine(COFade());
     }
 
-    public void FadeIn()
-    {
-        _panel.SetActive(true);
-        StartCoroutine(COFadeIn());
-    }
-
-    public void FadeInOut()
-    { 
-        _panel.SetActive(true);
-        StartCoroutine(COFadeInOut());
-    }
-
-    private IEnumerator COFadeInOut()
+    private IEnumerator COFade()
     {
         float elapsedTime = 0f;
         float fadeTime = 1.5f;
@@ -35,59 +24,38 @@ public class FadeController : MonoBehaviour
         {
             _panel.GetComponent<CanvasRenderer>().SetAlpha(Mathf.Lerp(0f, 1f, elapsedTime / fadeTime));
             elapsedTime += Time.deltaTime;
+
             yield return null;
         }
 
         yield return new WaitForSeconds(1.0f);
+        _onFadeInCallback?.Invoke();
 
-        elapsedTime = 0f; 
+
+        elapsedTime = 0f;
         while (elapsedTime <= fadeTime)
         {
             _panel.GetComponent<CanvasRenderer>().SetAlpha(Mathf.Lerp(1f, 0f, elapsedTime / fadeTime));
             elapsedTime += Time.deltaTime;
+
             yield return null;
         }
 
         _panel.SetActive(false);
-        onCompleteCallback?.Invoke();
+        _oncCompletedCallback?.Invoke();
+
+        _onFadeInCallback = null;
+        _oncCompletedCallback = null;
         yield break;
     }
 
-    private IEnumerator COFadeOut()
+    public void RegisterCompletedCallback(Action callback)
     {
-        float elapsedTime = 0f;
-        float fadeTime = 3.0f;
-
-        while (elapsedTime <= fadeTime)
-        {
-            _panel.GetComponent<CanvasRenderer>().SetAlpha(Mathf.Lerp(0f, 1f, elapsedTime / fadeTime));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        _panel.SetActive(false);
-        onCompleteCallback?.Invoke();
-        yield break;
+        _oncCompletedCallback = callback;
     }
 
-    private IEnumerator COFadeIn()
+    public void RegisterFadeInCallback(Action callback)
     {
-        float elapsedTime = 0f;
-        float fadeTime = 3.0f;
-
-        while (elapsedTime <= fadeTime)
-        {
-            _panel.GetComponent<CanvasRenderer>().SetAlpha(Mathf.Lerp(1f, 0f, elapsedTime / fadeTime));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        _panel.SetActive(false);
-        onCompleteCallback?.Invoke();
-        yield break;
-    }
-
-    public void RegisterCallback(Action callback)
-    {
-        onCompleteCallback = callback;
+        _onFadeInCallback = callback;
     }
 }

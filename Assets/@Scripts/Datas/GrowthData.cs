@@ -14,8 +14,8 @@ public class GrowthData
 
     public GrowthData(GrowthDataSO baseData)
     {
-        BaseData = baseData;
         level = 1;
+        BaseData = baseData;
         price = baseData.basePrice;
         totalIncrease = BaseData.increase; 
         totalPercentIncrease = BaseData.percentIncrease;
