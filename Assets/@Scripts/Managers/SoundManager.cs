@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -10,10 +11,15 @@ public class SoundManager
     private List<AudioSource> _effects = new List<AudioSource>();
 
     private GameObject _sound;
+    private GameObject _effectGO;
 
     public void Init()
     {
         _sound = new GameObject() { name = "@Sound" };
+        _bgm = _sound.AddComponent<AudioSource>();
+        
+        _effectGO = new GameObject() { name = "effect" };
+        _effectGO.transform.SetParent(_sound.transform, false);
     }
 
     private AudioClip LoadAudioClip(string name)
@@ -59,7 +65,7 @@ public class SoundManager
                 return audioSource;
         }
 
-        AudioSource newAudioSource = _sound.AddComponent<AudioSource>();
+        AudioSource newAudioSource = _effectGO.AddComponent<AudioSource>();
         _effects.Add(newAudioSource);
         return newAudioSource;
     }

@@ -185,6 +185,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a832c990dfabfc4d95b9d6307921da0
+    m_Address: UI_SettingPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ff16d5ddac2eb0241b42c4d31d247ec5, type: 2}
   m_SchemaSet:
