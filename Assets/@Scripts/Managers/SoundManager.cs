@@ -2,10 +2,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager
 {
     private Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
+
+    private AudioMixer _audioMixer; 
 
     private AudioSource _bgm;
     private List<AudioSource> _effects = new List<AudioSource>();
@@ -20,6 +23,10 @@ public class SoundManager
         
         _effectGO = new GameObject() { name = "effect" };
         _effectGO.transform.SetParent(_sound.transform, false);
+
+        _audioMixer = Managers.ResourceManager.Load<AudioMixer>(Define.AUDIOMIXER);
+        _bgm.outputAudioMixerGroup = _audioMixer.FindMatchingGroups("BGM")[0];
+
     }
 
     private AudioClip LoadAudioClip(string name)
@@ -62,7 +69,10 @@ public class SoundManager
         foreach (var audioSource in _effects)
         {
             if (!audioSource.isPlaying)
+            {
+                audioSource.outputAudioMixerGroup = _audioMixer.FindMatchingGroups("EFFECT")[0]; 
                 return audioSource;
+            }
         }
 
         AudioSource newAudioSource = _effectGO.AddComponent<AudioSource>();
@@ -93,13 +103,10 @@ public class SoundManager
         switch (type)
         {
             case Define.AudioType.Bgm:
-                _bgm.volume = volume;
+                _audioMixer.SetFloat("BGM", Mathf.Log10(volume) * 20); 
                 break;
             case Define.AudioType.Effect:
-                foreach (var audioSouce in _effects)
-                {
-                    audioSouce.volume = volume;
-                }
+                _audioMixer.SetFloat("EFFECT", Mathf.Log10(volume) * 20);
                 break;
         }
     }

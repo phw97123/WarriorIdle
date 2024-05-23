@@ -103,6 +103,8 @@ public static class Define
     public const string UI_BUTTON = "UI_Button.mp3"; 
     public const string UI_SUCCESS = "UI_Success.mp3";
 
+    public const string AUDIOMIXER = "@AudioMixer.mixer"; 
+
     // Sound - Bgm 
     public const string STARTSCENE= "StartScene.mp3";
     public const string STAGE1 = "Stage1.mp3"; 
