@@ -16,14 +16,8 @@ public class UI_Hud : UI_Base
             return false;
 
         UI_TopBar = GetComponentInChildren<UI_TopBar>();
-        //if (UI_TopBar != null)
-        //    UI_TopBar.Init(); 
-
         UI_BottomBar = GetComponentInChildren<UI_BottomBar>();
         UI_StageInfo = GetComponentInChildren<UI_StageInfo>();
-        //if (UI_StageInfo != null)
-        //    UI_StageInfo.Init();
-
         UI_BossStageInfo = GetComponentInChildren<UI_BossStageInfo>();
         FadeController = GetComponent<FadeController>();
 

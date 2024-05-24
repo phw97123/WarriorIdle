@@ -11,10 +11,14 @@ public class CurrencyManager
         CurrencyData gold = new CurrencyData(Define.CurrencyType.Gold, "1000");
         CurrencyData dia = new CurrencyData(Define.CurrencyType.Dia, "1000");
         CurrencyData upgradeStone = new CurrencyData(Define.CurrencyType.UpgradeStone, "1000");
+        CurrencyData upgradeStoneKey = new CurrencyData(Define.CurrencyType.UpgradeStoneKey, "2"); 
+        CurrencyData goldKey = new CurrencyData(Define.CurrencyType.GoldKey, "2"); 
 
         currencyDatas.Add(gold);
         currencyDatas.Add(dia);
         currencyDatas.Add(upgradeStone);
+        currencyDatas.Add(upgradeStoneKey);   
+        currencyDatas.Add(goldKey);
 
         foreach(var currencyData in currencyDatas)
         {

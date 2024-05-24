@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="GrowthData")]
+[CreateAssetMenu(menuName ="GrowthDataSO")]
 public class GrowthDataSO : ScriptableObject
 {
     public Define.StatusType type;

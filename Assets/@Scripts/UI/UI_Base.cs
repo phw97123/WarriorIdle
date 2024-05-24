@@ -17,6 +17,7 @@ public class UI_Base : MonoBehaviour
     {
         if (_init)
             return false;
+
         _init = true;
 
         return true;

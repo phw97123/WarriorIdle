@@ -32,6 +32,8 @@ public static class Define
         Gold,
         Dia,
         UpgradeStone,
+        GoldKey,
+        UpgradeStoneKey,
     }
 
     public enum StageType
@@ -43,7 +45,7 @@ public static class Define
     public enum StatusType
     {
         Damage,
-        MaxHp, 
+        MaxHp,
         MaxMP,
         CriticalChance,
         CriticalDamage,
@@ -64,10 +66,10 @@ public static class Define
 
     public enum Rarity
     {
-        Common, 
+        Common,
         Rare,
         Epic,
-        Ancient, 
+        Ancient,
         Heroic,
         Legendary,
         Mythical,
@@ -86,7 +88,8 @@ public static class Define
     public const string UIGROWTHSLOT_PREFAB = "UI_GrowthSlot.prefab";
     public const string UIEQUIPMENTSLOT_PREFAB = "UI_EquipmentSlot.prefab";
     public const string UISUMMONSSLOT_PREFAB = "UI_SummonsSlot.prefab";
-    public const string UIEQUIPMENTICONSLOT_PREFAB = "UI_EquipmentIconSlot.prefab"; 
+    public const string UIEQUIPMENTICONSLOT_PREFAB = "UI_EquipmentIconSlot.prefab";
+    public const string UISHOPSLOT_PREFAB = "UI_ShopSlot.prefab";
 
     // Sprite 
     public const string GOLD_SPRITE = "popup elements_50";
@@ -97,17 +100,17 @@ public static class Define
     public const float INVINCIBILITY_TIME = 1.0f;
 
     // Sound - Effect
-    public const string SWORD1 = "Sword1.mp3"; 
-    public const string SWORD2 = "Sword2.mp3"; 
-    public const string SWORD3 = "Sword3.mp3"; 
-    public const string UI_BUTTON = "UIButton.mp3"; 
+    public const string SWORD1 = "Sword1.mp3";
+    public const string SWORD2 = "Sword2.mp3";
+    public const string SWORD3 = "Sword3.mp3";
+    public const string UI_BUTTON = "UIButton.mp3";
     public const string UPGRADE = "Upgrade.mp3";
 
-    public const string AUDIOMIXER = "@AudioMixer.mixer"; 
+    public const string AUDIOMIXER = "@AudioMixer.mixer";
 
     // Sound - Bgm 
-    public const string STARTSCENE= "StartScene.mp3";
-    public const string STAGE1 = "Stage1.wav"; 
+    public const string STARTSCENE = "StartScene.mp3";
+    public const string STAGE1 = "Stage1.wav";
     public const string STAGE2 = "Stage2.mp3";
     public const string DUNGEN_UPGRADESTONE = "Dungeon_UpgradeStone.mp3";
     public const string DUNGEN_GOLD = "Dungeon_Gold.mp3";
