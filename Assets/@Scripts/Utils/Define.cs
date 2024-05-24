@@ -100,14 +100,14 @@ public static class Define
     public const string SWORD1 = "Sword1.mp3"; 
     public const string SWORD2 = "Sword2.mp3"; 
     public const string SWORD3 = "Sword3.mp3"; 
-    public const string UI_BUTTON = "UI_Button.mp3"; 
-    public const string UI_SUCCESS = "UI_Success.mp3";
+    public const string UI_BUTTON = "UIButton.mp3"; 
+    public const string UPGRADE = "Upgrade.mp3";
 
     public const string AUDIOMIXER = "@AudioMixer.mixer"; 
 
     // Sound - Bgm 
     public const string STARTSCENE= "StartScene.mp3";
-    public const string STAGE1 = "Stage1.mp3"; 
+    public const string STAGE1 = "Stage1.wav"; 
     public const string STAGE2 = "Stage2.mp3";
     public const string DUNGEN_UPGRADESTONE = "Dungeon_UpgradeStone.mp3";
     public const string DUNGEN_GOLD = "Dungeon_Gold.mp3";

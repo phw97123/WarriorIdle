@@ -18,13 +18,19 @@ public class UI_EquipmentSlot : UI_Base
     public EquipmentData Data { get { return _data; } }
     public bool isSelected = false;
 
+    private SoundManager _soundManager; 
+
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
 
+        _soundManager = Managers.SoundManager; 
+
         _selectToggle.onValueChanged.AddListener((isOn) =>
         {
+            _soundManager.Play(Define.UI_BUTTON);
+
             if (!isOn) isSelected = false;
             else
             {

@@ -11,6 +11,7 @@ public class UI_StageInfo : UI_Base
     [SerializeField] private Slider _stageExpSlider;
     [SerializeField] private Button _tryBossButton;
 
+    private SoundManager _soundManager;
     private Action _onClickTryBossButton;
 
     private GameManager _gameManager;
@@ -20,8 +21,9 @@ public class UI_StageInfo : UI_Base
     public override bool Init()
     {
         if (base.Init() == false)
-            return false; 
+            return false;
 
+        _soundManager = Managers.SoundManager; 
         _gameManager = Managers.GameManager;
         _tryBossButton.onClick.AddListener(OnClickTryBossButton);
 
@@ -35,6 +37,8 @@ public class UI_StageInfo : UI_Base
 
     private void OnClickTryBossButton()
     {
+        _soundManager.Play(Define.UI_BUTTON);
+
         _onClickTryBossButton.Invoke();
     }
 

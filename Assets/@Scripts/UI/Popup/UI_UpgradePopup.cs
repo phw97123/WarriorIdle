@@ -46,6 +46,7 @@ public class UI_UpgradePopup : UI_Base
 
     private void OnClickeUpgradeButton()
     {
+        Managers.SoundManager.Play(UPGRADE); 
         _onClickUpgradeButton?.Invoke();
     }
 

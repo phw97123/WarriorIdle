@@ -17,8 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: cea9a819154ece94fab70745acc65f30
   m_SerializeEntries:
-  - m_GUID: 7b4562b0ab27b2443b10c33a719fd83d
-    m_Address: Levelup.mp3
+  - m_GUID: 736165e0d637f7b43a537934364c6bfb
+    m_Address: Upgrade.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -42,7 +42,19 @@ MonoBehaviour:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5c04cbb752605bf4f92828041d0dd9d9
-    m_Address: UI_Button.mp3
+    m_Address: UIButton.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 37cf5b80bb1d6fa44adf762481254421
+    m_Address: Stage1.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ad8c2db8214fd748babb62097fa69a0
+    m_Address: '@AudioMixer.mixer'
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

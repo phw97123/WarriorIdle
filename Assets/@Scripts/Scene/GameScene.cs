@@ -54,7 +54,7 @@ public class GameScene : MonoBehaviour
     private void StartLoaded()
     {
         Managers.GameManager.Init();
-        Managers.SoundManager.Init(); 
+        Managers.SoundManager.Init();
 
         // Player
         var player = Managers.ObjectManager.Spawn<PlayerController>(Vector3.zero);
@@ -85,6 +85,9 @@ public class GameScene : MonoBehaviour
         Utils.CreateGameObject<GrowthController>(controllerRote.transform);
         Utils.CreateGameObject<EquipmentController>(controllerRote.transform);
         Utils.CreateGameObject<SummonsController>(controllerRote.transform);
+
+        // BGM 
+        Managers.SoundManager.Play(STAGE1, Define.AudioType.Bgm);
     }
 
     #region Stage
@@ -99,12 +102,12 @@ public class GameScene : MonoBehaviour
         if (_fadeController == null)
             _fadeController = Managers.UIManager.GetSceneUI<UI_Hud>().FadeController;
 
-        _fadeController.RegisterCompletedCallback(BossSpawn); 
+        _fadeController.RegisterCompletedCallback(BossSpawn);
 
         _fadeController.RegisterFadeInCallback(() =>
         {
             Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
-        }); 
+        });
         _fadeController.StartFade();
     }
 

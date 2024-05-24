@@ -15,6 +15,7 @@ public class UI_SummonsSlot : UI_Base
     [SerializeField] private Button _summonsButton30;
     [SerializeField] private Button _percentageViewButton;
 
+    private SoundManager _soundManager;
     public Define.SummonsType Type { get; private set; }
 
     private Action<int, Define.SummonsType> _onClickSummonsButton;
@@ -29,6 +30,8 @@ public class UI_SummonsSlot : UI_Base
     {
         if (base.Init() == false)
             return false;
+
+        _soundManager = Managers.SoundManager; 
 
         _summonsButton10.onClick.AddListener(() => { OnSummonsButton(_summonsCount10); });
         _summonsButton30.onClick.AddListener(() => { OnSummonsButton(_summonsCount30); });
@@ -59,11 +62,15 @@ public class UI_SummonsSlot : UI_Base
 
     private void OnSummonsButton(int count)
     {
+        _soundManager.Play(Define.UI_BUTTON);
+
         _onClickSummonsButton?.Invoke(count, Type);
     }
 
     private void OnClickPercentageView(SummonsData smmonsdata)
     {
+        _soundManager.Play(Define.UI_BUTTON);
+
         _onClickPercentageViewButton?.Invoke(smmonsdata);
     }
 

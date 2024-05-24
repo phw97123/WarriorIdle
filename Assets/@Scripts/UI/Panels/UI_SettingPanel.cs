@@ -23,7 +23,7 @@ public class UI_SettingPanel : UI_Base
         _bgmSlider.onValueChanged.AddListener(OnChangedBgmVolume);
         _effectSlider.onValueChanged.AddListener(OnChangedEffectVolume);
         _gameExitButton.onClick.AddListener(OnClickGameExitButton);
-        _closeButton.onClick.AddListener(CloseUI);
+        _closeButton.onClick.AddListener(()=> CloseUI(true));
 
         _onChangedVolume -= _soundManager.SetVolume; 
         _onChangedVolume += _soundManager.SetVolume;
@@ -48,6 +48,7 @@ public class UI_SettingPanel : UI_Base
 
     private void OnClickGameExitButton()
     {
+        _soundManager.Play(Define.UI_BUTTON); 
         Debug.Log("게임 종료"); 
         Application.Quit(); 
     }

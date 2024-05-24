@@ -51,6 +51,6 @@ public class UI_BottomBar : UI_Base
         if (isOn)
             panel.OpenUI();
         else 
-            panel.CloseUI();
+            panel.CloseUI(false);
     }
 }

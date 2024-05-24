@@ -7,6 +7,8 @@ using static Define;
 
 public class SummonsController : BaseController
 {
+    private SoundManager _soundManager;
+
     private List<SummonsData> datas;
 
     private UI_SummonsPanel _summonsPanel;
@@ -21,6 +23,8 @@ public class SummonsController : BaseController
     {
         if (base.Init() == false)
             return false;
+
+        _soundManager = Managers.SoundManager; 
 
         datas = new List<SummonsData>(3);
         _summonEquipmentDatas = new List<EquipmentData>();
@@ -148,6 +152,8 @@ public class SummonsController : BaseController
                 yield return _waitForDrawSlot;
             }
         }
+        _soundManager.Play(UPGRADE);
+
         _summonsPopup.CloseButtonInteractable(true);
 
         yield return null;

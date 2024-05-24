@@ -36,10 +36,14 @@ public class UI_EquipmentPanel : UI_Base
 
     private EquipmentType _tabType;
 
+    private SoundManager _soundManager; 
+
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
+
+        _soundManager = Managers.SoundManager; 
 
         _tabType = EquipmentType.Weapon;
 
@@ -70,6 +74,7 @@ public class UI_EquipmentPanel : UI_Base
 
     private void OnChangedTab(EquipmentType type)
     {
+        _soundManager.Play(UI_BUTTON); 
         _tabType = type;
         _onChangedTab.Invoke(type);
     }
@@ -89,30 +94,39 @@ public class UI_EquipmentPanel : UI_Base
 
     private void OnClickEquippedButton()
     {
+        _soundManager.Play(UI_BUTTON);
+
         _onClickEquipped.Invoke();
         UpdateEquipButton(true);
     }
 
     private void OnClickUnEquippedButton()
     {
+        _soundManager.Play(UI_BUTTON);
+
         _onClickUnEquipped.Invoke();
         UpdateEquipButton(false);
     }
 
     private void UpdateEquipButton(bool isEquipped)
     {
+
         _equipButton.gameObject.SetActive(!isEquipped);
         _unequipButton.gameObject.SetActive(isEquipped);
     }
 
     private void OnClickAutoEquippedButton(EquipmentType type)
     {
+        _soundManager.Play(UI_BUTTON);
+
         _onClickAutoEquipped.Invoke(type);
         UpdateEquipButton(true);
     }
 
     private void OnClickCombineButton(EquipmentType type)
     {
+        _soundManager.Play(UI_BUTTON);
+
         _onClickAllCombineButton.Invoke(type);
     }
 
@@ -123,6 +137,8 @@ public class UI_EquipmentPanel : UI_Base
 
     private void OnClickUpgradeButton()
     {
+        _soundManager.Play(UI_BUTTON);
+
         _onClickUpgrade?.Invoke(); 
     }
 

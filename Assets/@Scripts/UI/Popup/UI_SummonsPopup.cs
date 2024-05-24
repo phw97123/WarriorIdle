@@ -16,7 +16,7 @@ public class UI_SummonsPopup : UI_Base
         if (base.Init() == false)
             return false;
 
-        _closeButton.onClick.AddListener(CloseUI);
+        _closeButton.onClick.AddListener(OnCloseUI);
 
         return true;
     }
@@ -33,17 +33,12 @@ public class UI_SummonsPopup : UI_Base
 
     private void OnCloseUI()
     {
+        CloseUI(); 
         _onCloseUI?.Invoke(); 
     }
 
     public void CloseUIInjection(Action action)
     {
         _onCloseUI = action;
-    }
-
-    public override void CloseUI()
-    {
-        OnCloseUI(); 
-        base.CloseUI();
     }
 }

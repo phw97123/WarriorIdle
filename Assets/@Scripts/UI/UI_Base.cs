@@ -10,7 +10,7 @@ public class UI_Base : MonoBehaviour
 
     private void Awake()
     {
-        Init();     
+        Init();
     }
 
     public virtual bool Init()
@@ -24,11 +24,14 @@ public class UI_Base : MonoBehaviour
 
     public virtual void OpenUI()
     {
-        gameObject.SetActive(true); 
+        gameObject.SetActive(true);
     }
 
-    public virtual void CloseUI()
+    public virtual void CloseUI(bool isSound = true)
     {
-        gameObject.SetActive(false); 
+        if (isSound)
+            Managers.SoundManager.Play(Define.UI_BUTTON);
+
+        gameObject.SetActive(false);
     }
 }

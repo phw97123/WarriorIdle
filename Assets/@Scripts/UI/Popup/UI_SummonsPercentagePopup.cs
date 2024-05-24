@@ -16,7 +16,7 @@ public class UI_SummonsPercentagePopup : UI_Base
     {
         if (base.Init() == false) return false;
 
-        _closeButton.onClick.AddListener(CloseUI);
+        _closeButton.onClick.AddListener(() => CloseUI(true));
 
         return true; 
     }

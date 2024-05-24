@@ -12,6 +12,8 @@ public class UI_GrowthSlot : UI_Base
     [SerializeField] private Text _price;
     [SerializeField] private Button _upgradeButton;
 
+    private SoundManager _soundManager;
+
     private Action<Define.StatusType> _onUpgradeButton; 
 
     public Define.StatusType SlotType { get; set; }
@@ -21,13 +23,15 @@ public class UI_GrowthSlot : UI_Base
         if (base.Init() == false)
             return false;
 
+        _soundManager = Managers.SoundManager; 
         _upgradeButton.onClick.AddListener(OnClickUpgradeButton); 
-        
         return true;
     }
 
     private void OnClickUpgradeButton()
     {
+        _soundManager.Play(Define.UI_BUTTON);
+
         _onUpgradeButton.Invoke(SlotType); 
     }
 

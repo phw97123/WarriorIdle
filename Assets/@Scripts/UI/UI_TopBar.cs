@@ -24,14 +24,16 @@ public class UI_TopBar : UI_Base
     private PlayerData _playerData;
     private UI_SettingPanel _settingPanel;
 
-    private CurrencyManager _currencyManager; 
+    private CurrencyManager _currencyManager;
+    private SoundManager _soundManager; 
 
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
 
-        _currencyManager = Managers.CurrencyManager; 
+        _currencyManager = Managers.CurrencyManager;
+        _soundManager = Managers.SoundManager; 
 
         _playerData = Managers.ObjectManager.Player.PlayerData;
 
@@ -39,7 +41,7 @@ public class UI_TopBar : UI_Base
         _name.text = _playerData.Name;
 
         Managers.UIManager.TryGetUIComponent(out _settingPanel);
-        _settingPanel.CloseUI(); 
+        _settingPanel.CloseUI(false); 
 
         UpdateUI();
         UpdateCurrenyUI();
@@ -88,6 +90,7 @@ public class UI_TopBar : UI_Base
 
     private void OnClickSettingButton()
     {
+        _soundManager.Play(Define.UI_BUTTON); 
         _settingPanel.OpenUI(); 
     }
 }
