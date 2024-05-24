@@ -32,18 +32,18 @@ public class UI_EquipmentPanel : UI_Base
     private Action _onClickUnEquipped;
     private Action<EquipmentType> _onClickAutoEquipped;
     private Action<EquipmentType> _onClickAllCombineButton;
-    private Action _onClickUpgrade; 
+    private Action _onClickUpgrade;
 
     private EquipmentType _tabType;
 
-    private SoundManager _soundManager; 
+    private SoundManager _soundManager;
 
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
 
-        _soundManager = Managers.SoundManager; 
+        _soundManager = Managers.SoundManager;
 
         _tabType = EquipmentType.Weapon;
 
@@ -52,8 +52,8 @@ public class UI_EquipmentPanel : UI_Base
         _equipButton.onClick.AddListener(OnClickEquippedButton);
         _unequipButton.onClick.AddListener(OnClickUnEquippedButton);
         _autoEquipButton.onClick.AddListener(() => OnClickAutoEquippedButton(_tabType));
-        _allCombineButton.onClick.AddListener(() => OnClickCombineButton(_tabType)); 
-        _upgradeButton.onClick.AddListener(OnClickUpgradeButton); 
+        _allCombineButton.onClick.AddListener(() => OnClickCombineButton(_tabType));
+        _upgradeButton.onClick.AddListener(OnClickUpgradeButton);
 
         OnCreateSlots();
 
@@ -63,7 +63,7 @@ public class UI_EquipmentPanel : UI_Base
     public override void OpenUI()
     {
         base.OpenUI();
-        OnChangedTab(_tabType);
+        OnChangedTab(EquipmentType.Weapon);
         _weaponTab.isOn = true; 
     }
 
@@ -74,7 +74,7 @@ public class UI_EquipmentPanel : UI_Base
 
     private void OnChangedTab(EquipmentType type)
     {
-        _soundManager.Play(UI_BUTTON); 
+        _soundManager.Play(UI_BUTTON);
         _tabType = type;
         _onChangedTab.Invoke(type);
     }
@@ -132,14 +132,14 @@ public class UI_EquipmentPanel : UI_Base
 
     public void IsCombineButton(bool isCombine)
     {
-        _allCombineButton.interactable = isCombine; 
+        _allCombineButton.interactable = isCombine;
     }
 
     private void OnClickUpgradeButton()
     {
         _soundManager.Play(UI_BUTTON);
 
-        _onClickUpgrade?.Invoke(); 
+        _onClickUpgrade?.Invoke();
     }
 
     #region Injection
