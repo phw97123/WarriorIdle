@@ -170,6 +170,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22801565becffa946b0b614ef4606ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _icon: {fileID: 1875212115271732306}
+  _currencyIcon: {fileID: 1970378263490983458}
+  _nameText: {fileID: 3457157041941405465}
+  _rewardText: {fileID: 3529992457005616052}
+  _startButton: {fileID: 641849239459605482}
+  _currentCurrencyText: {fileID: 2312827254507271194}
 --- !u!1 &2789857719105896793
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,7 +412,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC785\uC7A5\uD69F\uC218(2/2)"
+  m_Text: 
 --- !u!1 &7238523841920022524
 GameObject:
   m_ObjectHideFlags: 0

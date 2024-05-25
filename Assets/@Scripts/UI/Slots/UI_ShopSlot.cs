@@ -32,13 +32,6 @@ public class UI_ShopSlot : UI_Base
         return true;
     }
 
-    public override void OpenUI()
-    {
-        base.OpenUI();
-        if (!_isBuy)
-            UpdateBuyButton();
-    }
-
     public void SetSlot(ShopDataSO data)
     {
         _icon.sprite = data.icon;
@@ -59,8 +52,10 @@ public class UI_ShopSlot : UI_Base
         _isBuy = true;
     }
 
-    private void UpdateBuyButton()
+    public void UpdateBuyButton()
     {
+        if (_isBuy) return; 
+
         int current = int.Parse(Managers.CurrencyManager.GetCurrencyAmount(_currencyType));
         if (current >= _price)
             _buyButton.interactable = true;

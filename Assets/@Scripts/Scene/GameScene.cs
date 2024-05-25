@@ -86,6 +86,7 @@ public class GameScene : MonoBehaviour
         Utils.CreateGameObject<EquipmentController>(controllerRote.transform);
         Utils.CreateGameObject<SummonsController>(controllerRote.transform);
         Utils.CreateGameObject<ShopController>(controllerRote.transform);
+        Utils.CreateGameObject<DungeonController>(controllerRote.transform);
 
         // BGM 
         Managers.SoundManager.Play(STAGE1, Define.AudioType.Bgm);

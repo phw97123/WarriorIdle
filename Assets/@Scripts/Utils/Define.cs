@@ -90,6 +90,7 @@ public static class Define
     public const string UISUMMONSSLOT_PREFAB = "UI_SummonsSlot.prefab";
     public const string UIEQUIPMENTICONSLOT_PREFAB = "UI_EquipmentIconSlot.prefab";
     public const string UISHOPSLOT_PREFAB = "UI_ShopSlot.prefab";
+    public const string UIDUNGEONSLOT_PREFAB = "UI_DungeonSlot.prefab"; 
 
     // Sprite 
     public const string GOLD_SPRITE = "popup elements_50";

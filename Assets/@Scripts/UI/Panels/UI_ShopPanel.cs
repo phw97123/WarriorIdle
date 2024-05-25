@@ -7,7 +7,8 @@ public class UI_ShopPanel : UI_Base
 {
     [SerializeField] private Transform _parents;
 
-    private Action<Transform> _onCreateSlots; 
+    private Action<Transform> _onCreateSlots;
+    public event Action onOpenUI; 
 
     public override bool Init()
     {
@@ -17,6 +18,12 @@ public class UI_ShopPanel : UI_Base
         OnCreateSlot();
 
         return true; 
+    }
+
+    public override void OpenUI()
+    {
+        base.OpenUI();
+        onOpenUI?.Invoke(); 
     }
 
     private void OnCreateSlot()
