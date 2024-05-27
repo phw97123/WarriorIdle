@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -29,8 +31,7 @@ public class PlayerController : CharacterBaseController
 
         stateMachine.ChangeState(stateMachine.IdleState);
 
-        CharacterType = Define.ObjectType.Player;
-
+        ObjectType = Define.ObjectType.Player;
         return true;
     }
 
@@ -42,12 +43,10 @@ public class PlayerController : CharacterBaseController
     // Animation Event 
     public void ComboAttack(int attackCount)
     {
-        if (attackCount == 1)
-            Managers.SoundManager.Play(Define.SWORD1);
-        else if (attackCount == 2)
-            Managers.SoundManager.Play(Define.SWORD2);
-        else
+        if (attackCount == 3)
             Managers.SoundManager.Play(Define.SWORD3);
+        else
+            Managers.SoundManager.Play(Define.SWORD2);
 
         PlayerData.AttackRange = _attackCount < 2 ? PlayerData.AttackRange : PlayerData.LastAttackRange;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, PlayerData.AttackRange);
@@ -55,7 +54,7 @@ public class PlayerController : CharacterBaseController
         {
             foreach (Collider2D collider in colliders)
             {
-                if (collider.CompareTag("Enemy"))
+                if (collider.CompareTag("Enemy") || collider.CompareTag("DungeonObject"))
                 {
                     EnemyController target = collider.GetComponent<EnemyController>();
                     if (target == null || target.isDead) return;
@@ -71,7 +70,7 @@ public class PlayerController : CharacterBaseController
                     target.OnDamaged(damage, critical);
 
                     // Knockback
-                    if (attackCount == 3 && target.CharacterType != Define.ObjectType.Boss)
+                    if (attackCount == 3 && target.ObjectType != Define.ObjectType.Boss && target.ObjectType != Define.ObjectType.DungeonObject )
                     {
                         Vector2 direction = (collider.transform.position - transform.position).normalized;
                         if (!target.isDead)

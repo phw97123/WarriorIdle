@@ -20,10 +20,12 @@ public class Utils
         return spawnPosition;
     }
 
-    public static void CreateGameObject<T>(Transform parent = null) where T : BaseController
+    public static GameObject CreateGameObject<T>(Transform parent = null) where T : BaseController
     {
         GameObject go = new GameObject() { name = typeof(T).Name };
         go.AddComponent<T>();
         go.transform.SetParent(parent);
+
+        return go; 
     }
 }

@@ -47,19 +47,23 @@ SpriteAtlas:
     packables:
     - {fileID: -1879096913, guid: 7bb12e1a1363c514bb9ee72a9acafce2, type: 3}
     - {fileID: 21300000, guid: 26ef65184462d4f49aca4bbf258ea91e, type: 3}
+    - {fileID: -892916116, guid: 7bb12e1a1363c514bb9ee72a9acafce2, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
     - 26ef65184462d4f49aca4bbf258ea91e: 21300000
     - 7bb12e1a1363c514bb9ee72a9acafce2: -1879096913
+    - 7bb12e1a1363c514bb9ee72a9acafce2: -892916116
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 26ef65184462d4f49aca4bbf258ea91e, type: 3}
   - {fileID: -1879096913, guid: 7bb12e1a1363c514bb9ee72a9acafce2, type: 3}
+  - {fileID: -892916116, guid: 7bb12e1a1363c514bb9ee72a9acafce2, type: 3}
   m_PackedSpriteNamesToIndex:
   - Cristal
   - popup elements_50
+  - popup elements_48
   m_RenderDataMap: {}
   m_Tag: ItemAtlas
   m_IsVariant: 0

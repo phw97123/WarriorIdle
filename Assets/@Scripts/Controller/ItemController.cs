@@ -14,7 +14,7 @@ public class ItemController : BaseController
     {
         base.Init();
 
-        CharacterType = ObjectType.Item; 
+        ObjectType = ObjectType.Item; 
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         CurrencyType = SelectType();
@@ -32,7 +32,7 @@ public class ItemController : BaseController
                 spriteRenderer.sprite = Managers.ResourceManager.Load<SpriteAtlas>("ItemAtlas.spriteatlas").GetSprite(GOLD_SPRITE);
                 break;
             case CurrencyType.UpgradeStone:
-                spriteRenderer.sprite = Managers.ResourceManager.Load<SpriteAtlas>("ItemAtlas.spriteatlas").GetSprite(ENHANCESTONE_SPRTE);
+                spriteRenderer.sprite = Managers.ResourceManager.Load<SpriteAtlas>("ItemAtlas.spriteatlas").GetSprite(UPGRADESTONE_SPRITE);
                 break;
         }
 

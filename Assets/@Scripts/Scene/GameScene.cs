@@ -13,6 +13,7 @@ public class GameScene : MonoBehaviour
     private BossController _boss;
 
     private FadeController _fadeController;
+    private RewardController _rewardController;
 
     private float _remainingTime;
 
@@ -30,6 +31,9 @@ public class GameScene : MonoBehaviour
                         _spawningPool.Stopped = false;
                         break;
                     case Define.StageType.Boss:
+                        _spawningPool.Stopped = true;
+                        break;
+                    case Define.StageType.Dungeon:
                         _spawningPool.Stopped = true;
                         break;
                 }
@@ -80,6 +84,9 @@ public class GameScene : MonoBehaviour
         StageType = StageType.Normal;
         Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
 
+        Managers.GameManager.onStartDungeon -= StartDungeon;
+        Managers.GameManager.onStartDungeon += StartDungeon;
+
         // Controller
         GameObject controllerRote = new GameObject() { name = "@Controller" };
         Utils.CreateGameObject<GrowthController>(controllerRote.transform);
@@ -87,6 +94,10 @@ public class GameScene : MonoBehaviour
         Utils.CreateGameObject<SummonsController>(controllerRote.transform);
         Utils.CreateGameObject<ShopController>(controllerRote.transform);
         Utils.CreateGameObject<DungeonController>(controllerRote.transform);
+
+        _rewardController = Utils.CreateGameObject<RewardController>(controllerRote.transform).GetComponent<RewardController>();
+
+        _fadeController = Managers.UIManager.GetSceneUI<UI_Hud>().FadeController;
 
         // BGM 
         Managers.SoundManager.Play(STAGE1, Define.AudioType.Bgm);
@@ -100,9 +111,6 @@ public class GameScene : MonoBehaviour
         Managers.GameManager.Player.PlayerData.SetMax();
         StopAllCoroutines();
         Managers.ObjectManager.DespawnAllEnemy();
-
-        if (_fadeController == null)
-            _fadeController = Managers.UIManager.GetSceneUI<UI_Hud>().FadeController;
 
         _fadeController.RegisterCompletedCallback(BossSpawn);
 
@@ -119,7 +127,7 @@ public class GameScene : MonoBehaviour
         _boss = Managers.ObjectManager.Spawn<BossController>(spawnPos, Managers.GameManager.StageData.bossID);
         StartCoroutine(BossStage());
 
-        Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.Init(_boss.enemyData);
+        Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.SetData(_boss.enemyData);
 
         _boss.enemyData.characterData.OnBossChangedHp -= Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.UpdateHpUI;
         _boss.enemyData.characterData.OnBossChangedHp += Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.UpdateHpUI;
@@ -127,20 +135,14 @@ public class GameScene : MonoBehaviour
 
     private IEnumerator BossStage()
     {
-        float startTime = Time.time;
-        float totalDuration = 60f;
-        _remainingTime = totalDuration;
-
-        while (!_boss.isDead && _remainingTime >= 0 && !Managers.GameManager.Player.isDead)
+        yield return StartCoroutine(UpdateTimer(60, () => _boss.isDead || Managers.GameManager.Player.isDead, (remainingTime) =>
         {
-            float elapsedTime = Time.time - startTime;
-            _remainingTime = totalDuration - elapsedTime;
-            Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.UpdateTimer(_remainingTime);
-            yield return null;
-        }
+            Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.UpdateTimer(remainingTime);
+        }));
 
         if (_boss.isDead)
         {
+            _rewardController.GetPopup().OpenUI();
             Managers.GameManager.StageData.isClear = true;
             Managers.GameManager.CurrentStageIndex++;
             Managers.GameManager.KillCount = 0;
@@ -151,6 +153,7 @@ public class GameScene : MonoBehaviour
         }
 
         yield return new WaitForSeconds(3.0f);
+        _rewardController.GetPopup().CloseUI();
 
         MoveToNormalStage();
     }
@@ -158,9 +161,6 @@ public class GameScene : MonoBehaviour
     private void MoveToNormalStage()
     {
         Managers.GameManager.Player.PlayerData.SetMax();
-        //_fadeController.RegisterCompletedCallback(() =>
-        //{
-        //});
 
         _fadeController.RegisterFadeInCallback(() =>
         {
@@ -168,11 +168,71 @@ public class GameScene : MonoBehaviour
             Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
         });
 
-
         _fadeController.StartFade();
 
         Managers.GameManager.SetStageMap();
     }
     #endregion 
 
+    private void StartDungeon(DungeonDataSO data)
+    {
+        Managers.GameManager.Player.PlayerData.SetMax();
+        StageType = StageType.Dungeon;
+        Managers.ObjectManager.DespawnAllEnemy();
+        Managers.UIManager.GetSceneUI<UI_Hud>().UI_BottomBar.CloseDungeonPanel();
+
+        _fadeController.RegisterFadeInCallback(() =>
+        {
+            Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
+            Managers.UIManager.GetSceneUI<UI_Hud>().UI_DungeonStageInfo.SetData(data);
+            DungeonObjectSpawn(data);
+        });
+
+        _fadeController.StartFade();
+
+        Managers.GameManager.Player.transform.position = new Vector3(1.5f, 0, 0);
+    }
+
+    private void DungeonObjectSpawn(DungeonDataSO data)
+    {
+        Vector2 spawnPos = Vector2.zero;
+        GameObject go = Managers.ObjectManager.Spawn<DungeonObjectController>(spawnPos, (int)data.currencyType).gameObject;
+        var doc = go.GetComponent<DungeonObjectController>();
+
+        StartCoroutine(DungeonStage(doc));
+
+        doc.OnTakeDamage -= Managers.UIManager.GetSceneUI<UI_Hud>().UI_DungeonStageInfo.UpdateDamageText;
+        doc.OnTakeDamage += Managers.UIManager.GetSceneUI<UI_Hud>().UI_DungeonStageInfo.UpdateDamageText;
+    }
+
+    private IEnumerator DungeonStage(DungeonObjectController doc)
+    {
+        _remainingTime = 5;
+        yield return StartCoroutine(UpdateTimer(_remainingTime, () => _remainingTime <= 0f, (remainingTime) =>
+        {
+            _remainingTime = remainingTime;
+            Managers.UIManager.GetSceneUI<UI_Hud>().UI_DungeonStageInfo.UpdateTimer(remainingTime, 5);
+        }));
+
+        doc.OnDead();
+
+        _rewardController.GetPopup().OpenUI();
+        yield return new WaitForSeconds(3.0f);
+        _rewardController.GetPopup().CloseUI();
+        MoveToNormalStage();
+    }
+
+    private IEnumerator UpdateTimer(float duration, System.Func<bool> stopCondition, System.Action<float> onUpdate)
+    {
+        float startTime = Time.time;
+        float remainingTime = duration;
+
+        while (remainingTime > 0 && !stopCondition())
+        {
+            float elapsedTime = Time.time - startTime;
+            remainingTime = duration - elapsedTime; ;
+            onUpdate(remainingTime);
+            yield return null;
+        }
+    }
 }

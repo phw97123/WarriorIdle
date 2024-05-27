@@ -13,7 +13,8 @@ public class EnemyDataSO : ScriptableObject
 
     public int rewardExp = 30;
     public int rewardGold = 100;
-    public int rewardEnhanceStone = 50;
+    public int rewardUpgradeStone = 50;
+    public int rewardDia; 
 
     public EnemyDataSO()
     {

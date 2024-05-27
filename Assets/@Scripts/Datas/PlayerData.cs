@@ -17,6 +17,8 @@ public class PlayerData : CharacterData
     public float CriticalChance { get; set; } = 0.2f;
 
     public event Action OnChangedStatus;
+    public event Action OnLevelUp;
+
 
     public int Level
     {
@@ -89,6 +91,7 @@ public class PlayerData : CharacterData
 
     private void LevelUp()
     {
+        OnLevelUp.Invoke(); 
         Level++;
         MaxHp += Level * 15;
         MaxExp += Level * 15;

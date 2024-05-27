@@ -18,7 +18,7 @@ public class PlayerBaseState : IState
     {
         nearestEnemy = FindNearestEnemy();
 
-        if (nearestEnemy != null)
+        if (nearestEnemy != null )
         {
             if (IsAttackRange())
                 stateMachine.ChangeState(stateMachine.AttackState);

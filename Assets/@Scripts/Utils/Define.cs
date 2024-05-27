@@ -24,7 +24,8 @@ public static class Define
         Enemy,
         Boss,
         Item,
-        DamageText
+        DamageText,
+        DungeonObject
     }
 
     public enum CurrencyType
@@ -40,6 +41,7 @@ public static class Define
     {
         Normal,
         Boss,
+        Dungeon
     }
 
     public enum StatusType
@@ -81,6 +83,14 @@ public static class Define
         Effect
     }
 
+    public enum RewardType
+    {
+        Gold,
+        Dia,
+        UpgradeStone,
+        Exp
+    }
+
     // Prefab
     public const string PLAYER_PREFAB = "Player.prefab";
     public const string ITEM_PREFAB = "Item.prefab";
@@ -90,11 +100,20 @@ public static class Define
     public const string UISUMMONSSLOT_PREFAB = "UI_SummonsSlot.prefab";
     public const string UIEQUIPMENTICONSLOT_PREFAB = "UI_EquipmentIconSlot.prefab";
     public const string UISHOPSLOT_PREFAB = "UI_ShopSlot.prefab";
-    public const string UIDUNGEONSLOT_PREFAB = "UI_DungeonSlot.prefab"; 
+    public const string UIDUNGEONSLOT_PREFAB = "UI_DungeonSlot.prefab";
+    public const string UIREWARDSLOT_PREFAB = "UI_RewardSlot.prefab";
+    public const string UIREWARDPOPUP_PREFAB = "UI_RewardPopup.prefab";
+    public const string LEVELUPTEXT_PREFAB = "LevelUpText.prefab"; 
 
     // Sprite 
     public const string GOLD_SPRITE = "popup elements_50";
-    public const string ENHANCESTONE_SPRTE = "Cristal";
+    public const string DIA_SPRITE = "popup elements_48"; 
+    public const string UPGRADESTONE_SPRITE = "Cristal";
+    public const string GOLDS_SPRITE = "Golds.sprite";
+    public const string UPGRADESTONES_SPRITE = "UpgradeStones.sprite";
+    public const string EXP_SPRITE = "Exp.sprite";
+
+    public const string ITEM_SPRITEATLAS = "ItemAtlas.spriteatlas";
 
     // Time
     public const float RESPAWN_TIME = 3.0f;
@@ -113,6 +132,4 @@ public static class Define
     public const string STARTSCENE = "StartScene.mp3";
     public const string STAGE1 = "Stage1.wav";
     public const string STAGE2 = "Stage2.mp3";
-    public const string DUNGEN_UPGRADESTONE = "Dungeon_UpgradeStone.mp3";
-    public const string DUNGEN_GOLD = "Dungeon_Gold.mp3";
 }

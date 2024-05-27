@@ -46,16 +46,9 @@ public class DungeonController : BaseController
     private void StartDungeon(int id)
     {
         _currencyManager.SubtractCurrency(_datas[id].currencyType, 1); 
-        Debug.Log("Start");
-    }
-
-    // 던전 
-    /*
     
-     - 플레이어 근처에 강화석, 골드 Object 소환 
-     - 제한시간 30초 
-     - 보상 : 타격횟수 * 10
-     - 
+        var data = _datas[id];
 
-     */
+        Managers.GameManager.onStartDungeon?.Invoke(data);
+    }
 }

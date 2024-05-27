@@ -81,6 +81,19 @@ public class ObjectManager
             bc.Init();
             return bc as T;
         }
+        else if (type == typeof(DungeonObjectController))
+        {
+            string name = "DungeonObject";
+            GameObject go = Managers.ResourceManager.Instantiate(name + ".prefab", pooling : true);
+
+            DungeonObjectController doc = go.GetOrAddComponent<DungeonObjectController>();
+
+            Enemys.Add(doc);
+
+            doc.Init(); 
+             doc.SetData((CurrencyType)templateID);
+            return doc as T; 
+        }
 
         return null;
     }
@@ -108,6 +121,10 @@ public class ObjectManager
         {
             Enemys.Remove(obj as BossController);
             StageBoss = null; 
+        }
+        else if (type == typeof(DungeonObjectController))
+        {
+            Enemys.Remove(obj as BossController);
         }
 
         Managers.ResourceManager.Destroy(obj.gameObject);

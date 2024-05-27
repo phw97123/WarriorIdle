@@ -15,7 +15,7 @@ public class ResourceManager
         {
             if(key.Contains(".sprite") && resource is Texture2D value)
             {
-                Sprite sprite = Sprite.Create(value, new Rect(0, 0, value.width, value.height), Vector2.zero);
+                Sprite sprite = Sprite.Create(value, new Rect(0, 0, value.width, value.height), new Vector2(0.5f, 0.5f));
                 return sprite as T; 
             }
             return resource as T;

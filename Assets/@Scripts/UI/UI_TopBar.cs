@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using TMPro.EditorUtilities;
 using UnityEngine;
@@ -19,7 +20,9 @@ public class UI_TopBar : UI_Base
     [SerializeField] private Text _dia;
     [SerializeField] private Text _enhanceStone;
     [SerializeField] private Text _exp;
-    [SerializeField] private Button _settingButton;  
+    [SerializeField] private Button _settingButton;
+
+    [SerializeField] private Text _levelUpText; 
 
     private PlayerData _playerData;
     private UI_SettingPanel _settingPanel;
@@ -39,6 +42,7 @@ public class UI_TopBar : UI_Base
 
         _icon.sprite = _playerData.Icon;
         _name.text = _playerData.Name;
+        _levelUpText.gameObject.SetActive(false); 
 
         Managers.UIManager.TryGetUIComponent(out _settingPanel);
         _settingPanel.CloseUI(false); 
@@ -57,6 +61,9 @@ public class UI_TopBar : UI_Base
         _playerData.OnChangedStatus += UpdateUI;
         _playerData.OnChangedHp -= UpdateUI;
         _playerData.OnChangedHp += UpdateUI;
+        _playerData.OnLevelUp -= ShowLevelUpText; 
+        _playerData.OnLevelUp += ShowLevelUpText; 
+
         _currencyManager.OnChangedCurrency -= UpdateCurrenyUI;
         _currencyManager.OnChangedCurrency += UpdateCurrenyUI;
 
@@ -92,5 +99,29 @@ public class UI_TopBar : UI_Base
     {
         _soundManager.Play(Define.UI_BUTTON); 
         _settingPanel.OpenUI(); 
+    }
+
+    private void ShowLevelUpText()
+    {
+        StartCoroutine(COLevelUpText());
+    }
+
+    private IEnumerator COLevelUpText()
+    {
+        _levelUpText.gameObject.SetActive(true);
+        float totalTime = 2f;
+        float blinkInterval = 0.4f;
+        float timer = 0f;
+        bool isActive = true; 
+
+        while(timer <totalTime)
+        {
+            yield return new WaitForSeconds(blinkInterval);
+            isActive = !isActive;
+            _levelUpText.gameObject.SetActive(isActive); 
+            timer += blinkInterval;
+        }
+
+        _levelUpText.gameObject.SetActive(false); 
     }
 }

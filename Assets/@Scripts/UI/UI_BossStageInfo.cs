@@ -12,7 +12,7 @@ public class UI_BossStageInfo : UI_Base
 
     private EnemyDataSO data;
 
-    public void Init(EnemyDataSO data)
+    public void SetData(EnemyDataSO data)
     {
         this.data = data;
         _name.text = data.enemyName;

@@ -19,5 +19,6 @@ MonoBehaviour:
   attackRange: 1.5
   damage: 50
   rewardExp: 200
-  rewardGold: 300
-  rewardEnhanceStone: 200
+  rewardGold: 0
+  rewardUpgradeStone: 0
+  rewardDia: 300

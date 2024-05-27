@@ -11,6 +11,7 @@ public class GameManager
 
     // Stage
     public event Action<StageData> OnStageUiUpdate;
+    public Action<DungeonDataSO> onStartDungeon;
     public StageData StageData { get { return _stageDataSO?.GetStageData(CurrentStageIndex); } }
     private StageDataSO _stageDataSO;
     private int _currentStageIndex;
@@ -26,50 +27,6 @@ public class GameManager
             OnStageUiUpdate?.Invoke(StageData);
         }
     }
-
-    // Kill
-    private int _killCount;
-    public event Action<int> OnKillCountChanged;
-    public int KillCount
-    {
-        get { return _killCount; }
-        set
-        {
-            _killCount = value; ;
-            OnKillCountChanged?.Invoke(value);
-        }
-    }
-
-    // Equipement
-    private int _rarityMaxLevel = 4;
-    public Dictionary<Define.EquipmentType, List<EquipmentData>> AllEquipmentDatas { get; set; }
-
-    public void Init()
-    {
-        AllEquipmentDatas = new Dictionary<Define.EquipmentType, List<EquipmentData>>();
-
-        _stageDataSO = Managers.ResourceManager.Load<StageDataSO>("StageDataSO.asset");
-        CurrentStageIndex = 0;
-
-        CreateAllWeapon();
-        CreateAllArmor();
-    }
-
-    public void EnemyDeathRewards(int expValue, int goldValue, int enhanceStoneValue, Define.CurrencyType type)
-    {
-        Player.PlayerData.Exp += expValue;
-
-        switch (type)
-        {
-            case Define.CurrencyType.Gold:
-                Managers.CurrencyManager.AddCurrency(Define.CurrencyType.Gold, goldValue);
-                break;
-            case Define.CurrencyType.UpgradeStone:
-                Managers.CurrencyManager.AddCurrency(Define.CurrencyType.UpgradeStone, enhanceStoneValue);
-                break;
-        }
-    }
-
     public void SetStageMap()
     {
         string stageName = _stageDataSO.stageDatas[CurrentStageIndex].mapName;
@@ -94,6 +51,85 @@ public class GameManager
             }
         }
     }
+
+    // Kill
+    private int _killCount;
+    public event Action<int> OnKillCountChanged;
+    public int KillCount
+    {
+        get { return _killCount; }
+        set
+        {
+            _killCount = value; ;
+            OnKillCountChanged?.Invoke(value);
+        }
+    }
+
+
+    // Reward
+    public event Action<RewardData[]> OnRewardDataLoaded; 
+    public void Rewards(RewardData[] rewards)
+    {
+        foreach (var reward in rewards)
+        {
+            switch (reward.Type)
+            {
+                case RewardType.Gold:
+                case RewardType.Dia:
+                case RewardType.UpgradeStone:
+                    RewardCurrency(reward.Type, reward.Value);
+                    break;
+
+                case RewardType.Exp:
+                    RewardExp(reward.Value);
+                    break;
+            }
+        }
+        OnRewardDataLoaded.Invoke(rewards);
+    }
+
+    private void RewardExp(int amount)
+    {
+        if (amount > 0)
+        {
+            Player.PlayerData.Exp += amount;
+        }
+    }
+
+    private void RewardCurrency(RewardType type, int amount)
+    {
+        if (amount > 0)
+        {
+            switch (type)
+            {
+                case RewardType.Gold:
+                    Managers.CurrencyManager.AddCurrency(Define.CurrencyType.Gold, amount);
+                    break;
+                case RewardType.Dia:
+                    Managers.CurrencyManager.AddCurrency(Define.CurrencyType.Dia, amount);
+                    break;
+                case RewardType.UpgradeStone:
+                    Managers.CurrencyManager.AddCurrency(Define.CurrencyType.UpgradeStone, amount);
+                    break;
+            }
+        }
+    }
+
+    // Equipement
+    private int _rarityMaxLevel = 4;
+    public Dictionary<Define.EquipmentType, List<EquipmentData>> AllEquipmentDatas { get; set; }
+
+    public void Init()
+    {
+        AllEquipmentDatas = new Dictionary<Define.EquipmentType, List<EquipmentData>>();
+
+        _stageDataSO = Managers.ResourceManager.Load<StageDataSO>("StageDataSO.asset");
+        CurrentStageIndex = 0;
+
+        CreateAllWeapon();
+        CreateAllArmor();
+    }
+
 
     private void CreateAllWeapon()
     {

@@ -53,4 +53,10 @@ public class UI_BottomBar : UI_Base
         else 
             panel.CloseUI(false);
     }
+
+    public void CloseDungeonPanel()
+    {
+        _dungeon.isOn = false; 
+        _dungeonPanel.CloseUI(false); 
+    }
 }

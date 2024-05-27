@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using TreeEditor;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DamageTextController : BaseController
@@ -15,7 +16,7 @@ public class DamageTextController : BaseController
     {
         base.Init();
 
-        CharacterType = Define.ObjectType.DamageText;
+        ObjectType = Define.ObjectType.DamageText;
         _text = GetComponent<TextMeshPro>();
         StartCoroutine(COFade());
         _text.color = Color.white;

@@ -1,22 +1,25 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
+using static Define;
+using UnityEngine.U2D;
 
 public class EnemyController : CharacterBaseController
 {
-    [SerializeField] private Transform _damageTextPos;
+    [SerializeField] protected Transform _damageTextPos;
 
     public EnemyDataSO enemyData;
     public AnimationData AnimationData { get; private set; }
 
     protected EnemyStateMachine stateMachine;
 
-    public Action<int, int, int, Define.CurrencyType> OnDeath;
+    public Action<RewardData[]> OnDeath;
 
     public override bool Init()
     {
         if (base.Init() == false)
-            return false; 
+            return false;
 
         if (AnimationData == null)
             AnimationData = new AnimationData();
@@ -26,19 +29,20 @@ public class EnemyController : CharacterBaseController
 
         stateMachine.ChangeState(stateMachine.IdleState);
 
-        CharacterType = Define.ObjectType.Enemy;
+        ObjectType = Define.ObjectType.Enemy;
 
         isDead = false;
 
-        OnDeath -= Managers.GameManager.EnemyDeathRewards;
-        OnDeath += Managers.GameManager.EnemyDeathRewards;
+        OnDeath -= Managers.GameManager.Rewards;
+        OnDeath += Managers.GameManager.Rewards;
 
         return true;
     }
 
     private void FixedUpdate()
     {
-        stateMachine.Update();
+        if (stateMachine != null)
+            stateMachine.Update();
     }
 
     // Animation Event
@@ -97,10 +101,17 @@ public class EnemyController : CharacterBaseController
 
         ItemController ic = Managers.ObjectManager.Spawn<ItemController>(transform.position);
 
-        OnDeath?.Invoke(enemyData.rewardExp, enemyData.rewardGold, enemyData.rewardEnhanceStone, ic.CurrencyType);
+        RewardData[] rewards = new RewardData[]
+        {
+            new RewardData(null, enemyData.rewardExp,RewardType.Exp),
+           new RewardData(null, enemyData.rewardGold,RewardType.Gold),
+           new RewardData(null, enemyData.rewardUpgradeStone, RewardType.UpgradeStone)
+        };
+
+        OnDeath?.Invoke(rewards);
 
         enemyData.characterData.Hp = enemyData.characterData.MaxHp;
-        isDead = false; 
+        isDead = false;
         Managers.ObjectManager.Despawn(this);
     }
 }
