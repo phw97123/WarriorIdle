@@ -125,9 +125,9 @@ public class GameScene : MonoBehaviour
     {
         Vector2 spawnPos = Utils.GenerateEnemySpawnPosition(Managers.GameManager.Player.transform.position, 5, 10);
         _boss = Managers.ObjectManager.Spawn<BossController>(spawnPos, Managers.GameManager.StageData.bossID);
-        StartCoroutine(BossStage());
-
         Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.SetData(_boss.enemyData);
+
+        StartCoroutine(BossStage());
 
         _boss.enemyData.characterData.OnBossChangedHp -= Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.UpdateHpUI;
         _boss.enemyData.characterData.OnBossChangedHp += Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.UpdateHpUI;
@@ -153,7 +153,7 @@ public class GameScene : MonoBehaviour
         }
 
         yield return new WaitForSeconds(3.0f);
-        _rewardController.GetPopup().CloseUI();
+        _rewardController.GetPopup().CloseUI(false);
 
         MoveToNormalStage();
     }
@@ -207,18 +207,18 @@ public class GameScene : MonoBehaviour
 
     private IEnumerator DungeonStage(DungeonObjectController doc)
     {
-        _remainingTime = 5;
+        _remainingTime = 30;
         yield return StartCoroutine(UpdateTimer(_remainingTime, () => _remainingTime <= 0f, (remainingTime) =>
         {
             _remainingTime = remainingTime;
-            Managers.UIManager.GetSceneUI<UI_Hud>().UI_DungeonStageInfo.UpdateTimer(remainingTime, 5);
+            Managers.UIManager.GetSceneUI<UI_Hud>().UI_DungeonStageInfo.UpdateTimer(remainingTime, 30);
         }));
 
         doc.OnDead();
 
         _rewardController.GetPopup().OpenUI();
         yield return new WaitForSeconds(3.0f);
-        _rewardController.GetPopup().CloseUI();
+        _rewardController.GetPopup().CloseUI(false);
         MoveToNormalStage();
     }
 

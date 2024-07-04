@@ -10,7 +10,6 @@ public class UI_GrowthPanel : UI_Base
     private Action _onSetSlots;
 
     [SerializeField] private Transform _slotParent;
-
     public override bool Init()
     {
         if (base.Init() == false)

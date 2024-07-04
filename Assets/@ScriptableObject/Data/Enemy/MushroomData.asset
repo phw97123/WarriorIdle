@@ -15,9 +15,10 @@ MonoBehaviour:
   enemyName: Mushroom
   characterData:
     _maxHp: 150
-    speed: 1
+    speed: 1.5
   attackRange: 1.5
   damage: 30
   rewardExp: 40
   rewardGold: 120
-  rewardEnhanceStone: 70
+  rewardUpgradeStone: 50
+  rewardDia: 0

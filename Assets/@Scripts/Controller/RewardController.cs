@@ -19,7 +19,7 @@ public class RewardController : BaseController
         _datas = new List<RewardData>();
         Managers.UIManager.TryGetUIComponent(out _rewardPopup);
         _rewardPopup.CreateSlotsInjection(CreateSlots);
-        _rewardPopup.CloseUI(); 
+        _rewardPopup.CloseUI(false); 
 
         Managers.GameManager.OnRewardDataLoaded -= SetData; 
         Managers.GameManager.OnRewardDataLoaded += SetData; 

@@ -101,7 +101,7 @@ public class SummonsController : BaseController
         SummonsData data = datas[(int)type];
 
         Managers.CurrencyManager.SubtractCurrency(CurrencyType.Dia, data.Price);
-        data.AddExp(data.Price * 10); 
+        data.AddExp(count * 10); 
 
         List<float> probabilityArray = data.SummonsDataSO.Getprobalility(data.level);
         for (int i = 0; i < count; i++)

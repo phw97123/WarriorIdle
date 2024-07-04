@@ -68,6 +68,8 @@ public class ResourceManager
     }
 
     #region 어드레서블 
+
+    // ResourceManager.cs
     public void LoadAsync<T>(string key, Action<T> callback = null) where T : UnityEngine.Object
     {
         if(_resources.TryGetValue(key, out UnityEngine.Object resource))
@@ -102,5 +104,6 @@ public class ResourceManager
             }
         }; 
     }
+
     #endregion
 }
