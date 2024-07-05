@@ -46,7 +46,6 @@ public class EquipmentController : BaseController
 
     private void CreateSlots(Transform parent)
     {
-        // TODO : 플레이어 데이터에 맞게 슬롯 활성화 및 비활성화 
         List<EquipmentData> sortedDatas = _allEquipmentDatas[EquipmentType.Weapon];
 
         foreach (var data in sortedDatas)

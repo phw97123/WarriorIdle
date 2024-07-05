@@ -119,7 +119,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ae06cdd1b1b02f44683fcd9882fb2785
+  - m_GUID: 3af59b77e6f14db49ae571d01b1e7b89
     m_Address: UI_SkillPanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
