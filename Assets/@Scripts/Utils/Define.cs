@@ -66,6 +66,7 @@ public static class Define
         Skill
     }
 
+    // 스킬 - 일반, 레어, 에픽, 전설 
     public enum Rarity
     {
         Common,
@@ -89,6 +90,12 @@ public static class Define
         Dia,
         UpgradeStone,
         Exp
+    }
+
+    public enum SkillType
+    {
+        Passive,
+        Active
     }
 
     // Prefab

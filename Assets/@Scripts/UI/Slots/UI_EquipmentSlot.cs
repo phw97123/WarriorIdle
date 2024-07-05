@@ -6,6 +6,12 @@ using UnityEngine.UI;
 
 public class UI_EquipmentSlot : UI_Base
 {
+    /*
+     slot 변경 
+    - 데이터를 받아와서 초기화 및 업데이트 
+    - Equipment Slot이 아닌 UI_ItemSlot으로 변경 
+     */
+
     [SerializeField] private Text _equipmentName;
     [SerializeField] private Text _upgradLevel;
     [SerializeField] private Image _icon;

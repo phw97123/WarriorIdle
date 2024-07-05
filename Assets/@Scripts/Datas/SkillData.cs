@@ -12,17 +12,17 @@ public class SkillData
     public int quantity;
     public int maxQuantity;
     public bool isEquipped;
-    public int damage; 
+    public float effectPercent; 
 
     public SkillData(SkillDataSO baseData)
     {
         BaseData = baseData;
 
         level = 1;
-        quantity = 0;
+        quantity = -1;
         maxQuantity = 4; 
         isEquipped = false;
-        damage = BaseData.damage; 
+        effectPercent = BaseData.effect; 
     }
 
     public void CheckLevel()
@@ -38,6 +38,6 @@ public class SkillData
     {
         level++;
         maxQuantity += 2;
-        damage += level * 3; 
+        effectPercent += level * 3; 
     }
 }

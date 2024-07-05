@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 [CreateAssetMenu(menuName = "SkillDataSO")]
 public class SkillDataSO : ScriptableObject
 {
-    public GameObject effctPrefab; 
-    public Sprite icon; 
+    public GameObject prefab; 
+    public Sprite icon;
+    public SkillType skillType;
+    public Rarity rarity;
     public string skillName;
-    public int id;
-    public int damage;
     public int mpCost;
     public float cool;
+    public float effect;
+    public string discription; 
 }

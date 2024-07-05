@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e159a06404dcc4c409c4801cf3765ad8, type: 3}
+  m_Name: ElectricExplosion
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5988923945636566058, guid: 68529cc830a35da46ace6928c7c57549, type: 3}
+  icon: {fileID: 0}
+  skillType: 1
+  rarity: 2
+  skillName: "\uC804\uAE30"
+  mpCost: 15
+  cool: 15
+  effect: 0
+  discription: 

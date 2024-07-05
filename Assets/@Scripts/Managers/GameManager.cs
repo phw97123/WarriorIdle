@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
 
@@ -9,12 +8,40 @@ public class GameManager
     // Player 
     public PlayerController Player { get { return Managers.ObjectManager?.Player; } }
 
-    // Stage
+    // Kill
+    private int _killCount;
+    public event Action<int> OnKillCountChanged;
+    public int KillCount
+    {
+        get { return _killCount; }
+        set
+        {
+            _killCount = value; ;
+            OnKillCountChanged?.Invoke(value);
+        }
+    }
+
+    public void Init()
+    {
+        InitStageData();
+        InitEquipmentData();
+        InitSkillData();
+    }
+
+    #region Stage
     public event Action<StageData> OnStageUiUpdate;
     public Action<DungeonDataSO> onStartDungeon;
     public StageData StageData { get { return _stageDataSO?.GetStageData(CurrentStageIndex); } }
     private StageDataSO _stageDataSO;
     private int _currentStageIndex;
+
+    private void InitStageData()
+    {
+        _stageDataSO = Managers.ResourceManager.Load<StageDataSO>("StageDataSO.asset");
+
+        CurrentStageIndex = 0;
+    }
+
     public int CurrentStageIndex
     {
         get { return _currentStageIndex; }
@@ -27,6 +54,7 @@ public class GameManager
             OnStageUiUpdate?.Invoke(StageData);
         }
     }
+
     public void SetStageMap()
     {
         string stageName = _stageDataSO.stageDatas[CurrentStageIndex].mapName;
@@ -51,23 +79,10 @@ public class GameManager
             }
         }
     }
+    #endregion
 
-    // Kill
-    private int _killCount;
-    public event Action<int> OnKillCountChanged;
-    public int KillCount
-    {
-        get { return _killCount; }
-        set
-        {
-            _killCount = value; ;
-            OnKillCountChanged?.Invoke(value);
-        }
-    }
-
-
-    // Reward
-    public event Action<RewardData[]> OnRewardDataLoaded; 
+    #region Reward
+    public event Action<RewardData[]> OnRewardDataLoaded;
     public void Rewards(RewardData[] rewards)
     {
         foreach (var reward in rewards)
@@ -114,17 +129,15 @@ public class GameManager
             }
         }
     }
+    #endregion
 
-    // Equipement
+    #region Equipment
     private int _rarityMaxLevel = 4;
-    public Dictionary<Define.EquipmentType, List<EquipmentData>> AllEquipmentDatas { get; set; }
+    public Dictionary<EquipmentType, List<EquipmentData>> AllEquipmentDatas { get; set; }
 
-    public void Init()
+    private void InitEquipmentData()
     {
-        AllEquipmentDatas = new Dictionary<Define.EquipmentType, List<EquipmentData>>();
-
-        _stageDataSO = Managers.ResourceManager.Load<StageDataSO>("StageDataSO.asset");
-        CurrentStageIndex = 0;
+        AllEquipmentDatas = new Dictionary<EquipmentType, List<EquipmentData>>();
 
         CreateAllWeapon();
         CreateAllArmor();
@@ -137,6 +150,7 @@ public class GameManager
         int rarityEffect = 1;
 
         List<EquipmentData> weaponDatas = new List<EquipmentData>();
+
         foreach (Rarity rarity in Enum.GetValues(typeof(Rarity)))
         {
             for (int rarityLevel = 1; rarityLevel <= _rarityMaxLevel; rarityLevel++)
@@ -181,6 +195,49 @@ public class GameManager
         AllEquipmentDatas.Add(EquipmentType.Armor, armorDatas);
     }
 
+    public EquipmentData GetEquipmentData(EquipmentType type, string name)
+    {
+        List<EquipmentData> datas = AllEquipmentDatas[type];
+        foreach (EquipmentData data in datas)
+        {
+            if (data.typeName == name)
+                return data;
+        }
+        return null;
+    }
+    #endregion
+
+    #region Skill
+
+    public Dictionary<SkillType, List<SkillData>> AllSkillDatas { get; set; }
+
+    private void InitSkillData()
+    {
+        AllSkillDatas = new Dictionary<SkillType, List<SkillData>>();
+        CreateSkillData(); 
+    }
+
+    private void CreateSkillData()
+    {
+        List<SkillDataSO> datas = Managers.ResourceManager.LoadAll<SkillDataSO>();
+        List<SkillData> activeDatas = new List<SkillData>();
+        List<SkillData> passiveDatas = new List<SkillData>();   
+
+        foreach (var data in datas)
+        {
+            SkillData sd = new SkillData(data);
+            if (data.skillType == SkillType.Active)
+                activeDatas.Add(sd);
+            else
+                passiveDatas.Add(sd); 
+        }
+        AllSkillDatas[SkillType.Active] = activeDatas;
+        AllSkillDatas[SkillType.Passive] = passiveDatas;
+    }
+
+
+    #endregion
+
     public string GetRarityName(Rarity rarity)
     {
         switch (rarity)
@@ -199,17 +256,6 @@ public class GameManager
                 return "전설";
             case Rarity.Mythical:
                 return "신화";
-        }
-        return null;
-    }
-
-    public EquipmentData GetEquipmentData(EquipmentType type, string name)
-    {
-        List<EquipmentData> datas = AllEquipmentDatas[type];
-        foreach (EquipmentData data in datas)
-        {
-            if (data.typeName == name)
-                return data;
         }
         return null;
     }
