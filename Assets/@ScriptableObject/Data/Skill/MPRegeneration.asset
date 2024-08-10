@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: MPRegeneration
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
-  icon: {fileID: 0}
-  skillType: 0
-  rarity: 1
-  skillName: "\uB9C8\uB098 \uD68C\uBCF5"
+  icon: {fileID: 21300000, guid: 917871e5c6d34ed4b93dfafad1277db5, type: 3}
+  skillType: 1
+  rarity: 3
+  skillName: "\uB9C8\uB825 \uD68C\uBCF5 "
   mpCost: 0
-  cool: 0
-  effect: 0
-  discription: 
+  cool: 5
+  effect: 1
+  upgradePercent: 1
+  discription: "\uC77C\uC815 \uC2DC\uAC04\uB9C8\uB2E4 \uB9C8\uB825 \uD68C\uBCF5"
+  dismantalRewardCount: 50
+  baseUpgradePrice: 60

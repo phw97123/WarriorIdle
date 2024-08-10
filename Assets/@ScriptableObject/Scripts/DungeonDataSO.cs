@@ -10,5 +10,5 @@ public class DungeonDataSO : ScriptableObject
     public Sprite icon;
     public Sprite currencyIcon; 
     public Define.CurrencyType getCurrencyType;
-    public Define.CurrencyType currencyType;
+    public Define.CurrencyType currencyKeyType;
 }

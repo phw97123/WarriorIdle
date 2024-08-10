@@ -45,7 +45,7 @@ public class DungeonController : BaseController
 
     private void StartDungeon(int id)
     {
-        _currencyManager.SubtractCurrency(_datas[id].currencyType, 1); 
+        _currencyManager.SubtractCurrency(_datas[id].currencyKeyType, 1); 
     
         var data = _datas[id];
 

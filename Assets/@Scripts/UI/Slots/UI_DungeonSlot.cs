@@ -29,7 +29,7 @@ public class UI_DungeonSlot : UI_Base
     public void SetSlot(DungeonDataSO data)
     {
         _id = data.id;
-        _dungeonKey = data.currencyType;
+        _dungeonKey = data.currencyKeyType;
 
         _icon.sprite = data.icon;
         _currencyIcon.sprite = data.currencyIcon;
@@ -39,10 +39,10 @@ public class UI_DungeonSlot : UI_Base
 
     public void UpdateUI()
     {
-        string keyName = Managers.CurrencyManager.GetCurrencyAmount(_dungeonKey);
-        _currentCurrencyText.text = $"¿­¼è °³¼ö: {keyName}";
+        string keyAmount = Managers.CurrencyManager.GetCurrencyAmount(_dungeonKey);
+        _currentCurrencyText.text = $"¿­¼è °³¼ö: {keyAmount}";
 
-        _startButton.interactable = int.Parse(keyName) > 0 ? true : false;
+        _startButton.interactable = int.Parse(keyAmount) >0 ? true : false;
     }
 
     private void OnClickStartButton()

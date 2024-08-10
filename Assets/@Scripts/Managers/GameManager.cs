@@ -209,6 +209,7 @@ public class GameManager
 
     #region Skill
 
+    public Action<SkillData> OnAddSkillData; 
     public Dictionary<SkillType, List<SkillData>> AllSkillDatas { get; set; }
 
     private void InitSkillData()
@@ -235,6 +236,10 @@ public class GameManager
         AllSkillDatas[SkillType.Passive] = passiveDatas;
     }
 
+    public void AddSkillData(SkillData data)
+    {
+        OnAddSkillData?.Invoke(data);
+    }
 
     #endregion
 

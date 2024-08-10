@@ -185,7 +185,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  levelupTextTransform: {fileID: 3800527092026629326}
 --- !u!1 &4812398652598616720
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ public class UIManager
         return ui;
     }
 
-    public bool TryGetUIComponent<T>(out T uiComponent) where T : UI_Base
+    public bool TryGetUIComponent<T>(out T uiComponent, Transform parent = null) where T : UI_Base
     {
         string key = typeof(T).Name;
         if (!_uiDic.ContainsKey(key))
@@ -39,7 +39,7 @@ public class UIManager
                 return false;
             }
 
-            GameObject obj = Managers.ResourceManager.Instantiate(prefab.name + ".prefab");
+            GameObject obj = Managers.ResourceManager.Instantiate(prefab.name + ".prefab", parent);
             if (!obj.TryGetComponent<T>(out T component))
             {
                 Debug.LogError($"Get UI Component ½ÇÆÐ : {key}");

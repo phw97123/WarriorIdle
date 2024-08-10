@@ -14,5 +14,8 @@ public class SkillDataSO : ScriptableObject
     public int mpCost;
     public float cool;
     public float effect;
-    public string discription; 
+    public int upgradePercent;
+    public string discription;
+    public int dismantalRewardCount;
+    public int baseUpgradePrice;
 }

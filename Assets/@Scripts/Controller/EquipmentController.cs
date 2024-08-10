@@ -38,8 +38,8 @@ public class EquipmentController : BaseController
         _equipmentPanel.ClickAllCombineButton(AllCombine);
         _equipmentPanel.ClickUpgradeButton(ShowUpgradePopup);
 
-        _upgradePopup.UpgradeButtonInjection(UpgradeEquipment);
-        _upgradePopup.CloseButtonInjection(UpgradePopupCloseUI);
+        _upgradePopup.UpgradeButtonInjection(UpgradeEquipment,PopupType.Equipment);
+        _upgradePopup.CloseButtonInjection(UpgradePopupCloseUI, PopupType.Equipment);
 
         return true;
     }
@@ -111,7 +111,6 @@ public class EquipmentController : BaseController
 
     private void OnAutoEquip(EquipmentType type)
     {
-        // TODO : PlayerData·Î º¯°æ
         List<EquipmentData> datas = GetActiveEquipmentData(type);
         datas.Sort((a, b) => (a.equippedEffect).CompareTo(b.equippedEffect));
         UpdateEquip(datas[datas.Count - 1]);
@@ -155,8 +154,20 @@ public class EquipmentController : BaseController
                 nextEquipment.quantity += combineCount;
             }
         }
+
         IsCombine(type);
         ActiveSlots();
+
+        foreach (var slot in _slots)
+        {
+            if (slot.gameObject.activeSelf)
+            {
+                slot.SetToggleIsOn(); 
+                EquipmentData selectedData = slot.Data;
+                _equipmentPanel.UpdateSlotInfo(selectedData);
+                break;
+            }
+        }
     }
 
     private EquipmentData GetNextEquipment(EquipmentData data)
@@ -220,15 +231,15 @@ public class EquipmentController : BaseController
     {
         EquipmentData selectedData = _slots.FirstOrDefault(slot => slot.isSelected)?.Data;
         int prevEffect = selectedData.equippedEffect; 
-        Managers.CurrencyManager.SubtractCurrency(CurrencyType.UpgradeStone, selectedData.upgradeStone);
+        Managers.CurrencyManager.SubtractCurrency(CurrencyType.UpgradeStone, selectedData.upgradePrice);
 
         switch (selectedData.equipmentType)
         {
             case EquipmentType.Weapon:
-                selectedData.equippedEffect += 3;
+                selectedData.equippedEffect += selectedData.GetUpgradeAmount();
                 break;
             case EquipmentType.Armor:
-                selectedData.equippedEffect += 1;
+                selectedData.equippedEffect += selectedData.GetUpgradeAmount();
                 break;
         }
 
@@ -237,7 +248,7 @@ public class EquipmentController : BaseController
             Managers.GameManager.Player.UpgradeEquipment(selectedData.equipmentType, prevEffect, selectedData.equippedEffect);
         }
 
-        selectedData.upgradeStone += selectedData.level * 3;
+        selectedData.upgradePrice += selectedData.level * 3;
         selectedData.level++;
         _upgradePopup.UpdateUI(selectedData);
     }

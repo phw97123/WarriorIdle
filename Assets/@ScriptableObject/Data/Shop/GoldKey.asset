@@ -19,4 +19,4 @@ MonoBehaviour:
   price: 100
   count: 1
   currencyType: 1
-  getCurrencyType: 3
+  getCurrencyType: 4

@@ -15,9 +15,9 @@ public class EquipmentData
     public Rarity rarity;
     public int equippedEffect;
     public bool isEquipped;
-    public int upgradeStone; 
+    public int upgradePrice;
 
-    public EquipmentData(string typeName, string rarityName, Sprite icon, int rarityLevel,EquipmentType equipmentType, Rarity rarity, int equippedEffect, int upgradeStone)
+    public EquipmentData(string typeName, string rarityName, Sprite icon, int rarityLevel,EquipmentType equipmentType, Rarity rarity, int equippedEffect, int upgradePrice)
     {
         quantity = 0;
         level = 1;
@@ -31,11 +31,19 @@ public class EquipmentData
         this.rarityLevel = rarityLevel;
         this.rarity = rarity;
         this.equippedEffect = equippedEffect; 
-        this.upgradeStone = upgradeStone;
+        this.upgradePrice = upgradePrice;
     }
 
     public bool IsActive()
     {
         return quantity >= 1; 
+    }
+
+    public int GetUpgradeAmount()
+    {
+        if (equipmentType == EquipmentType.Armor)
+            return 1;
+        else
+            return 3; 
     }
 }

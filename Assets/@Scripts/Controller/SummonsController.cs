@@ -13,9 +13,12 @@ public class SummonsController : BaseController
 
     private UI_SummonsPanel _summonsPanel;
     private UI_SummonsPopup _summonsPopup;
-    private UI_SummonsPercentagePopup _percentagePopup; 
+    private UI_SummonsPercentagePopup _percentagePopup;
     private List<EquipmentData> _summonEquipmentDatas;
     private List<UI_EquipmentIconSlot> _equipmentIconSlots;
+
+    private List<SkillData> _summonSkillDatas;
+    private List<UI_SkillIconSlot> _skillIconSlots;
 
     private WaitForSeconds _waitForDrawSlot;
 
@@ -24,11 +27,14 @@ public class SummonsController : BaseController
         if (base.Init() == false)
             return false;
 
-        _soundManager = Managers.SoundManager; 
+        _soundManager = Managers.SoundManager;
 
         datas = new List<SummonsData>(3);
         _summonEquipmentDatas = new List<EquipmentData>();
         _equipmentIconSlots = new List<UI_EquipmentIconSlot>();
+        _summonSkillDatas = new List<SkillData>();
+        _skillIconSlots = new List<UI_SkillIconSlot>();
+
         _waitForDrawSlot = new WaitForSeconds(0.05f);
 
         SetDatas();
@@ -38,7 +44,7 @@ public class SummonsController : BaseController
 
         Managers.UIManager.TryGetUIComponent(out _summonsPopup);
         _summonsPopup.gameObject.SetActive(false);
-        _summonsPopup.CloseUIInjection(EquipmentIconSlotDestroy);
+        _summonsPopup.CloseUIInjection(IconSlotDestroy);
 
         Managers.UIManager.TryGetUIComponent(out _percentagePopup);
         _percentagePopup.gameObject.SetActive(false);
@@ -88,11 +94,11 @@ public class SummonsController : BaseController
         _summonsPopup.OpenUI();
         SummonsEquipment(count, type, _summonsPopup.GetParent());
     }
-    
+
     private void ShowSummonsSkillPopup(int count, SummonsType type)
     {
         _summonsPopup.OpenUI();
-        SummonsSkill(count, type);
+        SummonsSkill(count, type, _summonsPopup.GetParent());
     }
 
     private void SummonsEquipment(int count, SummonsType type, Transform parent)
@@ -101,7 +107,7 @@ public class SummonsController : BaseController
         SummonsData data = datas[(int)type];
 
         Managers.CurrencyManager.SubtractCurrency(CurrencyType.Dia, data.Price);
-        data.AddExp(count * 10); 
+        data.AddExp(count * 10);
 
         List<float> probabilityArray = data.SummonsDataSO.Getprobalility(data.level);
         for (int i = 0; i < count; i++)
@@ -135,12 +141,56 @@ public class SummonsController : BaseController
         StartCoroutine(DrawSlots(_equipmentIconSlots));
     }
 
-    private void SummonsSkill(int count, SummonsType type)
+    private void SummonsSkill(int count, SummonsType type, Transform parent)
     {
+        _summonSkillDatas.Clear();
+        SummonsData data = datas[(int)type];
 
+        Managers.CurrencyManager.SubtractCurrency(CurrencyType.Dia, data.Price);
+        data.AddExp(count * 10);
+
+        List<float> probabilityArray = data.SummonsDataSO.Getprobalility(1);
+        for (int i = 0; i < count; i++)
+        {
+            Rarity selectedRarity = GetRandomRarity(probabilityArray);
+            List<SkillData> raritySkillDatas = new List<SkillData>();
+            foreach (var skillType in Managers.GameManager.AllSkillDatas.Keys)
+            {
+                foreach (var skilldata in Managers.GameManager.AllSkillDatas[skillType])
+                {
+                    if (skilldata.BaseData.rarity == selectedRarity)
+                    {
+                        raritySkillDatas.Add(skilldata);
+                    }
+                }
+            }
+
+            int randNum = Random.Range(0, raritySkillDatas.Count);
+            SkillData summonsData = raritySkillDatas[randNum];
+            Managers.GameManager.AddSkillData(summonsData);
+            _summonSkillDatas.Add(summonsData);
+        }
+
+        CreateSkillIconSlots(parent);
     }
 
-    private IEnumerator DrawSlots(List<UI_EquipmentIconSlot> slots)
+    private void CreateSkillIconSlots(Transform parent)
+    {
+        _skillIconSlots.Clear();
+
+        foreach (var data in _summonSkillDatas)
+        {
+            GameObject go = Managers.ResourceManager.Instantiate("UI_SkillIconSlot.prefab", parent, true);
+            UI_SkillIconSlot slot = go.GetOrAddComponent<UI_SkillIconSlot>();
+            slot.transform.SetParent(parent, false);
+            slot.AssignSkillData(data);
+            slot.gameObject.SetActive(false);
+            _skillIconSlots.Add(slot);
+        }
+        StartCoroutine(DrawSlots(_skillIconSlots));
+    }
+
+    private IEnumerator DrawSlots<T>(List<T> slots) where T : UI_Base
     {
         _summonsPopup.CloseButtonInteractable(false);
 
@@ -159,12 +209,30 @@ public class SummonsController : BaseController
         yield return null;
     }
 
-    private void EquipmentIconSlotDestroy()
+    private void IconSlotDestroy()
     {
-        _equipmentIconSlots.Reverse(); 
-        foreach (var slot in _equipmentIconSlots)
+        if (_skillIconSlots.Count > 0)
         {
-            Managers.ResourceManager.Destroy(slot.gameObject);
+            _skillIconSlots.Reverse();
+            foreach (var slot in _skillIconSlots)
+            {
+                if (slot.gameObject.activeSelf)
+                {
+                    Managers.ResourceManager.Destroy(slot.gameObject);
+                }
+            }
+        }
+
+        if (_equipmentIconSlots.Count > 0)
+        {
+            _equipmentIconSlots.Reverse();
+            foreach (var slot in _equipmentIconSlots)
+            {
+                if (slot.gameObject.activeSelf)
+                {
+                    Managers.ResourceManager.Destroy(slot.gameObject);
+                }
+            }
         }
     }
 
@@ -197,6 +265,6 @@ public class SummonsController : BaseController
     private void ShowPercentageView(SummonsData data)
     {
         _percentagePopup.OpenUI();
-        _percentagePopup.UpdateUI(data); 
+        _percentagePopup.UpdateUI(data);
     }
 }

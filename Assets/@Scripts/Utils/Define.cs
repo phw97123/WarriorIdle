@@ -1,6 +1,3 @@
-using System.ComponentModel;
-using System.Linq;
-
 public static class Define
 {
     public enum Tag
@@ -33,6 +30,7 @@ public static class Define
         Gold,
         Dia,
         UpgradeStone,
+        SkillUpgradeStone,
         GoldKey,
         UpgradeStoneKey,
     }
@@ -94,8 +92,15 @@ public static class Define
 
     public enum SkillType
     {
+        None,
         Passive,
         Active
+    }
+
+    public enum PopupType
+    {
+        Equipment, 
+        Skill
     }
 
     // Prefab
@@ -104,6 +109,7 @@ public static class Define
     public const string DAMAGETEXT_PREFAB = "DamageText.prefab";
     public const string UIGROWTHSLOT_PREFAB = "UI_GrowthSlot.prefab";
     public const string UIEQUIPMENTSLOT_PREFAB = "UI_EquipmentSlot.prefab";
+    public const string UISKILLSLOT_PREFAB = "UI_SkillSlot.prefab";
     public const string UISUMMONSSLOT_PREFAB = "UI_SummonsSlot.prefab";
     public const string UIEQUIPMENTICONSLOT_PREFAB = "UI_EquipmentIconSlot.prefab";
     public const string UISHOPSLOT_PREFAB = "UI_ShopSlot.prefab";
@@ -116,6 +122,7 @@ public static class Define
     public const string GOLD_SPRITE = "popup elements_50";
     public const string DIA_SPRITE = "popup elements_48"; 
     public const string UPGRADESTONE_SPRITE = "Cristal";
+    public const string SKILLUPGRADESTONE_SPRITE = "popup elements_49";
     public const string GOLDS_SPRITE = "Golds.sprite";
     public const string UPGRADESTONES_SPRITE = "UpgradeStones.sprite";
     public const string EXP_SPRITE = "Exp.sprite";

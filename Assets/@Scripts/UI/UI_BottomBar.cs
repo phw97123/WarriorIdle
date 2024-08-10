@@ -10,6 +10,8 @@ public class UI_BottomBar : UI_Base
     [SerializeField] private Toggle _skill;
     [SerializeField] private Toggle _dungeon;
 
+    private UI_SkillBar _skillBar;
+
     private UI_GrowthPanel _growthPanel;
     private UI_ShopPanel _shopPanel;
     private UI_SummonsPanel _summonsPanel;
@@ -18,8 +20,6 @@ public class UI_BottomBar : UI_Base
     private UI_DungeonPanel _dungeonPanel;
 
     private UIManager _uiManager;
-
-    private GrowthController _controller;
 
     public override bool Init()
     {
@@ -41,22 +41,24 @@ public class UI_BottomBar : UI_Base
         _skill.onValueChanged.AddListener((isOn) => OnToggleChanged(isOn, _skillPanel));
         _dungeon.onValueChanged.AddListener((isOn) => OnToggleChanged(isOn, _dungeonPanel));
 
+        Managers.UIManager.TryGetUIComponent(out _skillBar, gameObject.transform);
+
         return true;
     }
 
     private void OnToggleChanged<T>(bool isOn, T panel) where T : UI_Base
     {
-        Managers.SoundManager.Play(Define.UI_BUTTON); 
+        Managers.SoundManager.Play(Define.UI_BUTTON);
 
         if (isOn)
             panel.OpenUI();
-        else 
+        else
             panel.CloseUI(false);
     }
 
     public void CloseDungeonPanel()
     {
-        _dungeon.isOn = false; 
-        _dungeonPanel.CloseUI(false); 
+        _dungeon.isOn = false;
+        _dungeonPanel.CloseUI(false);
     }
 }

@@ -122,8 +122,10 @@ MonoBehaviour:
   _levelText: {fileID: 310931827789936231}
   _effectText: {fileID: 6202448634762072033}
   _upgradeStone: {fileID: 6133886541499119270}
+  _currenyIcon: {fileID: 5503465793339579225}
   _upgradeButton: {fileID: 5828626591597816838}
   _currentUpgradeStone: {fileID: 269281888181197553}
+  _currentCurrenyIcon: {fileID: 6777850226825553629}
   _closeButton: {fileID: 6480838812847266481}
 --- !u!1 &1046822835850297377
 GameObject:

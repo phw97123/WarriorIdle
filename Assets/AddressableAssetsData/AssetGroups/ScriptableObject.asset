@@ -113,18 +113,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b00880691028ad047b26f8cbdfa4acb8
-    m_Address: Smoke.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 09b16d6d0508a254c89bad9343f0980b
-    m_Address: Knockback.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5015f58888373474dba961fd81c120ca
     m_Address: ElectricExplosion.asset
     m_ReadOnly: 0

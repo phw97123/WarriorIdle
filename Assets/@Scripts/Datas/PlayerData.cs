@@ -32,6 +32,7 @@ public class PlayerData : CharacterData
             OnChangedStatus.Invoke();
         }
     }
+
     public float Exp
     {
         get { return _exp; }
@@ -61,7 +62,7 @@ public class PlayerData : CharacterData
     }
 
     public float MaxExp { get; set; } = 100;
-    public float MaxMp { get; set; } = 100;
+    public int MaxMp { get; set; } = 100;
     public float AttackRange { get; set; } = 1.5f;
     public float LastAttackRange { get; set; } = 1.7f;
     public int Damage { get; set; } = 30;
@@ -94,7 +95,7 @@ public class PlayerData : CharacterData
         OnLevelUp.Invoke(); 
         Level++;
         MaxHp += Level * 15;
-        MaxExp += Level * 15;
+        MaxExp += Level * 30;
         MaxMp += Level * 15;
         Damage += Level * 3;
         Hp = MaxHp;

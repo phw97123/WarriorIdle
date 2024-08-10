@@ -1,6 +1,4 @@
 using System.Collections;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
 
@@ -57,11 +55,11 @@ public class GameScene : MonoBehaviour
 
     private void StartLoaded()
     {
+        var player = Managers.ObjectManager.Spawn<PlayerController>(Vector3.zero);
         Managers.GameManager.Init();
         Managers.SoundManager.Init();
 
         // Player
-        var player = Managers.ObjectManager.Spawn<PlayerController>(Vector3.zero);
 
         // MonsterSpawner
         _spawningPool = gameObject.AddComponent<SpawningPool>();
@@ -94,6 +92,7 @@ public class GameScene : MonoBehaviour
         Utils.CreateGameObject<SummonsController>(controllerRote.transform);
         Utils.CreateGameObject<ShopController>(controllerRote.transform);
         Utils.CreateGameObject<DungeonController>(controllerRote.transform);
+        Utils.CreateGameObject<SkillController> (controllerRote.transform);
 
         _rewardController = Utils.CreateGameObject<RewardController>(controllerRote.transform).GetComponent<RewardController>();
 
@@ -196,7 +195,7 @@ public class GameScene : MonoBehaviour
     private void DungeonObjectSpawn(DungeonDataSO data)
     {
         Vector2 spawnPos = Vector2.zero;
-        GameObject go = Managers.ObjectManager.Spawn<DungeonObjectController>(spawnPos, (int)data.currencyType).gameObject;
+        GameObject go = Managers.ObjectManager.Spawn<DungeonObjectController>(spawnPos, (int)data.currencyKeyType).gameObject;
         var doc = go.GetComponent<DungeonObjectController>();
 
         StartCoroutine(DungeonStage(doc));

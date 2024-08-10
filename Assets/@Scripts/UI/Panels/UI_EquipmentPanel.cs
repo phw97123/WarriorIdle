@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 using static Define;
@@ -35,7 +33,6 @@ public class UI_EquipmentPanel : UI_Base
     private Action _onClickUpgrade;
 
     private EquipmentType _tabType;
-
     private SoundManager _soundManager;
 
     public override bool Init()
@@ -110,7 +107,6 @@ public class UI_EquipmentPanel : UI_Base
 
     private void UpdateEquipButton(bool isEquipped)
     {
-
         _equipButton.gameObject.SetActive(!isEquipped);
         _unequipButton.gameObject.SetActive(isEquipped);
     }
