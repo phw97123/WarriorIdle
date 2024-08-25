@@ -29,7 +29,7 @@ public class UI_NameSettingPopup : UI_Base
             string text = "사용할 수 없는 닉네임 입니다.";
             _basePopup.OpenUI(); 
             _basePopup.UpdateUI(text,false);
-            _basePopup.OnClickConfirmButtonInjection(()=>_basePopup.CloseUI());
+            _basePopup.OnClickConfirmButtonInjection(()=>_basePopup.CloseUI(false));
         }
         else
         {

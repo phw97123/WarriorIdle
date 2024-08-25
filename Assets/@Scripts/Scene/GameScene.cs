@@ -51,7 +51,6 @@ public class GameScene : MonoBehaviour
         Managers.GameManager.Init();
         Managers.SoundManager.Init();
 
-
         // MonsterSpawner
         _spawningPool = gameObject.AddComponent<SpawningPool>();
 

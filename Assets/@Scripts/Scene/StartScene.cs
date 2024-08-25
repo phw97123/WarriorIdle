@@ -18,12 +18,8 @@ public class StartScene : MonoBehaviour
 
     private void StartLoaded()
     {
-        Managers.SoundManager.Init();
-
         var StartUI = Managers.ResourceManager.Instantiate("UI_StartScene.prefab");
         StartUI.GetComponent<UI_StartScene>().StartButtonInjection(LoadNameSettingPopup);
-
-        Managers.SoundManager.Play(Define.STAGE1, Define.AudioType.Bgm);
     }
 
     public void LoadNameSettingPopup()

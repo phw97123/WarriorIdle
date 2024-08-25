@@ -17,7 +17,7 @@ public class UI_BasePopup : UI_Base
     {
         CloseUI(false);
         _confirmButton.onClick.AddListener(OnClickConfirmButton);
-        _cancelButton.onClick.AddListener(()=> CloseUI()); 
+        _cancelButton.onClick.AddListener(()=> CloseUI(false)); 
     }
 
     public override void OpenUI()
