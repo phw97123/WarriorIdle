@@ -27,6 +27,8 @@ public class PlayerController : CharacterBaseController
         PlayerData = new PlayerData();
         stateMachine = new PlayerStateMachine(this);
 
+        PlayerData.Icon = Managers.ResourceManager.Load<Sprite>("Player_Icon.sprite");
+        PlayerData.Name = PlayerPrefs.GetString("CurrentPlayerName"); 
         PlayerData.Hp = PlayerData.MaxHp;
 
         stateMachine.ChangeState(stateMachine.IdleState);

@@ -21,43 +21,43 @@ MonoBehaviour:
     m_Address: Upgrade.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - StartScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8ab689ead8840eb42866309382b7435f
     m_Address: Sword1.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - StartScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: edcee8e78f439bb4a89acdac6563834e
     m_Address: Sword2.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - StartScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fbe18c8fded1a3f46abebe5a9357c275
     m_Address: Sword3.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - StartScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5c04cbb752605bf4f92828041d0dd9d9
     m_Address: UIButton.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - StartScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 37cf5b80bb1d6fa44adf762481254421
     m_Address: Stage1.wav
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - StartScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4ad8c2db8214fd748babb62097fa69a0
     m_Address: '@AudioMixer.mixer'
     m_ReadOnly: 0
     m_SerializedLabels:
-    - PreLoad
+    - StartScene
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ff16d5ddac2eb0241b42c4d31d247ec5, type: 2}

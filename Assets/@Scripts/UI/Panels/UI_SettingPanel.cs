@@ -6,7 +6,6 @@ public class UI_SettingPanel : UI_Base
 {
     [SerializeField] private Slider _bgmSlider;
     [SerializeField] private Slider _effectSlider;
-    [SerializeField] private Button _gameExitButton;
     [SerializeField] private Button _closeButton;
 
     private event Action<float, Define.AudioType> _onChangedVolume;
@@ -22,7 +21,6 @@ public class UI_SettingPanel : UI_Base
 
         _bgmSlider.onValueChanged.AddListener(OnChangedBgmVolume);
         _effectSlider.onValueChanged.AddListener(OnChangedEffectVolume);
-        _gameExitButton.onClick.AddListener(OnClickGameExitButton);
         _closeButton.onClick.AddListener(()=> CloseUI(true));
 
         _onChangedVolume -= _soundManager.SetVolume; 
@@ -44,12 +42,5 @@ public class UI_SettingPanel : UI_Base
     {
         _effectSlider.value = value;
         _onChangedVolume.Invoke(value, Define.AudioType.Effect); 
-    }
-
-    private void OnClickGameExitButton()
-    {
-        _soundManager.Play(Define.UI_BUTTON); 
-        Debug.Log("게임 종료"); 
-        Application.Quit(); 
     }
 }

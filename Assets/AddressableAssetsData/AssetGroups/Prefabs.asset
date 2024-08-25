@@ -156,7 +156,7 @@ MonoBehaviour:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f6d8b88072780384eb40a1dcc87cac73
-    m_Address: UI_StartScreen.prefab
+    m_Address: UI_StartScene.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - StartScene
@@ -250,6 +250,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f7516f7185e8a5d4ebbcf3801dd3253d
+    m_Address: UI_LoadingScene.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StartScene
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ff16d5ddac2eb0241b42c4d31d247ec5, type: 2}

@@ -42,24 +42,15 @@ public class GameScene : MonoBehaviour
 
     private void Start()
     {
-        Managers.ResourceManager.LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
-        {
-            Debug.Log($"{key} {count} / {totalCount}");
-
-            if (count == totalCount)
-            {
-                StartLoaded();
-            }
-        });
+        StartLoaded();
     }
 
-    private void StartLoaded()
+    public void StartLoaded()
     {
         var player = Managers.ObjectManager.Spawn<PlayerController>(Vector3.zero);
         Managers.GameManager.Init();
         Managers.SoundManager.Init();
 
-        // Player
 
         // MonsterSpawner
         _spawningPool = gameObject.AddComponent<SpawningPool>();
@@ -171,7 +162,6 @@ public class GameScene : MonoBehaviour
 
         Managers.GameManager.SetStageMap();
     }
-    #endregion 
 
     private void StartDungeon(DungeonDataSO data)
     {
@@ -234,4 +224,7 @@ public class GameScene : MonoBehaviour
             yield return null;
         }
     }
+    #endregion
+
+
 }

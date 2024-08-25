@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_StartScreen : UI_Base
+public class UI_StartScene : UI_Base
 {
     [SerializeField] private Button _startButton;
     [SerializeField] private Image _touchImage;

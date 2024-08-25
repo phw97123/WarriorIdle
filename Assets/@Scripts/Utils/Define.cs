@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices.ComTypes;
+
 public static class Define
 {
     public enum Tag
@@ -101,6 +103,14 @@ public static class Define
     {
         Equipment, 
         Skill
+    }
+
+    public enum SceneType
+    {
+        Unknown,
+        StartScene, 
+        LoadingScene, 
+        GameScene
     }
 
     // Prefab

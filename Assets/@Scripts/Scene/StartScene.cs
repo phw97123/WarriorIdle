@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,17 +13,21 @@ public class StartScene : MonoBehaviour
             {
                 StartLoaded();
             }
-        }); 
+        });
     }
 
     private void StartLoaded()
     {
-        var StartUI = Managers.ResourceManager.Instantiate("UI_StartScreen.prefab");
-        StartUI.GetComponent<UI_StartScreen>().StartButtonInjection(LoadScene); 
+        Managers.SoundManager.Init();
+
+        var StartUI = Managers.ResourceManager.Instantiate("UI_StartScene.prefab");
+        StartUI.GetComponent<UI_StartScene>().StartButtonInjection(LoadNameSettingPopup);
+
+        Managers.SoundManager.Play(Define.STAGE1, Define.AudioType.Bgm);
     }
 
-    public void LoadScene()
+    public void LoadNameSettingPopup()
     {
-        SceneManager.LoadScene("GameScene"); 
+        GameObject nameSettingUI = Managers.ResourceManager.Instantiate("UI_NameSettingPopup.prefab");
     }
 }

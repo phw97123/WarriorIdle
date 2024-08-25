@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 7446092557717753936}
   - component: {fileID: 1292380084983905538}
   m_Layer: 5
-  m_Name: UI_StartScreen
+  m_Name: UI_StartScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
