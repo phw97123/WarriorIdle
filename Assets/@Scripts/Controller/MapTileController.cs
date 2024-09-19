@@ -9,18 +9,26 @@ public class MapTileController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Camera camera = collision.gameObject.GetComponent<Camera>();
-        if (camera == null)
-            return;
+        if (!collision.CompareTag("Area")) return; 
 
-        Vector3 dir = camera.transform.position - transform.position;
+        Vector3 playerPos = Managers.GameManager.Player.transform.position;
+        Vector3 myPos = transform.position;
 
-        float dirX = dir.x < 0 ? -1 : 1;
-        float dirY = dir.y < 0 ? -1 : 1;
+        float diffX = playerPos.x - myPos.x;
+        float diffY = playerPos.y - myPos.y;
 
-        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
+        float dirX = diffX > 0 ? 1 : -1;
+        float dirY = diffY > 0 ? 1 : -1;
+        diffX = Mathf.Abs(diffX);
+        diffY = Mathf.Abs(diffY);
+
+        if (diffX > diffY)
+        {
             transform.Translate(Vector3.right * dirX * 40);
-        else
+        }
+        else if(diffX<diffY)
+        {
             transform.Translate(Vector3.up * dirY * 40);
+        }
     }
 }

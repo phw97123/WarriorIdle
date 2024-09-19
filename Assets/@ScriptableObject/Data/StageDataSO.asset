@@ -33,19 +33,19 @@ MonoBehaviour:
     isClear: 1
   - nextStageEnemyCount: 11
     stageName: 2-1
-    mapName: Stage_1_Map
+    mapName: Stage_2_Map
     bossID: 200
     enemyIDs: 03000000
     isClear: 1
   - nextStageEnemyCount: 13
     stageName: 2-2
-    mapName: Stage_1_Map
+    mapName: Stage_2_Map
     bossID: 200
     enemyIDs: 0300000004000000
     isClear: 0
   - nextStageEnemyCount: 15
     stageName: 2-3
-    mapName: Stage_1_Map
+    mapName: Stage_2_Map
     bossID: 201
     enemyIDs: 0300000004000000
     isClear: 0
