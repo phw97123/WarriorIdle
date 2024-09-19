@@ -1,12 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 class Pool
 {
     private GameObject _prefab;
-    private IObjectPool<GameObject> _pool;
+    private List<GameObject> _pools = new List<GameObject>();
 
     private Transform _root; 
     public Transform Root
@@ -25,43 +23,33 @@ class Pool
     public Pool(GameObject prefab)
     {
         _prefab = prefab;
-        _pool = new ObjectPool<GameObject>(OnCreate, OnGet, OnRelease, OnDestroy); 
     }
 
     public void Push(GameObject go)
     {
-        _pool.Release(go); 
+        go.SetActive(false); 
+        go.transform.SetParent(Root,false); 
+        _pools.Add(go);
     }
 
     public GameObject Pop()
     {
-        return _pool.Get(); 
-    }
+        GameObject go; 
+        if (_pools.Count > 0)
+        {
+            go = _pools[0]; 
+            _pools.RemoveAt(0);
+        }
+        else
+        {
+            go = GameObject.Instantiate(_prefab);
+            go.name = _prefab.name;
+            go.transform.SetParent(Root,false);
+        }
 
-    #region Funce
-    private GameObject OnCreate()
-    {
-        GameObject go = GameObject.Instantiate(_prefab);
-        go.transform.SetParent(Root, false);     
-        go.name = _prefab.name;
-        return go; 
-    }
-
-    private void OnGet(GameObject go)
-    {
         go.SetActive(true); 
+        return go;
     }
-
-    private void OnRelease(GameObject go)
-    {
-        go.SetActive(false);
-    }
-
-    void OnDestroy(GameObject go)
-    {
-        GameObject.Destroy(go);
-    }
-    #endregion
 }
 
 public class PoolManager 
@@ -77,7 +65,7 @@ public class PoolManager
 
     public bool Push(GameObject go)
     {
-        if (_pools.ContainsKey(go.name) == false)
+        if (!_pools.ContainsKey(go.name))
             return false;
 
         _pools[go.name].Push(go);
