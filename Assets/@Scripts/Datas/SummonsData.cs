@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
 
-
-
 public class SummonsData 
 {
     public Action<SummonsData> onExpChanged;

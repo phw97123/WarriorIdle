@@ -19,11 +19,23 @@ public class StartScene : MonoBehaviour
     private void StartLoaded()
     {
         var StartUI = Managers.ResourceManager.Instantiate("UI_StartScene.prefab");
-        StartUI.GetComponent<UI_StartScene>().StartButtonInjection(LoadNameSettingPopup);
+
+        StartUI.GetComponent<UI_StartScene>().StartButtonInjection(() =>
+        {
+            if (PlayerPrefs.HasKey("CurrentPlayerName"))
+            {
+                LoadingScene.SetNextScene(Define.SceneType.GameScene);
+                SceneManager.LoadScene(Define.SceneType.LoadingScene.ToString());
+            }
+            else
+            {
+                LoadNameSettingPopup();
+            }
+        });
     }
 
     public void LoadNameSettingPopup()
     {
-        GameObject nameSettingUI = Managers.ResourceManager.Instantiate("UI_NameSettingPopup.prefab");
+        Managers.ResourceManager.Instantiate("UI_NameSettingPopup.prefab");
     }
 }

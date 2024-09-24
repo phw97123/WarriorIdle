@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e159a06404dcc4c409c4801cf3765ad8, type: 3}
   m_Name: HPRegeneration
   m_EditorClassIdentifier: 
+  id: 2
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: feb8709f10385a94095b55fe8d0f625c, type: 3}
   skillType: 1
@@ -21,6 +22,6 @@ MonoBehaviour:
   cool: 5
   effect: 1
   upgradePercent: 1
-  discription: "\uC77C\uC815 \uC2DC\uAC04\uB9C8\uB2E4 \uCCB4\uB825 \uD68C\uBCF5"
-  dismantalRewardCount: 5
+  description: 
+  dismantleRewardCount: 0
   baseUpgradePrice: 20

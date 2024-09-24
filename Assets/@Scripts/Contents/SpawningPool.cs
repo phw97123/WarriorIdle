@@ -39,9 +39,18 @@ public class SpawningPool : MonoBehaviour
 
         Vector2 randPos = Utils.GenerateEnemySpawnPosition(_objectManager.Player.transform.position, 10, 15);
 
-        int randEnemy = Random.Range(0, _gameManager.StageData.enemyIDs.Count());
+        int randEnemy = Random.Range(0, _gameManager.stageData.GetStageData().enemyIDs.Count());
 
-        EnemyController ec = _objectManager.Spawn<EnemyController>(randPos, _gameManager.StageData.enemyIDs[randEnemy]);
+        EnemyController ec = _objectManager.Spawn<EnemyController>(randPos, _gameManager.stageData.GetStageData().enemyIDs[randEnemy]);
+    }
+
+    private void OnDestroy()
+    {
+        if (_coUpdateSpawningPool != null)
+        {
+            StopCoroutine(_coUpdateSpawningPool);
+            _coUpdateSpawningPool = null;
+        }
     }
 }
 

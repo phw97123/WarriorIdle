@@ -40,11 +40,11 @@ public class UI_TopBar : UI_Base
 
         _playerData = Managers.ObjectManager.Player.PlayerData;
 
-        _icon.sprite = _playerData.Icon;
+        _icon.sprite = _playerData.icon;
         _name.text = _playerData.Name;
-        _levelUpText.gameObject.SetActive(false); 
+        _levelUpText.gameObject.SetActive(false);
 
-        Managers.UIManager.TryGetUIComponent(out _settingPanel);
+        _settingPanel = Managers.ResourceManager.Instantiate("UI_SettingPanel.prefab").GetComponent<UI_SettingPanel>();
         _settingPanel.CloseUI(false); 
 
         UpdateUI();
@@ -62,7 +62,8 @@ public class UI_TopBar : UI_Base
         _playerData.OnChangedHp -= UpdateUI;
         _playerData.OnChangedHp += UpdateUI;
         _playerData.OnLevelUp -= ShowLevelUpText; 
-        _playerData.OnLevelUp += ShowLevelUpText; 
+        _playerData.OnLevelUp += ShowLevelUpText;
+        _playerData.OnPlayerName += SetPlayerName;
 
         _currencyManager.OnChangedCurrency -= UpdateCurrenyUI;
         _currencyManager.OnChangedCurrency += UpdateCurrenyUI;
@@ -123,5 +124,10 @@ public class UI_TopBar : UI_Base
         }
 
         _levelUpText.gameObject.SetActive(false); 
+    }
+
+    private void SetPlayerName()
+    {
+        _name.text = _playerData.Name;
     }
 }

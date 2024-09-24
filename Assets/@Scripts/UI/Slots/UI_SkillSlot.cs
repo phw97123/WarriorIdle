@@ -38,9 +38,9 @@ public class UI_SkillSlot : UI_Base
 
     public void UpdateUI(SkillData data)
     {
-        _rarityName.text = $"{Managers.GameManager.GetRarityName(data.BaseData.rarity)}";
+        _rarityName.text = $"{Managers.GameManager.GetRarityName(data.baseData.rarity)}";
         _upgradeLevel.text = $"Lv.{data.level}";
-        _icon.sprite = data.BaseData.icon;
+        _icon.sprite = data.baseData.icon;
         _equippedText.SetActive(data.isEquipped);
     }
 

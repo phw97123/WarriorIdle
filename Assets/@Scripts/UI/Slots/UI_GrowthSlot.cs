@@ -44,7 +44,7 @@ public class UI_GrowthSlot : UI_Base
         else
             _upgradeButton.interactable = true;
 
-        _name.text = data.BaseData.growthName;
+        _name.text = data.baseData.growthName;
         _levelText.text = $"Lv.{data.level}"; 
         _totalIncrease.text = data.totalIncrease == 0 ? $"{data.totalIncrease}%" :$"{data.totalIncrease}";
         _price.text = $"{data.price}";

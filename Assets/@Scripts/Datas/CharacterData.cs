@@ -6,8 +6,9 @@ public class CharacterData
 {
     public event Action OnChangedHp;
     public event Action<int> OnBossChangedHp;
-    private int _hp = 100;
-    [SerializeField] private int _maxHp; 
+    public int _hp = 100;
+    public int _maxHp; 
+    public float speed  = 5.0f;
 
     public int Hp
     {
@@ -24,7 +25,6 @@ public class CharacterData
         }
     }
 
-    public float speed  = 15.0f;
 
     public int MaxHp
     {

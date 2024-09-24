@@ -8,7 +8,7 @@ public class LoadingScene : MonoBehaviour
     private static SceneType _nextSceneType = SceneType.Unknown;
     private UI_LoadingScene _loadingSceneUI;
 
-    private float _updateBarInterval = 0.5f; 
+    private float _updateBarInterval = 0.5f;
 
     public static void SetNextScene(SceneType nextSceneType)
     {
@@ -17,7 +17,8 @@ public class LoadingScene : MonoBehaviour
 
     private void Start()
     {
-        Managers.UIManager.TryGetUIComponent(out _loadingSceneUI);
+        GameObject go = Managers.ResourceManager.Instantiate("UI_LoadingScene.prefab");
+        _loadingSceneUI = go.GetComponent<UI_LoadingScene>();
 
         Managers.ResourceManager.LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
         {
@@ -41,15 +42,15 @@ public class LoadingScene : MonoBehaviour
         AsyncOperation op = SceneManager.LoadSceneAsync(nextSceneType.ToString());
         op.allowSceneActivation = false;
 
-        float simulatedProgress = 0f; 
-        while(simulatedProgress < 1f)
+        float simulatedProgress = 0f;
+        while (simulatedProgress < 1f)
         {
-            simulatedProgress += Time.deltaTime * _updateBarInterval; 
+            simulatedProgress += Time.deltaTime * _updateBarInterval;
             _loadingSceneUI.UpdateLoadingBar((int)(simulatedProgress * 100), 100);
             yield return null;
         }
 
-        op.allowSceneActivation = true; 
+        op.allowSceneActivation = true;
         while (!op.isDone)
         {
             yield return null;

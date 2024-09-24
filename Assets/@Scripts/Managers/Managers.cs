@@ -12,6 +12,7 @@ public class Managers : MonoBehaviour
     private GameManager _gameManager = new GameManager();
     private CurrencyManager _currecncyManager = new CurrencyManager();
     private SoundManager _soundManager = new SoundManager();
+    private DataManager _dataManager = new DataManager();
 
     public static ResourceManager ResourceManager { get { return Instance?._resourceManager; } }
     public static ObjectManager ObjectManager { get { return Instance?._objectManager; } }
@@ -20,6 +21,7 @@ public class Managers : MonoBehaviour
     public static GameManager GameManager { get { return Instance?._gameManager; } }
     public static CurrencyManager CurrencyManager { get { return Instance?._currecncyManager; } }
     public static SoundManager SoundManager { get { return Instance?._soundManager; } }
+    public static DataManager DataManager { get { return Instance?._dataManager; } }
 
     public static Managers Instance
     {
@@ -44,4 +46,20 @@ public class Managers : MonoBehaviour
             return s_instance;
         }
     }
+
+    public static void DestroyManagers()
+    {
+        if (s_instance == null) return;
+
+        s_instance._resourceManager.Destroy();
+        s_instance._objectManager.Destroy();
+        s_instance._poolManager.Destroy();
+        s_instance._uiManager.Destroy();
+        s_instance._currecncyManager.Destroy();
+        s_instance._soundManager.Destroy();
+
+        s_instance = null;
+        s_init = false;
+    }
 }
+

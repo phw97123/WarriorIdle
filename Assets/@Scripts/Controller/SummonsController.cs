@@ -158,7 +158,7 @@ public class SummonsController : BaseController
             {
                 foreach (var skilldata in Managers.GameManager.AllSkillDatas[skillType])
                 {
-                    if (skilldata.BaseData.rarity == selectedRarity)
+                    if (skilldata.baseData.rarity == selectedRarity)
                     {
                         raritySkillDatas.Add(skilldata);
                     }

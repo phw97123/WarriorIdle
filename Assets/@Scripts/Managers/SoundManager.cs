@@ -26,7 +26,6 @@ public class SoundManager
 
         _audioMixer = Managers.ResourceManager.Load<AudioMixer>(Define.AUDIOMIXER);
         _bgm.outputAudioMixerGroup = _audioMixer.FindMatchingGroups("BGM")[0];
-
     }
 
     private AudioClip LoadAudioClip(string name)
@@ -109,5 +108,10 @@ public class SoundManager
                 _audioMixer.SetFloat("EFFECT", Mathf.Log10(volume) * 20);
                 break;
         }
+    }
+
+    public void Destroy()
+    {
+        _effects.Clear();
     }
 }

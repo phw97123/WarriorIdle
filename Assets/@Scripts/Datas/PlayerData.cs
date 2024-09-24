@@ -2,21 +2,31 @@ using System;
 using UnityEngine;
 using static Define;
 
+[System.Serializable]
 public class PlayerData : CharacterData
 {
     // 플레이어 정보 
-    public Sprite Icon { get; set; } = null;
-    public string Name { get; set; } = "phw";
-
+    public Sprite icon; 
+    public string _name = ""; 
+    public string Name
+    {
+        get { return _name; } 
+        set 
+        { 
+            _name = value;
+            OnPlayerName?.Invoke(); 
+        }
+    } 
     // 플레이어 스탯
-    private int _level = 1;
-    private float _exp = 0;
-    private float _mp = 100;
+    public int _level = 1;
+    public float _exp = 0;
+    public float _mp = 100;
 
     public float CriticalDamage { get; set; } = 1.5f;
     public float CriticalChance { get; set; } = 0.2f;
 
     public event Action OnChangedStatus;
+    public event Action OnPlayerName; 
     public event Action OnLevelUp;
 
 
@@ -48,6 +58,7 @@ public class PlayerData : CharacterData
             OnChangedStatus.Invoke();
         }
     }
+
     public float MP
     {
         get { return _mp; }
@@ -70,9 +81,9 @@ public class PlayerData : CharacterData
 
     public PlayerData()
     {
-        speed = 5.0f;
-        Hp = 100;
         MaxHp = 100;
+        Hp = MaxHp;
+        speed = 5.0f;
     }
 
     private void CheckLevelUp()

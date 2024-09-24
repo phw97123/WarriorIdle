@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_SettingPanel : UI_Base
@@ -7,6 +8,7 @@ public class UI_SettingPanel : UI_Base
     [SerializeField] private Slider _bgmSlider;
     [SerializeField] private Slider _effectSlider;
     [SerializeField] private Button _closeButton;
+    [SerializeField] private Button _deleteDataButton;
 
     private event Action<float, Define.AudioType> _onChangedVolume;
 
@@ -22,6 +24,7 @@ public class UI_SettingPanel : UI_Base
         _bgmSlider.onValueChanged.AddListener(OnChangedBgmVolume);
         _effectSlider.onValueChanged.AddListener(OnChangedEffectVolume);
         _closeButton.onClick.AddListener(()=> CloseUI(true));
+        _deleteDataButton.onClick.AddListener(OnDeleteData);
 
         _onChangedVolume -= _soundManager.SetVolume; 
         _onChangedVolume += _soundManager.SetVolume;
@@ -42,5 +45,14 @@ public class UI_SettingPanel : UI_Base
     {
         _effectSlider.value = value;
         _onChangedVolume.Invoke(value, Define.AudioType.Effect); 
+    }
+
+    private void OnDeleteData()
+    {
+        CloseUI(false);
+        Managers.DataManager.DeleteAllData();
+        Managers.DestroyManagers(); 
+        StopAllCoroutines();
+        SceneManager.LoadScene(Define.SceneType.StartScene.ToString()); 
     }
 }

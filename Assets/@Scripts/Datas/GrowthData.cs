@@ -1,23 +1,33 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-using UnityEngine;
 
+[System.Serializable]
+
+public class GrowthDataCollection
+{
+    public List<GrowthData> growthDataList;
+    public GrowthDataCollection()
+    {
+        growthDataList = new List<GrowthData>();
+    }
+}
+
+[System.Serializable]
 public class GrowthData
 {
-    public GrowthDataSO BaseData { get; }
+    public GrowthDataSO baseData; 
+    public int id;
     public int level;
     public int price;
     public int totalIncrease;
-    public float totalPercentIncrease; 
+    public float totalPercentIncrease;
 
     public GrowthData(GrowthDataSO baseData)
     {
+        id = baseData.index; 
         level = 1;
-        BaseData = baseData;
+        this.baseData = baseData;
         price = baseData.basePrice;
-        totalIncrease = BaseData.increase; 
-        totalPercentIncrease = BaseData.percentIncrease;
+        totalIncrease = this.baseData.increase;
+        totalPercentIncrease = this.baseData.percentIncrease;
     }
 }

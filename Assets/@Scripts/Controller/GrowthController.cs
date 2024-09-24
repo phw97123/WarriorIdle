@@ -15,10 +15,10 @@ public class GrowthController : BaseController
         if (base.Init() == false)
             return false;
 
-        List<GrowthDataSO> baseDatas = Managers.ResourceManager.LoadAll<GrowthDataSO>();
-        foreach (var data in baseDatas)
+        List<GrowthData> datas = Managers.GameManager.growthCollection.growthDataList; 
+        foreach (var data in datas)
         {
-            _datas.Add(data.type, new GrowthData(data));
+            _datas.Add(data.baseData.type,data);
         }
 
         Managers.UIManager.TryGetUIComponent(out _growthPanel);
@@ -34,7 +34,7 @@ public class GrowthController : BaseController
 
     private void CreateSlots(Transform parent)
     {
-        List<GrowthData> sortedDatas = _datas.OrderBy(data => data.Value.BaseData.index).Select(data => data.Value).ToList();
+        List<GrowthData> sortedDatas = _datas.OrderBy(data => data.Value.baseData.index).Select(data => data.Value).ToList();
 
         foreach (var data in sortedDatas)
         {
@@ -42,7 +42,7 @@ public class GrowthController : BaseController
             var slot = go.GetOrAddComponent<UI_GrowthSlot>();
             slot.transform.SetParent(parent, false);
             _slots.Add(slot);
-            slot.SlotType = data.BaseData.type;
+            slot.SlotType = data.baseData.type;
             slot.OnClickUpgradeButtonInjection(UpgradeStatus);
             slot.UpdateUI(data);
         }
@@ -69,11 +69,11 @@ public class GrowthController : BaseController
                 return; 
 
             data.level++;
-            data.totalIncrease += data.BaseData.increase;
-            data.totalPercentIncrease += data.BaseData.percentIncrease;
-            data.price += data.BaseData.priceIncrease;
+            data.totalIncrease += data.baseData.increase;
+            data.totalPercentIncrease += data.baseData.percentIncrease;
+            data.price += data.baseData.priceIncrease;
 
-            Managers.GameManager.Player.PlayerData.UpgradeStatus(type, data.BaseData.increase, data.BaseData.percentIncrease);
+            Managers.GameManager.Player.PlayerData.UpgradeStatus(type, data.baseData.increase, data.baseData.percentIncrease);
             SetSlots();
         }
     }

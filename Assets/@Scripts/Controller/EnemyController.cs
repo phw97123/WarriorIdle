@@ -85,7 +85,7 @@ public class EnemyController : CharacterBaseController
 
     public override void OnDead()
     {
-        Managers.GameManager.KillCount++;
+        Managers.GameManager.stageData.KillCount++;
         stateMachine.ChangeState(stateMachine.DeadState);
         if (gameObject.activeInHierarchy)
             StartCoroutine(CODead());

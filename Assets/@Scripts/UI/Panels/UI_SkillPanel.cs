@@ -98,11 +98,11 @@ public class UI_SkillPanel : UI_Base
 
     public void UpdateSlotInfo(SkillData data)
     {
-        _icon.sprite = data.BaseData.icon;
+        _icon.sprite = data.baseData.icon;
         _upgradeLevel.text = $"Lv.{data.level}";
-        _equipmentName.text = $"{Managers.GameManager.GetRarityName(data.BaseData.rarity)}";
+        _equipmentName.text = $"{Managers.GameManager.GetRarityName(data.baseData.rarity)}";
         
-        _equipEffectText.text = $"{data.BaseData.skillName}  [MP:{data.BaseData.mpCost}/{data.BaseData.cool}√ ]\n-{data.BaseData.discription}";
+        _equipEffectText.text = $"{data.baseData.skillName}  [MP:{data.baseData.mpCost}/{data.baseData.cool}√ ]\n-{data.baseData.description}";
         _quantitySlider.value = (float)data.quantity / 4;
         _quantityText.text = $"{data.quantity}/4";
 
@@ -112,7 +112,7 @@ public class UI_SkillPanel : UI_Base
 
         UpdateEquipButton(data.isEquipped);
 
-        if(IsEmptySkillSlot() && data.BaseData.skillType == SkillType.Active)
+        if(IsEmptySkillSlot() && data.baseData.skillType == SkillType.Active)
             _equipButton.interactable = true;
         else
             _equipButton.interactable = false;

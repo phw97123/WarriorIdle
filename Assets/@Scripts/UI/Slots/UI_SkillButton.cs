@@ -38,7 +38,7 @@ public class UI_SkillButton : UI_Base
 
         _icon.gameObject.SetActive(true); 
         _currentData = data;
-        _icon.sprite = _currentData.BaseData.icon;
+        _icon.sprite = _currentData.baseData.icon;
     }
 
 

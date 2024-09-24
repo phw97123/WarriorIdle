@@ -42,21 +42,27 @@ public class UI_StageInfo : UI_Base
         _onClickTryBossButton.Invoke();
     }
 
-    public void UpdateUI(StageData data)
+    public void UpdateUI(StageDataSO data)
     {
-        _stageIndex.text = data.stageName;
+        if (_stageIndex != null)
+        {
+            _stageIndex.text = data.stageName;
+        }
         _nextStageEnemyCount = data.nextStageEnemyCount;
     }
 
     public void UpdateStageExp(int killCount)
     {
-        float progress = Mathf.Min((float)killCount / _nextStageEnemyCount, 1.0f); 
-        _stageExpText.text = $"{progress * 100:F2}%";
-        _stageExpSlider.value = progress;
+        if (_stageExpText != null && _stageExpSlider != null)
+        {
+            float progress = Mathf.Min((float)killCount / _nextStageEnemyCount, 1.0f);
+            _stageExpText.text = $"{progress * 100:F2}%";
+            _stageExpSlider.value = progress;
 
-        if (_nextStageEnemyCount <= killCount)
-            _tryBossButton.interactable = true;
-        else
-            _tryBossButton.interactable = false;
+            if (_nextStageEnemyCount <= killCount)
+                _tryBossButton.interactable = true;
+            else
+                _tryBossButton.interactable = false;
+        }
     }
 }

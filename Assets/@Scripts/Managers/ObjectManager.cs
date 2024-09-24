@@ -140,6 +140,13 @@ public class ObjectManager
         }
     }
 
+    public void Destroy()
+    {
+        DespawnAllEnemy();
+        Enemys.Clear(); 
+        Items.Clear();
+    }
+
     public string GetEnemyName(int templateID)
     {
         if (_enemyTypeDataSO == null)

@@ -182,7 +182,7 @@ public class SkillController : BaseController
                 int dismantleCount = data.quantity - 1;
                 data.quantity = 1;
 
-                Managers.CurrencyManager.AddCurrency(CurrencyType.SkillUpgradeStone, dismantleCount * data.BaseData.dismantalRewardCount);
+                Managers.CurrencyManager.AddCurrency(CurrencyType.SkillUpgradeStone, dismantleCount * data.baseData.dismantleRewardCount);
             }
         }
 
@@ -245,9 +245,9 @@ public class SkillController : BaseController
     public void OnSkillExecute(SkillData data)
     {
         if (Managers.GameManager.Player.isDead) return;
-        if (Managers.GameManager.Player.PlayerData.MP < data.BaseData.mpCost) return;
+        if (Managers.GameManager.Player.PlayerData.MP < data.baseData.mpCost) return;
 
-        Managers.GameManager.Player.PlayerData.MP -= data.BaseData.mpCost;
+        Managers.GameManager.Player.PlayerData.MP -= data.baseData.mpCost;
         UseSkill(data);
     }
 
@@ -257,7 +257,7 @@ public class SkillController : BaseController
         {
             data.lastUsedTime = Time.time;
 
-            if (_skills.TryGetValue(data.BaseData.name, out var skill))
+            if (_skills.TryGetValue(data.baseData.name, out var skill))
             {
                 skill.Execute(data);
             }
@@ -272,7 +272,7 @@ public class SkillController : BaseController
     {
         data.quantity++;
 
-        if (_skillTypeMapping.TryGetValue(data.BaseData.name, out Type skillType))
+        if (_skillTypeMapping.TryGetValue(data.baseData.name, out Type skillType))
         {
             AddSkill(skillType, data);
         }
@@ -280,12 +280,12 @@ public class SkillController : BaseController
 
     private void AddSkill(Type skillType, SkillData data)
     {
-        if (_skills.ContainsKey(data.BaseData.name)) return;
+        if (_skills.ContainsKey(data.baseData.name)) return;
 
         var skill = (SkillBase)gameObject.AddComponent(skillType);
-        _skills.Add(data.BaseData.name, skill);
+        _skills.Add(data.baseData.name, skill);
 
-        if (data.BaseData.skillType == SkillType.Passive)
+        if (data.baseData.skillType == SkillType.Passive)
             skill.Execute(data);
     }
 }

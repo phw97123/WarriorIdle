@@ -6,7 +6,7 @@ public class Explosion : SkillBase
     {
         EnemyController target = Utils.FindNearestEnemy();
 
-        string skillName = $"{data.BaseData.prefab.name}.prefab";
+        string skillName = $"{data.baseData.prefab.name}.prefab";
         GameObject go = Managers.ResourceManager.Instantiate(skillName, null, true);
         go.transform.position = target.transform.position;
 

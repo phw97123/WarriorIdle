@@ -2,6 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class CurrencyDataCollection
+{
+    public List<CurrencyData> currecntyDataList; 
+    public CurrencyDataCollection()
+    {
+        currecntyDataList = new List<CurrencyData>();
+    }
+}
+
+[System.Serializable]
 public class CurrencyData 
 {
     public Define.CurrencyType currencyType;

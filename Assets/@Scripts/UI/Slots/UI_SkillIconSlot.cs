@@ -24,8 +24,8 @@ public class UI_SkillIconSlot : UI_Base
     public void AssignSkillData(SkillData skillData)
     {
         _currentSkillData = skillData;
-        _rarityName.text = $"{Managers.GameManager.GetRarityName(skillData.BaseData.rarity)}";
-        _icon.sprite = _currentSkillData.BaseData.icon;
+        _rarityName.text = $"{Managers.GameManager.GetRarityName(skillData.baseData.rarity)}";
+        _icon.sprite = _currentSkillData.baseData.icon;
         _icon.gameObject.SetActive(true);
     }
 

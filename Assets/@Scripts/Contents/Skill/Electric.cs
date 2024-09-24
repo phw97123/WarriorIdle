@@ -9,7 +9,7 @@ public class Electric : SkillBase
     {
         List<EnemyController> targets = Utils.FindEnemiesInRadius(_radius);
 
-        string skillName = $"{data.BaseData.prefab.name}.prefab";
+        string skillName = $"{data.baseData.prefab.name}.prefab";
 
         foreach (EnemyController target in targets)
         {

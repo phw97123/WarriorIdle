@@ -17,12 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: ff7eda430baf42e43a7e7731c08e278e
   m_SerializeEntries:
-  - m_GUID: 6f88e20f9771eae4c98b2a5bf8c315ff
-    m_Address: StageDataSO.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3c402647c5bee1a4d847b4d5f15696fd
     m_Address: EnemyTypeDataSO.asset
     m_ReadOnly: 0
@@ -121,6 +115,42 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f1ed9f6e71ce017468b4227a75db5f65
     m_Address: HPRegeneration.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 87045b5fdde993545aeb7fb6bc7fb85d
+    m_Address: 1-1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 261d29e7a7e4fbf4fbad94b9fe8a99d8
+    m_Address: 1-2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f48fe0d87104c7841a4188c37e25090d
+    m_Address: 1-3.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 647255ff5344e5f4f863a1f9aeda9b45
+    m_Address: 2-1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d620973c6230004ebaf9a434cf0afb4
+    m_Address: 2-2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f89e6bd0f88bba84ca7d864614508bcd
+    m_Address: 2-3.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

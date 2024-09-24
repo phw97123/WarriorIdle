@@ -15,8 +15,8 @@ public class UI_NameSettingPopup : UI_Base
 
     private void Start()
     {
-        _playerName = _nameInput.text; 
-        Managers.UIManager.TryGetUIComponent(out  _basePopup);
+        _playerName = _nameInput.text;
+        _basePopup = Managers.ResourceManager.Instantiate("UI_BasePopup.prefab").GetComponent<UI_BasePopup>();
         _checkButton.onClick.AddListener(OnClickCheckButton); 
     }
     
@@ -44,6 +44,7 @@ public class UI_NameSettingPopup : UI_Base
     {
         _playerName = _nameInput.text;
         PlayerPrefs.SetString("CurrentPlayerName", _playerName);
+        PlayerPrefs.Save();
 
         LoadLoadingScene();
     }

@@ -1,9 +1,24 @@
+using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class SkillDataCollection
+{
+    public List<SkillData> SkillDataList;
+
+    public SkillDataCollection()
+    {
+       SkillDataList = new List<SkillData>();
+    }
+}
+
+
+[System.Serializable]
 public class SkillData
 {
-    public SkillDataSO BaseData { get; private set; }
+    public SkillDataSO baseData; 
 
+    public int id; 
     public int level;
     public int quantity;
     public int maxQuantity;
@@ -17,16 +32,17 @@ public class SkillData
 
     public SkillData(SkillDataSO baseData)
     {
-        BaseData = baseData;
+        this.baseData = baseData;
 
+        id = baseData.id; 
         level = 1;
         quantity = 0;
         maxQuantity = 4;
         isEquipped = false;
-        effectPercent = BaseData.effect;
-        upgradePrice = BaseData.baseUpgradePrice;
+        effectPercent = this.baseData.effect;
+        upgradePrice = this.baseData.baseUpgradePrice;
 
-        cooldownTime = BaseData.cool;
+        cooldownTime = this.baseData.cool;
         lastUsedTime = -cooldownTime;
 
         damage = Mathf.RoundToInt(Managers.GameManager.Player.PlayerData.Damage * (1 + effectPercent / 100f));
@@ -46,9 +62,9 @@ public class SkillData
     {
         upgradePrice += level * 3;
 
-        effectPercent += BaseData.upgradePercent;
+        effectPercent += baseData.upgradePercent;
 
-        if (BaseData.skillType == Define.SkillType.Active)
+        if (baseData.skillType == Define.SkillType.Active)
         {
             damage = Mathf.RoundToInt(Managers.GameManager.Player.PlayerData.Damage * (1 + effectPercent / 100f));
         }

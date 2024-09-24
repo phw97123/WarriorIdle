@@ -1,7 +1,20 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
+[System.Serializable]
+public class EquipmentCollection
+{
+    public List<EquipmentData> equipmentDataList; 
+
+    public EquipmentCollection() 
+    {
+        equipmentDataList = new List<EquipmentData>();
+    }
+}
+
+[System.Serializable]
 public class EquipmentData 
 {
     public string typeName; 

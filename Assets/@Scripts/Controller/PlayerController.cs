@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : CharacterBaseController
 {
@@ -23,13 +24,18 @@ public class PlayerController : CharacterBaseController
         if (base.Init() == false)
             return false;
 
-        AnimationData = new AnimationData();
-        PlayerData = new PlayerData();
-        stateMachine = new PlayerStateMachine(this);
+        PlayerData = Managers.DataManager.LoadData<PlayerData>("PlayerData"); 
+        PlayerData.icon = Managers.ResourceManager.Load<Sprite>("Player_Icon.sprite");
+        if(PlayerData == default)
+        {
+            string name = PlayerPrefs.GetString("CurrentPlayerName");
+            PlayerData = new PlayerData();
+            PlayerData.Name = name;
+            Managers.DataManager.SaveData(PlayerData, "PlayerData");
+        }
 
-        PlayerData.Icon = Managers.ResourceManager.Load<Sprite>("Player_Icon.sprite");
-        PlayerData.Name = PlayerPrefs.GetString("CurrentPlayerName"); 
-        PlayerData.Hp = PlayerData.MaxHp;
+        AnimationData = new AnimationData();
+        stateMachine = new PlayerStateMachine(this);
 
         stateMachine.ChangeState(stateMachine.IdleState);
 
@@ -40,6 +46,14 @@ public class PlayerController : CharacterBaseController
     private void FixedUpdate()
     {
         stateMachine.Update();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log(PlayerData.Name); 
+        }
     }
 
     // Animation Event 

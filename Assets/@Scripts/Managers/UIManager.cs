@@ -29,26 +29,56 @@ public class UIManager
     public bool TryGetUIComponent<T>(out T uiComponent, Transform parent = null) where T : UI_Base
     {
         string key = typeof(T).Name;
-        if (!_uiDic.ContainsKey(key))
-        {
-            GameObject prefab = Managers.ResourceManager.Load<GameObject>(key + ".prefab");
-            if (!prefab)
-            {
-                Debug.LogError($"UI prefab 로드 실패 : {key}");
-                uiComponent = null; 
-                return false;
-            }
 
-            GameObject obj = Managers.ResourceManager.Instantiate(prefab.name + ".prefab", parent);
-            if (!obj.TryGetComponent<T>(out T component))
+        if (_uiDic.ContainsKey(key))
+        {
+            if (_uiDic[key] == null)
             {
-                Debug.LogError($"Get UI Component 실패 : {key}");
-                uiComponent = null;
-                return false;
+                _uiDic.Remove(key);
             }
-            _uiDic.Add(key, component);
+            else
+            {
+                uiComponent = _uiDic[key] as T;
+                return true;
+            }
         }
-        uiComponent = _uiDic[key] as T;
-        return true; 
+
+        GameObject prefab = Managers.ResourceManager.Load<GameObject>(key + ".prefab");
+        if (!prefab)
+        {
+            Debug.LogError($"UI prefab 로드 실패 : {key}");
+            uiComponent = null;
+            return false;
+        }
+
+        GameObject obj = Managers.ResourceManager.Instantiate(prefab.name + ".prefab", parent);
+        if (!obj.TryGetComponent<T>(out T component))
+        {
+            Debug.LogError($"Get UI Component 실패 : {key}");
+            uiComponent = null;
+            return false;
+        }
+
+        _uiDic.Add(key, component);
+        uiComponent = component;
+        return true;
+    }
+
+    public void Destroy()
+    {
+        if(_sceneUI != null)
+        {
+            GameObject.Destroy(_sceneUI.gameObject); 
+            _sceneUI = null;
+        }
+
+        foreach(var ui in _uiDic.Values)
+        {
+            if(ui != null)
+            {
+                GameObject.Destroy(ui.gameObject);
+            }
+        }
+        _uiDic.Clear(); 
     }
 }

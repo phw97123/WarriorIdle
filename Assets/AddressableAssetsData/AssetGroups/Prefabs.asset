@@ -257,6 +257,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - StartScene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 304caf3e028488941918f6c434d9dc4d
+    m_Address: UI_BasePopup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StartScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8c35c5ec91b0fb47a22018e5d8e1d57
+    m_Address: UI_NameSettingPopup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StartScene
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ff16d5ddac2eb0241b42c4d31d247ec5, type: 2}
   m_SchemaSet:

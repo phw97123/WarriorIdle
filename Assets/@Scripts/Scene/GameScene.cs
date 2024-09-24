@@ -52,7 +52,7 @@ public class GameScene : MonoBehaviour
         Managers.SoundManager.Init();
 
         // MonsterSpawner
-        _spawningPool = gameObject.AddComponent<SpawningPool>();
+        _spawningPool = gameObject.GetComponent<SpawningPool>();
 
         // Map 
         Managers.GameManager.SetStageMap();
@@ -60,14 +60,14 @@ public class GameScene : MonoBehaviour
         // SceneUI
         var uiHud = Managers.UIManager.ShowSceneUI<UI_Hud>();
         uiHud.UI_StageInfo.TryBossButtonInjection(MoveToBossStage);
-        uiHud.UI_StageInfo.UpdateUI(Managers.GameManager.StageData);
-        uiHud.UI_StageInfo.UpdateStageExp(Managers.GameManager.KillCount);
+        uiHud.UI_StageInfo.UpdateUI(Managers.GameManager.stageData.GetStageData());
+        uiHud.UI_StageInfo.UpdateStageExp(Managers.GameManager.stageData.KillCount);
 
-        Managers.GameManager.OnStageUiUpdate -= uiHud.UI_StageInfo.UpdateUI;
-        Managers.GameManager.OnStageUiUpdate += uiHud.UI_StageInfo.UpdateUI;
+        Managers.GameManager.stageData.OnStageUiUpdate -= uiHud.UI_StageInfo.UpdateUI;
+        Managers.GameManager.stageData.OnStageUiUpdate += uiHud.UI_StageInfo.UpdateUI;
 
-        Managers.GameManager.OnKillCountChanged -= uiHud.UI_StageInfo.UpdateStageExp;
-        Managers.GameManager.OnKillCountChanged += uiHud.UI_StageInfo.UpdateStageExp;
+        Managers.GameManager.stageData.OnKillCountChanged -= uiHud.UI_StageInfo.UpdateStageExp;
+        Managers.GameManager.stageData.OnKillCountChanged += uiHud.UI_StageInfo.UpdateStageExp;
 
         StageType = StageType.Normal;
         Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
@@ -82,7 +82,8 @@ public class GameScene : MonoBehaviour
         Utils.CreateGameObject<SummonsController>(controllerRote.transform);
         Utils.CreateGameObject<ShopController>(controllerRote.transform);
         Utils.CreateGameObject<DungeonController>(controllerRote.transform);
-        Utils.CreateGameObject<SkillController> (controllerRote.transform);
+        Utils.CreateGameObject<SkillController>(controllerRote.transform);
+        Utils.CreateGameObject<AutoSaveDataController>(controllerRote.transform);
 
         _rewardController = Utils.CreateGameObject<RewardController>(controllerRote.transform).GetComponent<RewardController>();
 
@@ -113,7 +114,7 @@ public class GameScene : MonoBehaviour
     private void BossSpawn()
     {
         Vector2 spawnPos = Utils.GenerateEnemySpawnPosition(Managers.GameManager.Player.transform.position, 5, 10);
-        _boss = Managers.ObjectManager.Spawn<BossController>(spawnPos, Managers.GameManager.StageData.bossID);
+        _boss = Managers.ObjectManager.Spawn<BossController>(spawnPos, Managers.GameManager.stageData.GetStageData().bossID);
         Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.SetData(_boss.enemyData);
 
         StartCoroutine(BossStage());
@@ -132,13 +133,12 @@ public class GameScene : MonoBehaviour
         if (_boss.isDead)
         {
             _rewardController.GetPopup().OpenUI();
-            Managers.GameManager.StageData.isClear = true;
-            Managers.GameManager.CurrentStageIndex++;
-            Managers.GameManager.KillCount = 0;
+            Managers.GameManager.stageData.StageIndex++;
+            Managers.GameManager.stageData.KillCount = 0;
         }
         else
         {
-            Managers.GameManager.KillCount = Managers.GameManager.StageData.nextStageEnemyCount;
+            Managers.GameManager.stageData.KillCount = Managers.GameManager.stageData.GetStageData().nextStageEnemyCount;
         }
 
         yield return new WaitForSeconds(3.0f);
@@ -224,6 +224,4 @@ public class GameScene : MonoBehaviour
         }
     }
     #endregion
-
-
 }
