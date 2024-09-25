@@ -8,7 +8,7 @@ public class SkillDataCollection
 
     public SkillDataCollection()
     {
-       SkillDataList = new List<SkillData>();
+        SkillDataList = new List<SkillData>();
     }
 }
 
@@ -16,9 +16,9 @@ public class SkillDataCollection
 [System.Serializable]
 public class SkillData
 {
-    public SkillDataSO baseData; 
+    public SkillDataSO baseData;
 
-    public int id; 
+    public int id;
     public int level;
     public int quantity;
     public int maxQuantity;
@@ -27,6 +27,8 @@ public class SkillData
     public int upgradePrice;
     public int damage;
 
+    public int slotIndex;
+
     public float cooldownTime;
     public float lastUsedTime;
 
@@ -34,7 +36,7 @@ public class SkillData
     {
         this.baseData = baseData;
 
-        id = baseData.id; 
+        id = baseData.id;
         level = 1;
         quantity = 0;
         maxQuantity = 4;
@@ -46,6 +48,8 @@ public class SkillData
         lastUsedTime = -cooldownTime;
 
         damage = Mathf.RoundToInt(Managers.GameManager.Player.PlayerData.Damage * (1 + effectPercent / 100f));
+
+        slotIndex = -1;
     }
 
     public bool IsActive()

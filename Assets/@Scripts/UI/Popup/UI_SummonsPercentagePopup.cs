@@ -26,7 +26,7 @@ public class UI_SummonsPercentagePopup : UI_Base
         _level.text = $"Lv.{data.level}"; 
         for(int i = 0; i<Enum.GetValues(typeof(Rarity)).Length; i++)
         {
-            _raitys[i].text = $"{Managers.GameManager.GetRarityName((Rarity)i)} : {data.SummonsDataSO.Getprobalility(data.level)[i]}%";
+            _raitys[i].text = $"{Managers.GameManager.GetRarityName((Rarity)i)} : {data.summonsDataSO.Getprobalility(data.level)[i]}%";
         }
     }
 }

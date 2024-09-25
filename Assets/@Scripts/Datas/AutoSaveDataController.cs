@@ -33,6 +33,7 @@ public class AutoSaveDataController : BaseController
         _dataManager.SaveData(Managers.GameManager.equipmentCollection, "EquipmentCollection");
         _dataManager.SaveData(Managers.GameManager.growthCollection, "GrowthDataCollection");
         _dataManager.SaveData(Managers.CurrencyManager.currencyDataCollection, "CurrencyDataCollection");
+        _dataManager.SaveData(Managers.GameManager.summonsDataCollection, "summonsDataCollection");
 
         Debug.Log("데이터 저장 완료"); 
     }

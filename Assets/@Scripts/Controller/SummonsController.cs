@@ -37,7 +37,7 @@ public class SummonsController : BaseController
 
         _waitForDrawSlot = new WaitForSeconds(0.05f);
 
-        SetDatas();
+        datas = Managers.GameManager.summonsDataCollection.summonsDataList; 
 
         Managers.UIManager.TryGetUIComponent(out _summonsPanel);
         _summonsPanel.CreatedSlotsInjection(CreateSlots);
@@ -52,18 +52,6 @@ public class SummonsController : BaseController
         return true;
     }
 
-    private void SetDatas()
-    {
-        List<SummonsDataSO> dataSOs = Managers.ResourceManager.LoadAll<SummonsDataSO>();
-
-        foreach (SummonsDataSO dataSO in dataSOs)
-        {
-            SummonsData data = new SummonsData(dataSO);
-            datas.Add(data);
-        }
-        datas.Sort((x, y) => x.SummonsDataSO.id.CompareTo(y.SummonsDataSO.id));
-    }
-
     private void CreateSlots(Transform parent)
     {
         foreach (var data in datas)
@@ -72,7 +60,7 @@ public class SummonsController : BaseController
             var slot = go.GetOrAddComponent<UI_SummonsSlot>();
             slot.transform.SetParent(parent, false);
 
-            if (data.SummonsDataSO.type == SummonsType.Skill)
+            if (data.summonsDataSO.type == SummonsType.Skill)
                 slot.SummonsButtonInjection(ShowSummonsSkillPopup);
             else
                 slot.SummonsButtonInjection(ShowSummonsEquipmentPopup);
@@ -109,7 +97,7 @@ public class SummonsController : BaseController
         Managers.CurrencyManager.SubtractCurrency(CurrencyType.Dia, data.Price);
         data.AddExp(count * 10);
 
-        List<float> probabilityArray = data.SummonsDataSO.Getprobalility(data.level);
+        List<float> probabilityArray = data.summonsDataSO.Getprobalility(data.level);
         for (int i = 0; i < count; i++)
         {
             Rarity selectedRarity = GetRandomRarity(probabilityArray);
@@ -149,7 +137,7 @@ public class SummonsController : BaseController
         Managers.CurrencyManager.SubtractCurrency(CurrencyType.Dia, data.Price);
         data.AddExp(count * 10);
 
-        List<float> probabilityArray = data.SummonsDataSO.Getprobalility(1);
+        List<float> probabilityArray = data.summonsDataSO.Getprobalility(1);
         for (int i = 0; i < count; i++)
         {
             Rarity selectedRarity = GetRandomRarity(probabilityArray);
@@ -183,7 +171,7 @@ public class SummonsController : BaseController
             GameObject go = Managers.ResourceManager.Instantiate("UI_SkillIconSlot.prefab", parent, true);
             UI_SkillIconSlot slot = go.GetOrAddComponent<UI_SkillIconSlot>();
             slot.transform.SetParent(parent, false);
-            slot.AssignSkillData(data);
+            slot.UpdateSkillData(data);
             slot.gameObject.SetActive(false);
             _skillIconSlots.Add(slot);
         }

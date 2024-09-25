@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +32,7 @@ public class UI_SummonsSlot : UI_Base
         if (base.Init() == false)
             return false;
 
-        _soundManager = Managers.SoundManager; 
+        _soundManager = Managers.SoundManager;
 
         _summonsButton10.onClick.AddListener(() => { OnSummonsButton(_summonsCount10); });
         _summonsButton30.onClick.AddListener(() => { OnSummonsButton(_summonsCount30); });
@@ -43,14 +44,19 @@ public class UI_SummonsSlot : UI_Base
     public void SetUI(SummonsData data)
     {
         _data = data;
-        Type = data.SummonsDataSO.type;
-        _slotName.text = $"{data.SummonsDataSO.slotName} 社発";
-        _icon.sprite = data.SummonsDataSO.icon;
+        Type = data.summonsDataSO.type;
+        _slotName.text = $"{data.summonsDataSO.slotName} 社発";
+        _icon.sprite = data.summonsDataSO.icon;
         UpdateUI(data);
     }
 
     public void UpdateUI(SummonsData data)
     {
+        if (data.summonsDataSO.type == Define.SummonsType.Skill)
+            _level.gameObject.SetActive(false);
+        else
+            _level.gameObject.SetActive(true);
+
         _level.text = $"Lv.{data.level}";
         _expText.text = $"{data.CurrentExp}/{data.maxExp}";
         _expBar.fillAmount = (float)data.CurrentExp / data.maxExp;

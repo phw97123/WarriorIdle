@@ -58,6 +58,7 @@ public class UI_SkillPanel : UI_Base
         _equipButton.onClick.AddListener(OnClickEquipButton);
         _unEquipButton.onClick.AddListener(OnClickUnEquipButton);
 
+        InitSkillSlot(); 
         return true;
     }
 
@@ -155,13 +156,26 @@ public class UI_SkillPanel : UI_Base
         _unEquipButton.gameObject.SetActive(isEquipped);
     }
 
+    public void InitSkillSlot()
+    {
+        List<SkillData> datas = Managers.GameManager.skillDataCollection.SkillDataList; 
+
+        foreach(var data in datas) 
+        {
+            if (data.isEquipped)
+            {
+                _equippedSkillSlots[data.slotIndex].UpdateSkillData(data);
+            }
+        }
+    }
+
     public void AddSkillSlot(SkillData data)
     {
         foreach (var slot in _equippedSkillSlots)
         {
             if (!slot.IsSkillData())
             {
-                slot.AssignSkillData(data);
+                slot.UpdateSkillData(data);
                 return;
             }
         }

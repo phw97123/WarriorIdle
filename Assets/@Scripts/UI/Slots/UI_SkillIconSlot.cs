@@ -15,13 +15,14 @@ public class UI_SkillIconSlot : UI_Base
         if (base.Init() == false)
             return false;
 
-        _currentSkillData = null; 
-        _icon.gameObject.SetActive(false);
 
-        return true; 
+        if (_currentSkillData == null)
+            _icon.gameObject.SetActive(false);
+
+        return true;
     }
 
-    public void AssignSkillData(SkillData skillData)
+    public void UpdateSkillData(SkillData skillData)
     {
         _currentSkillData = skillData;
         _rarityName.text = $"{Managers.GameManager.GetRarityName(skillData.baseData.rarity)}";
@@ -31,10 +32,10 @@ public class UI_SkillIconSlot : UI_Base
 
     public void RemoveSkillData()
     {
-        _currentSkillData = null; 
+        _currentSkillData = null;
         _rarityName.text = string.Empty;
         _icon.sprite = null;
-        _icon.gameObject.SetActive(false); 
+        _icon.gameObject.SetActive(false);
     }
 
     public bool IsSkillData()

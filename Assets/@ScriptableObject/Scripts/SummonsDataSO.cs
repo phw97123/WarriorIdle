@@ -8,7 +8,7 @@ public struct ProbabilityData
     public List<float> probabilityArray;
 }
 
-[CreateAssetMenu(menuName = "SummonsDataSO")]
+[CreateAssetMenu(menuName = "summonsDataSO")]
 public class SummonsDataSO : ScriptableObject
 {
     [SerializeField] List<ProbabilityData> probabilities;

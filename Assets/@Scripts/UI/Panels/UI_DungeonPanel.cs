@@ -28,7 +28,7 @@ public class UI_DungeonPanel : UI_Base
 
     private void OnCreateSlot()
     {
-        _onCreateSlot.Invoke(_parent); 
+        _onCreateSlot?.Invoke(_parent); 
     }
 
     public void CreateSlotInjection(Action<Transform> action)

@@ -14,7 +14,7 @@ public class EquipmentController : BaseController
     private UI_UpgradePopup _upgradePopup;
     private List<UI_EquipmentSlot> _slots;
 
-    public Action OnCreateData; 
+    public Action OnCreateData;
 
     public override bool Init()
     {
@@ -23,8 +23,11 @@ public class EquipmentController : BaseController
 
         _slots = new List<UI_EquipmentSlot>(24);
 
-        AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Weapon][0]);
-        AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Armor][0]);
+        if (!Managers.GameManager.isEquipmentDataInit)
+        {
+            AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Weapon][0]);
+            AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Armor][0]);
+        }
 
         Managers.UIManager.TryGetUIComponent(out _equipmentPanel);
         Managers.UIManager.TryGetUIComponent(out _upgradePopup);
@@ -38,7 +41,7 @@ public class EquipmentController : BaseController
         _equipmentPanel.ClickAllCombineButton(AllCombine);
         _equipmentPanel.ClickUpgradeButton(ShowUpgradePopup);
 
-        _upgradePopup.UpgradeButtonInjection(UpgradeEquipment,PopupType.Equipment);
+        _upgradePopup.UpgradeButtonInjection(UpgradeEquipment, PopupType.Equipment);
         _upgradePopup.CloseButtonInjection(UpgradePopupCloseUI, PopupType.Equipment);
 
         return true;
@@ -162,7 +165,7 @@ public class EquipmentController : BaseController
         {
             if (slot.gameObject.activeSelf)
             {
-                slot.SetToggleIsOn(); 
+                slot.SetToggleIsOn();
                 EquipmentData selectedData = slot.Data;
                 _equipmentPanel.UpdateSlotInfo(selectedData);
                 break;
@@ -230,7 +233,7 @@ public class EquipmentController : BaseController
     private void UpgradeEquipment()
     {
         EquipmentData selectedData = _slots.FirstOrDefault(slot => slot.isSelected)?.Data;
-        int prevEffect = selectedData.equippedEffect; 
+        int prevEffect = selectedData.equippedEffect;
         Managers.CurrencyManager.SubtractCurrency(CurrencyType.UpgradeStone, selectedData.upgradePrice);
 
         switch (selectedData.equipmentType)
@@ -243,7 +246,7 @@ public class EquipmentController : BaseController
                 break;
         }
 
-        if(selectedData.isEquipped)
+        if (selectedData.isEquipped)
         {
             Managers.GameManager.Player.UpgradeEquipment(selectedData.equipmentType, prevEffect, selectedData.equippedEffect);
         }

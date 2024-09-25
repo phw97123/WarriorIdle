@@ -25,7 +25,6 @@ public class PlayerController : CharacterBaseController
             return false;
 
         PlayerData = Managers.DataManager.LoadData<PlayerData>("PlayerData"); 
-        PlayerData.icon = Managers.ResourceManager.Load<Sprite>("Player_Icon.sprite");
         if(PlayerData == default)
         {
             string name = PlayerPrefs.GetString("CurrentPlayerName");
@@ -34,6 +33,7 @@ public class PlayerController : CharacterBaseController
             Managers.DataManager.SaveData(PlayerData, "PlayerData");
         }
 
+        PlayerData.icon = Managers.ResourceManager.Load<Sprite>("Player_Icon.sprite");
         AnimationData = new AnimationData();
         stateMachine = new PlayerStateMachine(this);
 

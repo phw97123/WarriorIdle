@@ -29,25 +29,18 @@ public class SkillController : BaseController
         _skills = new Dictionary<string, SkillBase>();
         SkillMapping();
 
-        #region TestCode
-        //foreach (var key in _allSkillData.Keys)
-        //{
-        //    List<SkillData> skillDatas = _allSkillData[key];
-        //    foreach (var data in skillDatas)
-        //    {
-        //        AddPlayerSkillData(data);
-        //    }
-        //}
-        #endregion
+        Managers.GameManager.OnAddSkillData = AddPlayerSkillData;
 
-        Managers.GameManager.OnAddSkillData = AddPlayerSkillData; 
-
-        AddPlayerSkillData(_allSkillData[SkillType.Active][0]);
-        AddPlayerSkillData(_allSkillData[SkillType.Passive][0]);
+        if (!Managers.GameManager.isSkillDataInit)
+        {
+            AddPlayerSkillData(_allSkillData[SkillType.Active][0]);
+            AddPlayerSkillData(_allSkillData[SkillType.Passive][0]);
+        }
 
         Managers.UIManager.TryGetUIComponent(out _skillPanel);
         Managers.UIManager.TryGetUIComponent(out _upgradePopup);
         Managers.UIManager.TryGetUIComponent(out _skillBar);
+        _skillBar.Init();
 
         _upgradePopup.gameObject.SetActive(false);
 
@@ -93,7 +86,7 @@ public class SkillController : BaseController
                 break;
             }
         }
-        UpdateSlotsForAllSkillTypes(); 
+        UpdateSlotsForAllSkillTypes();
         _skillPanel.UpdateSlotInfo(_slots[0].Data);
     }
 

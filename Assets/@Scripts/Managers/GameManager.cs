@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using static Define;
@@ -15,6 +16,7 @@ public class GameManager
         InitEquipmentData();
         InitSkillData();
         InitGrowthData();
+        InitSummonsData(); 
     }
 
     #region Growth
@@ -33,14 +35,14 @@ public class GameManager
         }
         else
         {
-            foreach(var dataSO in baseDatas)
+            foreach (var dataSO in baseDatas)
             {
-                foreach(var data in growthCollection.growthDataList)
+                foreach (var data in growthCollection.growthDataList)
                 {
-                    if(data.id == dataSO.index)
+                    if (data.id == dataSO.index)
                     {
                         data.baseData = dataSO;
-                        break; 
+                        break;
                     }
                 }
             }
@@ -139,6 +141,8 @@ public class GameManager
     private int _rarityMaxLevel = 4;
     public Dictionary<EquipmentType, List<EquipmentData>> AllEquipmentDatas { get; set; }
     public EquipmentCollection equipmentCollection;
+
+    public bool isEquipmentDataInit = true; 
     private void InitEquipmentData()
     {
         equipmentCollection = Managers.DataManager.LoadData<EquipmentCollection>("EquipmentCollection");
@@ -149,6 +153,7 @@ public class GameManager
             equipmentCollection = new EquipmentCollection();
             CreateAllWeapon();
             CreateAllArmor();
+            isEquipmentDataInit = false; 
         }
         else
         {
@@ -247,7 +252,7 @@ public class GameManager
     public Dictionary<SkillType, List<SkillData>> AllSkillDatas { get; set; }
 
     public SkillDataCollection skillDataCollection;
-
+    public bool isSkillDataInit = true; 
     private void InitSkillData()
     {
         skillDataCollection = Managers.DataManager.LoadData<SkillDataCollection>("SkillDataCollection");
@@ -256,6 +261,7 @@ public class GameManager
 
         if (skillDataCollection == null)
         {
+            isSkillDataInit = false; 
             skillDataCollection = new SkillDataCollection();
             CreateSkillData();
         }
@@ -263,6 +269,8 @@ public class GameManager
         {
             LoadExistingSkillData();
         }
+
+
     }
 
     private void LoadExistingSkillData()
@@ -332,6 +340,43 @@ public class GameManager
     }
 
     #endregion
+
+    #region SummonsData
+    public SummonsDataCollection summonsDataCollection;
+
+    public void InitSummonsData()
+    {
+        summonsDataCollection = Managers.DataManager.LoadData<SummonsDataCollection>("summonsDataCollection");
+        List<SummonsDataSO> dataSOs = Managers.ResourceManager.LoadAll<SummonsDataSO>();
+
+        if (summonsDataCollection == null)
+        {
+            summonsDataCollection = new SummonsDataCollection();
+
+            foreach (SummonsDataSO dataSO in dataSOs)
+            {
+                SummonsData data = new SummonsData(dataSO);
+                summonsDataCollection.summonsDataList.Add(data);
+            }
+            summonsDataCollection.summonsDataList.Sort((x, y) => x.summonsDataSO.id.CompareTo(y.summonsDataSO.id));
+        }
+        else
+        {
+            foreach (SummonsDataSO dataSO in dataSOs)
+            {
+                foreach(var data in summonsDataCollection.summonsDataList)
+                {
+                    if(dataSO.id == data.id)
+                    {
+                        data.summonsDataSO = dataSO;
+                        break; 
+                    }
+                }
+            }
+        }
+    }
+    #endregion
+
 
     public string GetRarityName(Rarity rarity)
     {

@@ -20,7 +20,7 @@ public class DungeonController : BaseController
         _resourceManager = Managers.ResourceManager;
         _currencyManager = Managers.CurrencyManager;
 
-        _dungeonPanel = Managers.ResourceManager.Instantiate("UI_DungeonPanel.prefab").GetComponent<UI_DungeonPanel>();
+        Managers.UIManager.TryGetUIComponent(out _dungeonPanel);
 
         _datas = _resourceManager.LoadAll<DungeonDataSO>();
         _datas = _datas.OrderBy(d => d.id).ToList();

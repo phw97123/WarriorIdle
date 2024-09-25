@@ -21,7 +21,7 @@ public class ObjectManager
 
         if (type == typeof(PlayerController))
         {
-            GameObject go = Managers.ResourceManager.Instantiate(PLAYER_PREFAB, pooling: true);
+            GameObject go = Managers.ResourceManager.Instantiate(PLAYER_PREFAB);
             go.name = "Player";
 
             PlayerController pc = go.GetOrAddComponent<PlayerController>();
