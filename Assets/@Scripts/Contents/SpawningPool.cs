@@ -8,14 +8,14 @@ public class SpawningPool : MonoBehaviour
     private int _maxEnemyCount = 50;
     private Coroutine _coUpdateSpawningPool;
 
-    private GameManager _gameManager;
+    private DataManager _dataManager;
     private ObjectManager _objectManager;
 
     public bool Stopped { get; set; } = false;
 
     private void Start()
     {
-        _gameManager = Managers.GameManager;
+        _dataManager = Managers.DataManager;
         _objectManager = Managers.ObjectManager;
         _coUpdateSpawningPool = StartCoroutine(COUpdateSpawningPool());
     }
@@ -39,9 +39,9 @@ public class SpawningPool : MonoBehaviour
 
         Vector2 randPos = Utils.GenerateEnemySpawnPosition(_objectManager.Player.transform.position, 10, 15);
 
-        int randEnemy = Random.Range(0, _gameManager.stageData.GetStageData().enemyIDs.Count());
+        int randEnemy = Random.Range(0, _dataManager.stageData.GetStageData().enemyIDs.Count());
 
-        EnemyController ec = _objectManager.Spawn<EnemyController>(randPos, _gameManager.stageData.GetStageData().enemyIDs[randEnemy]);
+        EnemyController ec = _objectManager.Spawn<EnemyController>(randPos, _dataManager.stageData.GetStageData().enemyIDs[randEnemy]);
     }
 
     private void OnDestroy()

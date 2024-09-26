@@ -63,7 +63,7 @@ public class UI_UpgradePopup : UI_Base
         Sprite currenyIcon = Managers.ResourceManager.Load<SpriteAtlas>("ItemAtlas.spriteatlas").GetSprite(SKILLUPGRADESTONE_SPRITE);
 
         _icon.sprite = data.baseData.icon;
-        _ratingText.text = Managers.GameManager.GetRarityName(data.baseData.rarity);
+        _ratingText.text = Managers.DataManager.GetRarityName(data.baseData.rarity);
         _levelText.text = $"Lv.{data.level}";
         _effectText.text = $"{data.effectPercent}% => {data.baseData.upgradePercent + data.effectPercent}%";
         _upgradeStone.text = data.upgradePrice.ToString();

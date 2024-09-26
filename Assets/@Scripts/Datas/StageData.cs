@@ -31,7 +31,7 @@ public class StageData
             if (value > _stageDatas.Count - 1)
                 stageIndex = _stageDatas.Count - 1;
 
-            OnStageUiUpdate?.Invoke(Managers.GameManager.stageData.GetStageData());
+            OnStageUiUpdate?.Invoke(Managers.DataManager.stageData.GetStageData());
         }
     }
 

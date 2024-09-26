@@ -48,7 +48,7 @@ public class GameScene : MonoBehaviour
     public void StartLoaded()
     {
         var player = Managers.ObjectManager.Spawn<PlayerController>(Vector3.zero);
-        Managers.GameManager.Init();
+        Managers.DataManager.Init();
         Managers.SoundManager.Init();
 
         // MonsterSpawner
@@ -60,14 +60,14 @@ public class GameScene : MonoBehaviour
         // SceneUI
         var uiHud = Managers.UIManager.ShowSceneUI<UI_Hud>();
         uiHud.UI_StageInfo.TryBossButtonInjection(MoveToBossStage);
-        uiHud.UI_StageInfo.UpdateUI(Managers.GameManager.stageData.GetStageData());
-        uiHud.UI_StageInfo.UpdateStageExp(Managers.GameManager.stageData.KillCount);
+        uiHud.UI_StageInfo.UpdateUI(Managers.DataManager.stageData.GetStageData());
+        uiHud.UI_StageInfo.UpdateStageExp(Managers.DataManager.stageData.KillCount);
 
-        Managers.GameManager.stageData.OnStageUiUpdate -= uiHud.UI_StageInfo.UpdateUI;
-        Managers.GameManager.stageData.OnStageUiUpdate += uiHud.UI_StageInfo.UpdateUI;
+        Managers.DataManager.stageData.OnStageUiUpdate -= uiHud.UI_StageInfo.UpdateUI;
+        Managers.DataManager.stageData.OnStageUiUpdate += uiHud.UI_StageInfo.UpdateUI;
 
-        Managers.GameManager.stageData.OnKillCountChanged -= uiHud.UI_StageInfo.UpdateStageExp;
-        Managers.GameManager.stageData.OnKillCountChanged += uiHud.UI_StageInfo.UpdateStageExp;
+        Managers.DataManager.stageData.OnKillCountChanged -= uiHud.UI_StageInfo.UpdateStageExp;
+        Managers.DataManager.stageData.OnKillCountChanged += uiHud.UI_StageInfo.UpdateStageExp;
 
         StageType = StageType.Normal;
         Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
@@ -96,6 +96,7 @@ public class GameScene : MonoBehaviour
     #region Stage
     private void MoveToBossStage()
     {
+        Managers.UIManager.GetSceneUI<UI_Hud>().bg.SetActive(true); 
         StageType = Define.StageType.Boss;
         Managers.GameManager.Player.OnPlayerChangedIdleStage();
         Managers.GameManager.Player.PlayerData.SetMax();
@@ -114,7 +115,7 @@ public class GameScene : MonoBehaviour
     private void BossSpawn()
     {
         Vector2 spawnPos = Utils.GenerateEnemySpawnPosition(Managers.GameManager.Player.transform.position, 5, 10);
-        _boss = Managers.ObjectManager.Spawn<BossController>(spawnPos, Managers.GameManager.stageData.GetStageData().bossID);
+        _boss = Managers.ObjectManager.Spawn<BossController>(spawnPos, Managers.DataManager.stageData.GetStageData().bossID);
         Managers.UIManager.GetSceneUI<UI_Hud>().UI_BossStageInfo.SetData(_boss.enemyData);
 
         StartCoroutine(BossStage());
@@ -133,12 +134,12 @@ public class GameScene : MonoBehaviour
         if (_boss.isDead)
         {
             _rewardController.GetPopup().OpenUI();
-            Managers.GameManager.stageData.StageIndex++;
-            Managers.GameManager.stageData.KillCount = 0;
+            Managers.DataManager.stageData.StageIndex++;
+            Managers.DataManager.stageData.KillCount = 0;
         }
         else
         {
-            Managers.GameManager.stageData.KillCount = Managers.GameManager.stageData.GetStageData().nextStageEnemyCount;
+            Managers.DataManager.stageData.KillCount = Managers.DataManager.stageData.GetStageData().nextStageEnemyCount;
         }
 
         yield return new WaitForSeconds(3.0f);
@@ -155,6 +156,7 @@ public class GameScene : MonoBehaviour
         {
             StageType = Define.StageType.Normal;
             Managers.UIManager.GetSceneUI<UI_Hud>().ActivateStageInfo(StageType);
+            Managers.UIManager.GetSceneUI<UI_Hud>().bg.SetActive(false);
         });
 
         _fadeController.StartFade();
@@ -164,6 +166,8 @@ public class GameScene : MonoBehaviour
 
     private void StartDungeon(DungeonDataSO data)
     {
+        Managers.UIManager.GetSceneUI<UI_Hud>().bg.SetActive(true);
+
         Managers.GameManager.Player.PlayerData.SetMax();
         StageType = StageType.Dungeon;
         Managers.ObjectManager.DespawnAllEnemy();
@@ -224,4 +228,25 @@ public class GameScene : MonoBehaviour
         }
     }
     #endregion
+
+    private void OnApplicationQuit()
+    {
+        Managers.DataManager.SaveAllData(); 
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            Managers.DataManager.SaveAllData();
+        }
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if(focus)
+        {
+            Managers.DataManager.SaveAllData();
+        }
+    }
 }

@@ -101,7 +101,7 @@ public class UI_SkillPanel : UI_Base
     {
         _icon.sprite = data.baseData.icon;
         _upgradeLevel.text = $"Lv.{data.level}";
-        _equipmentName.text = $"{Managers.GameManager.GetRarityName(data.baseData.rarity)}";
+        _equipmentName.text = $"{Managers.DataManager.GetRarityName(data.baseData.rarity)}";
         
         _equipEffectText.text = $"{data.baseData.skillName}  [MP:{data.baseData.mpCost}/{data.baseData.cool}√ ]\n-{data.baseData.description}";
         _quantitySlider.value = (float)data.quantity / 4;
@@ -158,7 +158,7 @@ public class UI_SkillPanel : UI_Base
 
     public void InitSkillSlot()
     {
-        List<SkillData> datas = Managers.GameManager.skillDataCollection.SkillDataList; 
+        List<SkillData> datas = Managers.DataManager.skillDataCollection.SkillDataList; 
 
         foreach(var data in datas) 
         {

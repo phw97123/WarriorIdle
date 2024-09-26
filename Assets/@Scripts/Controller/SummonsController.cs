@@ -37,7 +37,7 @@ public class SummonsController : BaseController
 
         _waitForDrawSlot = new WaitForSeconds(0.05f);
 
-        datas = Managers.GameManager.summonsDataCollection.summonsDataList; 
+        datas = Managers.DataManager.summonsDataCollection.summonsDataList; 
 
         Managers.UIManager.TryGetUIComponent(out _summonsPanel);
         _summonsPanel.CreatedSlotsInjection(CreateSlots);
@@ -105,7 +105,7 @@ public class SummonsController : BaseController
             EquipmentType equipmentType = GetEquipementType(type);
             string typeName = $"{type}{selectedRarity}{rarityLevel}";
 
-            EquipmentData summonsData = Managers.GameManager.GetEquipmentData(equipmentType, typeName);
+            EquipmentData summonsData = Managers.DataManager.GetEquipmentData(equipmentType, typeName);
             summonsData.quantity++;
             _summonEquipmentDatas.Add(summonsData);
         }
@@ -142,9 +142,9 @@ public class SummonsController : BaseController
         {
             Rarity selectedRarity = GetRandomRarity(probabilityArray);
             List<SkillData> raritySkillDatas = new List<SkillData>();
-            foreach (var skillType in Managers.GameManager.AllSkillDatas.Keys)
+            foreach (var skillType in Managers.DataManager.AllSkillDatas.Keys)
             {
-                foreach (var skilldata in Managers.GameManager.AllSkillDatas[skillType])
+                foreach (var skilldata in Managers.DataManager.AllSkillDatas[skillType])
                 {
                     if (skilldata.baseData.rarity == selectedRarity)
                     {
@@ -155,7 +155,7 @@ public class SummonsController : BaseController
 
             int randNum = Random.Range(0, raritySkillDatas.Count);
             SkillData summonsData = raritySkillDatas[randNum];
-            Managers.GameManager.AddSkillData(summonsData);
+            Managers.DataManager.AddSkillData(summonsData);
             _summonSkillDatas.Add(summonsData);
         }
 

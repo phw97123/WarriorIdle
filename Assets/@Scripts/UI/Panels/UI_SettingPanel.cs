@@ -50,7 +50,7 @@ public class UI_SettingPanel : UI_Base
     private void OnDeleteData()
     {
         CloseUI(false);
-        Managers.DataManager.DeleteAllData();
+        Managers.JsonManager.DeleteAllData();
         Managers.DestroyManagers(); 
         StopAllCoroutines();
         SceneManager.LoadScene(Define.SceneType.StartScene.ToString()); 

@@ -11,7 +11,7 @@ public class UI_SkillBar : UI_Base
         if (base.Init() == false)
             return false;
 
-        List<SkillData> skillData = Managers.GameManager.skillDataCollection.SkillDataList;
+        List<SkillData> skillData = Managers.DataManager.skillDataCollection.SkillDataList;
 
         foreach (var data in skillData)
         {

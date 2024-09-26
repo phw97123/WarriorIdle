@@ -9,7 +9,7 @@ public class CurrencyManager
 
     public void Init()
     {
-        currencyDataCollection = Managers.DataManager.LoadData<CurrencyDataCollection>("CurrencyDataCollection");
+        currencyDataCollection = Managers.JsonManager.LoadData<CurrencyDataCollection>("CurrencyDataCollection");
 
         if (currencyDataCollection == null)
         {

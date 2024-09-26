@@ -12,6 +12,8 @@ public class UI_Hud : UI_Base
     public UI_BossStageInfo UI_BossStageInfo { get; private set; }
     public UI_DungeonStageInfo UI_DungeonStageInfo { get; private set; }
 
+    public GameObject bg;
+
     public override bool Init()
     {
         if(base.Init() == false) 
@@ -24,6 +26,7 @@ public class UI_Hud : UI_Base
         UI_DungeonStageInfo = GetComponentInChildren<UI_DungeonStageInfo>();
         FadeController = GetComponent<FadeController>();
 
+        bg.SetActive(false); 
         return true;
     }
 

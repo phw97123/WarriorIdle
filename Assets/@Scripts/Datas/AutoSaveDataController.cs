@@ -8,11 +8,11 @@ public class AutoSaveDataController : BaseController
     private float saveInterval = 10f;
     private float saveTimer = 0f;
 
-    private DataManager _dataManager;
+    private JsonManager _dataManager;
 
     private void Start()
     {
-        _dataManager = Managers.DataManager; 
+        _dataManager = Managers.JsonManager; 
     }
 
     void Update()
@@ -21,20 +21,7 @@ public class AutoSaveDataController : BaseController
         if(saveTimer >= saveInterval)
         {
             saveTimer = 0f;
-            SaveAllData(); 
+            Managers.DataManager.SaveAllData(); 
         }
-    }
-
-    private void SaveAllData()
-    {
-        _dataManager.SaveData(Managers.GameManager.Player.PlayerData, "PlayerData");
-        _dataManager.SaveData(Managers.GameManager.stageData, "StageData");
-        _dataManager.SaveData(Managers.GameManager.skillDataCollection, "SkillDataCollection");
-        _dataManager.SaveData(Managers.GameManager.equipmentCollection, "EquipmentCollection");
-        _dataManager.SaveData(Managers.GameManager.growthCollection, "GrowthDataCollection");
-        _dataManager.SaveData(Managers.CurrencyManager.currencyDataCollection, "CurrencyDataCollection");
-        _dataManager.SaveData(Managers.GameManager.summonsDataCollection, "summonsDataCollection");
-
-        Debug.Log("데이터 저장 완료"); 
     }
 }

@@ -24,13 +24,13 @@ public class PlayerController : CharacterBaseController
         if (base.Init() == false)
             return false;
 
-        PlayerData = Managers.DataManager.LoadData<PlayerData>("PlayerData"); 
+        PlayerData = Managers.JsonManager.LoadData<PlayerData>("PlayerData"); 
         if(PlayerData == default)
         {
             string name = PlayerPrefs.GetString("CurrentPlayerName");
             PlayerData = new PlayerData();
             PlayerData.Name = name;
-            Managers.DataManager.SaveData(PlayerData, "PlayerData");
+            Managers.JsonManager.SaveData(PlayerData, "PlayerData");
         }
 
         PlayerData.icon = Managers.ResourceManager.Load<Sprite>("Player_Icon.sprite");

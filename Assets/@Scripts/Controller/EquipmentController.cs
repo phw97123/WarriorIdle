@@ -9,7 +9,7 @@ using static Define;
 
 public class EquipmentController : BaseController
 {
-    private Dictionary<EquipmentType, List<EquipmentData>> _allEquipmentDatas { get { return Managers.GameManager?.AllEquipmentDatas; } }
+    private Dictionary<EquipmentType, List<EquipmentData>> _allEquipmentDatas { get { return Managers.DataManager?.AllEquipmentDatas; } }
     private UI_EquipmentPanel _equipmentPanel;
     private UI_UpgradePopup _upgradePopup;
     private List<UI_EquipmentSlot> _slots;
@@ -23,7 +23,7 @@ public class EquipmentController : BaseController
 
         _slots = new List<UI_EquipmentSlot>(24);
 
-        if (!Managers.GameManager.isEquipmentDataInit)
+        if (!Managers.DataManager.isEquipmentDataInit)
         {
             AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Weapon][0]);
             AddPlayerEquipmentData(_allEquipmentDatas[EquipmentType.Armor][0]);

@@ -8,7 +8,7 @@ using static Define;
 
 public class SkillController : BaseController
 {
-    private Dictionary<SkillType, List<SkillData>> _allSkillData { get { return Managers.GameManager?.AllSkillDatas; } }
+    private Dictionary<SkillType, List<SkillData>> _allSkillData { get { return Managers.DataManager?.AllSkillDatas; } }
     private UI_SkillPanel _skillPanel;
     private UI_UpgradePopup _upgradePopup;
     private UI_SkillBar _skillBar;
@@ -29,9 +29,9 @@ public class SkillController : BaseController
         _skills = new Dictionary<string, SkillBase>();
         SkillMapping();
 
-        Managers.GameManager.OnAddSkillData = AddPlayerSkillData;
+        Managers.DataManager.OnAddSkillData = AddPlayerSkillData;
 
-        if (!Managers.GameManager.isSkillDataInit)
+        if (!Managers.DataManager.isSkillDataInit)
         {
             AddPlayerSkillData(_allSkillData[SkillType.Active][0]);
             AddPlayerSkillData(_allSkillData[SkillType.Passive][0]);

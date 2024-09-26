@@ -15,7 +15,7 @@ public class GrowthController : BaseController
         if (base.Init() == false)
             return false;
 
-        List<GrowthData> datas = Managers.GameManager.growthCollection.growthDataList; 
+        List<GrowthData> datas = Managers.DataManager.growthCollection.growthDataList; 
         foreach (var data in datas)
         {
             _datas.Add(data.baseData.type,data);

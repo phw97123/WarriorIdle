@@ -12,6 +12,7 @@ public class Managers : MonoBehaviour
     private GameManager _gameManager = new GameManager();
     private CurrencyManager _currecncyManager = new CurrencyManager();
     private SoundManager _soundManager = new SoundManager();
+    private JsonManager _jsonManager = new JsonManager();
     private DataManager _dataManager = new DataManager();
 
     public static ResourceManager ResourceManager { get { return Instance?._resourceManager; } }
@@ -21,6 +22,7 @@ public class Managers : MonoBehaviour
     public static GameManager GameManager { get { return Instance?._gameManager; } }
     public static CurrencyManager CurrencyManager { get { return Instance?._currecncyManager; } }
     public static SoundManager SoundManager { get { return Instance?._soundManager; } }
+    public static JsonManager JsonManager { get { return Instance?._jsonManager; } }
     public static DataManager DataManager { get { return Instance?._dataManager; } }
 
     public static Managers Instance
